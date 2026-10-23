@@ -19,7 +19,7 @@ const fmt = new Intl.DateTimeFormat(ar ? 'ar-SA-u-nu-latn-ca-gregory' : 'en-GB',
 const others = (await getCollection('blog', (p) => p.data.lang === lang && p.data.slug !== post.data.slug)).slice(0, 3);
 const ld = { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.data.title, description: post.data.description, datePublished: post.data.date.toISOString().slice(0, 10), dateModified: (post.data.updated ?? post.data.date).toISOString().slice(0, 10), inLanguage: ar ? 'ar-SA' : 'en', mainEntityOfPage: site + url(lang, path), image: site + asset('img/og-saayt.jpg'), author: { '@type': 'Organization', name: 'SAAYT' }, publisher: { '@type': 'Organization', name: 'SAAYT', logo: { '@type': 'ImageObject', url: site + asset('favicon-512.png') } } };
 ---
-<Base lang={lang} title={`${post.data.title} | ${ar ? 'صيت' : 'SAAYT'}`} description={post.data.description} path={path} dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), ld]}>
+<Base lang={lang} title={post.data.title.length > 55 ? post.data.title : `${post.data.title} | ${ar ? 'صيت' : 'SAAYT'}`} description={post.data.description} path={path} dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), ld]}>
   <div class="bp-progress" aria-hidden="true"><i data-progress></i></div>
   <header class="bp-head section--deep">
     <div class="wrap">
