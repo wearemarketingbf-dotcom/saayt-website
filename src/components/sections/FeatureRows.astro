@@ -1,0 +1,59 @@
+---
+import Icon from '../Icon.astro';
+import HoursMock from '../ui/HoursMock.astro';
+import ReviewsMock from '../ui/ReviewsMock.astro';
+import AlertsMock from '../ui/AlertsMock.astro';
+import DetailsMock from '../ui/DetailsMock.astro';
+import { type Lang, url } from '../../i18n/util';
+import { HOME } from '../../data/home';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const F = HOME[lang].features;
+const rows = [
+  { k: 'hours', slug: 'hours', d: F.hours },
+  { k: 'reviews', slug: 'reviews', d: F.reviews },
+  { k: 'alerts', slug: 'alerts', d: F.alerts },
+  { k: 'details', slug: 'photos-details', d: F.details },
+] as const;
+---
+<section class="section section--surface feats" aria-labelledby="feats-h">
+  <div class="wrap">
+    <div class="section-head section-head--center">
+      <span class="eyebrow" data-reveal>{F.eyebrow}</span>
+      <h2 class="h2" id="feats-h" data-reveal>{F.h2}</h2>
+    </div>
+    <div class="feats__rows">
+      {rows.map((r, i) => (
+        <article class:list={['frow', { 'frow--flip': i % 2 === 1 }]}>
+          <div class="frow__copy">
+            <span class="frow__k num" data-reveal>0{i + 1} · {r.d.t}</span>
+            <h3 class="frow__h" data-reveal>{r.d.h}</h3>
+            <p class="frow__d" data-reveal>{r.d.d}</p>
+            <ul class="frow__ul" data-stagger="90">{r.d.bullets.map((b) => <li><Icon name="check" size={18} />{b}</li>)}</ul>
+            <a class="frow__more" href={url(lang, `features/${r.slug}/`)} data-reveal>{F.cta}<Icon name="arrow" size={18} class="arrow" /></a>
+          </div>
+          <div class="frow__viz">
+            {r.k === 'hours' && <HoursMock lang={lang} />}
+            {r.k === 'reviews' && <ReviewsMock lang={lang} />}
+            {r.k === 'alerts' && <AlertsMock lang={lang} />}
+            {r.k === 'details' && <DetailsMock lang={lang} />}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .feats__rows { display: grid; gap: clamp(72px, 10vw, 140px) }
+  .frow { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: center }
+  .frow--flip .frow__copy { order: 2 }
+  .frow__k { font-size: .9rem; font-weight: 600; color: var(--saffron-500) }
+  .frow__h { font-size: clamp(1.7rem, 2.8vw, 2.5rem); margin-top: 12px; max-width: 16ch }
+  .frow__d { color: var(--muted); font-size: var(--fs-lead); margin-top: 14px; max-width: 46ch }
+  .frow__ul { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 10px }
+  .frow__ul li { display: flex; gap: 10px; align-items: flex-start }
+  .frow__ul :global(.icon) { color: var(--green-700); margin-top: 4px; flex: none }
+  .frow__more { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; font-weight: 600; color: var(--green-700); border-bottom: 2px solid var(--saffron-400); padding-bottom: 2px }
+  .frow__viz { max-width: 520px; width: 100%; justify-self: center }
+  @media (max-width: 900px) { .frow { grid-template-columns: 1fr } .frow--flip .frow__copy { order: 0 } }
+</style>

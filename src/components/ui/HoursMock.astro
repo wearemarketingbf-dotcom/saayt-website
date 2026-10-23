@@ -1,0 +1,60 @@
+---
+import type { Lang } from '../../i18n/util';
+interface Props { lang: Lang; compact?: boolean }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const H = ar ? { a: '1:00 م – 5:00 م', b: '9:00 م – 2:00 ص' } : { a: '1:00 PM – 5:00 PM', b: '9:00 PM – 2:00 AM' };
+const T = ar
+  ? { title: 'المواعيد الموسمية', tag: 'مثال توضيحي', tabs: ['رمضان', 'العيد', 'اليوم الوطني', 'يوم التأسيس'], s1: 'الفترة الأولى', s2: 'الفترة الثانية', sel: 'الفروع المحددة', warn: '3 فروع بدون مواعيد رمضان', apply: 'طبّق على 12 فرعًا', done: 'تم التطبيق على 12 فرعًا', branches: ['العليا', 'الملقا', 'النرجس', 'الياسمين', 'البطحاء', 'الحمراء · جدة', 'الروضة · جدة', 'العزيزية · الدمام'] }
+  : { title: 'Season hours', tag: 'Example', tabs: ['Ramadan', 'Eid', 'National Day', 'Founding Day'], s1: 'First shift', s2: 'Second shift', sel: 'Selected branches', warn: '3 branches missing Ramadan hours', apply: 'Apply to 12 branches', done: 'Applied to 12 branches', branches: ['Olaya', 'Malqa', 'Narjis', 'Yasmin', 'Batha', 'Hamra · Jeddah', 'Rawdah · Jeddah', 'Aziziyah · Dammam'] };
+---
+<div class="mock hours" data-hours data-reveal>
+  <div class="mock__bar"><span class="mock__title">{T.title}</span><span class="mock__tag">{T.tag}</span></div>
+  <div class="hours__tabs">{T.tabs.map((t, i) => <span class:list={['hours__tab', { on: i === 0 }]}>{t}</span>)}</div>
+  <div class="hours__shifts">
+    <div class="hours__shift"><small>{T.s1}</small><b class="num">{H.a}</b></div>
+    <div class="hours__shift"><small>{T.s2}</small><b class="num">{H.b}</b></div>
+  </div>
+  <div class="hours__list">
+    <div class="hours__head"><span>{T.sel}</span><span class="chip chip--accent"><span class="dot"></span>{T.warn}</span></div>
+    {T.branches.map((b) => (
+      <div class="hours__row"><span class="hours__check" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><span>{ar ? 'فرع ' : ''}{b}</span><span class="hours__val num">{H.b}</span></div>
+    ))}
+  </div>
+  <button class="btn btn--dark hours__btn" type="button" tabindex="-1"><span class="hours__apply">{T.apply}</span><span class="hours__done">{T.done}</span></button>
+</div>
+<style>
+  .hours { display: grid; gap: 14px }
+  .hours__tabs { display: flex; gap: 6px; flex-wrap: wrap }
+  .hours__tab { padding: 6px 12px; border-radius: 999px; font-size: .82rem; font-weight: 600; background: var(--sand-100); color: var(--ink-600) }
+  .hours__tab.on { background: var(--green-900); color: var(--sand-100) }
+  .hours__shifts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
+  .hours__shift { padding: 12px 14px; border-radius: 14px; background: var(--sand-100) }
+  .hours__shift small { display: block; font-size: .78rem; color: var(--ink-600) }
+  .hours__shift b { font-size: 1.02rem }
+  .hours__list { border: 1px solid var(--line); border-radius: 14px; overflow: hidden }
+  .hours__head { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 12px; background: var(--sand-100); font-size: .82rem; font-weight: 600 }
+  .hours__head .chip { height: 26px; font-size: .74rem; padding: 0 10px }
+  .hours__row { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 9px 12px; font-size: .88rem; border-top: 1px solid var(--line) }
+  .hours__check { width: 20px; height: 20px; border-radius: 6px; display: grid; place-items: center; border: 1.5px solid var(--ink-200); color: transparent; transition: background-color .3s, border-color .3s, color .3s }
+  .hours__val { color: var(--ink-400); font-size: .8rem; transition: color .3s }
+  .hours__row.done .hours__check { background: var(--green-900); border-color: var(--green-900); color: var(--sand-100) }
+  .hours__row.done .hours__val { color: var(--green-700); font-weight: 600 }
+  .hours__btn { --h: 46px; width: 100%; pointer-events: none }
+  .hours__done { display: none }
+  .hours.applied .hours__apply { display: none }
+  .hours.applied .hours__done { display: inline }
+  .hours.applied .hours__btn { background: var(--green-700) }
+</style>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-hours]').forEach((el) => {
+    const rows = [...el.querySelectorAll<HTMLElement>('.hours__row')];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const run = () => {
+      if (reduce) { rows.forEach((r) => r.classList.add('done')); el.classList.add('applied'); return; }
+      rows.forEach((r, i) => setTimeout(() => r.classList.add('done'), 700 + i * 170));
+      setTimeout(() => el.classList.add('applied'), 800 + rows.length * 170);
+    };
+    new IntersectionObserver(([e], o) => { if (e.isIntersecting) { run(); o.disconnect(); } }, { threshold: .4 }).observe(el);
+  });
+</script>

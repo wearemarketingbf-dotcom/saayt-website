@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import FAQ from '../sections/FAQ.astro';
+import CTABand from '../CTABand.astro';
+import { type Lang, url, crumbsLd, faqLd } from '../../i18n/util';
+import { NAV } from '../../i18n/nav';
+import { CONFIG } from '../../config';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const N = NAV(lang);
+const T = ar ? {
+  seo: { title: 'الأمان والخصوصية في صيت | صيت', description: 'كيف يتعامل صيت مع ربط حساب Google وبيانات فروعك: موافقة بشرية قبل أي نشر وإلغاء الربط في أي وقت والتزام بنظام حماية البيانات الشخصية' },
+  h1: 'فروعك بيدك دائمًا', lead: 'صيت مبني على قاعدة بسيطة: أنت تملك فروعك وبياناتك وفريقك يعتمد كل شيء قبل ما يوصل لـ Google',
+  items: [
+    { icon: 'lock', t: 'ربط رسمي عبر Google', d: 'الربط يتم من شاشة الموافقة الرسمية في Google وما نطلب ولا نخزن كلمة مرور حسابك' },
+    { icon: 'shield', t: 'لا نشر بدون موافقة', d: 'كل رد وكل تعديل يبقى مسودة لين يعتمده شخص مخوّل من فريقك' },
+    { icon: 'spark', t: 'إلغاء الربط في أي وقت', d: 'تقدر تلغي وصول صيت من إعدادات صيت أو من إعدادات حساب Google نفسه' },
+    { icon: 'team', t: 'صلاحيات حسب الدور', d: 'كل عضو يشوف ويعدل الفروع المسموحة له بس' },
+    { icon: 'layers', t: 'أقل بيانات ممكنة', d: 'نستخدم بيانات Google لغرض إدارة فروعك فقط وما نبيعها ولا نستخدمها لإعلانات' },
+    { icon: 'globe', t: 'نظام حماية البيانات الشخصية', d: 'نلتزم بنظام حماية البيانات الشخصية في المملكة العربية السعودية' },
+  ],
+  repH: 'لاحظت مشكلة أمنية؟', repD: 'راسلنا مباشرة على البريد ونتابع البلاغ بأولوية',
+  faq: [
+    { q: 'هل يقدر صيت ينشر شيء بدون علمي؟', a: 'لا ولا رد أو تعديل ينشر قبل موافقة شخص مخوّل من فريقك' },
+    { q: 'هل تشوفون كلمة مرور Google؟', a: 'لا الربط يتم عبر شاشة Google الرسمية وما نستلم كلمة المرور' },
+    { q: 'وش يصير لبياناتي لو ألغيت الاشتراك؟', a: 'يتوقف الوصول لملفات فروعك وتفاصيل الاحتفاظ بالبيانات وحذفها موضحة في سياسة الخصوصية' },
+  ],
+  policy: 'اقرأ سياسة الخصوصية',
+} : {
+  seo: { title: 'Security and Privacy at SAAYT | SAAYT', description: 'How SAAYT handles your Google connection and branch data: human approval before anything posts · disconnect any time and Saudi PDPL compliance' },
+  h1: 'Your branches stay in your hands', lead: 'SAAYT is built on a simple rule: you own your branches and data and your team approves everything before it reaches Google',
+  items: [
+    { icon: 'lock', t: 'Official Google connection', d: 'You connect through Google’s official consent screen and we never ask for or store your account password' },
+    { icon: 'shield', t: 'Nothing posts without approval', d: 'Every reply and every change stays a draft until an authorised person on your team approves it' },
+    { icon: 'spark', t: 'Disconnect any time', d: 'Revoke SAAYT’s access from SAAYT settings or from your Google account itself' },
+    { icon: 'team', t: 'Role-based permissions', d: 'Each member sees and edits only the branches they are allowed to' },
+    { icon: 'layers', t: 'Minimal data', d: 'We use Google data only to manage your branches and never sell it or use it for advertising' },
+    { icon: 'globe', t: 'Saudi PDPL', d: 'We comply with Saudi Arabia’s Personal Data Protection Law' },
+  ],
+  repH: 'Found a security issue?', repD: 'Email us directly and we will handle your report as a priority',
+  faq: [
+    { q: 'Can SAAYT post anything without my knowledge?', a: 'No. No reply or change posts until an authorised person on your team approves it' },
+    { q: 'Do you see my Google password?', a: 'No. You connect through Google’s official screen and we never receive your password' },
+    { q: 'What happens to my data if I cancel?', a: 'Access to your branch profiles stops and data retention and deletion are explained in the privacy policy' },
+  ],
+  policy: 'Read the privacy policy',
+};
+const trail = [{ name: N.security, path: 'security/' }];
+---
+<Base lang={lang} title={T.seo.title} description={T.seo.description} path="security/" dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), faqLd(T.faq)]}>
+  <PageHero lang={lang} eyebrow={N.security} title={T.h1} lead={T.lead} crumbs={trail} cta={false} compact />
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid-3" data-stagger="80">
+        {T.items.map((x) => <div class="card sec"><span class="sec__i"><Icon name={x.icon} size={22} /></span><h2>{x.t}</h2><p>{x.d}</p></div>)}
+      </div>
+      <div class="sec__rep" data-reveal>
+        <div><b>{T.repH}</b><p>{T.repD}</p></div>
+        <div class="sec__a"><a class="btn btn--dark" href={`mailto:${CONFIG.email}`}><span class="ltr">{CONFIG.email}</span></a><a class="btn btn--ghost" href={url(lang, 'privacy/')}>{T.policy}</a></div>
+      </div>
+    </div>
+  </section>
+  <FAQ eyebrow={ar ? 'أسئلة الأمان' : 'Security questions'} title={ar ? 'أسئلة عن بياناتك' : 'About your data'} items={T.faq} />
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .sec__i { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: var(--green-900); color: var(--saffron-400); margin-bottom: 18px }
+  .sec h2 { font-size: 1.2rem }
+  .sec p { color: var(--muted); margin-top: 6px }
+  .sec__rep { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; margin-top: 28px; padding: 26px 28px; border-radius: var(--r-lg); background: var(--saffron-100) }
+  .sec__rep p { color: var(--muted) }
+  .sec__a { display: flex; flex-wrap: wrap; gap: 10px }
+</style>

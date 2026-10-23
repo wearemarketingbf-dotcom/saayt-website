@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../sections/Hero.astro';
+import Problem from '../sections/Problem.astro';
+import Concept from '../sections/Concept.astro';
+import How from '../sections/How.astro';
+import FeatureRows from '../sections/FeatureRows.astro';
+import Film from '../sections/Film.astro';
+import Industries from '../sections/Industries.astro';
+import ScanCTA from '../sections/ScanCTA.astro';
+import Principles from '../sections/Principles.astro';
+import FAQ from '../sections/FAQ.astro';
+import FinalCTA from '../sections/FinalCTA.astro';
+import { type Lang } from '../../i18n/util';
+import { HOME } from '../../data/home';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const H = HOME[lang];
+const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: H.faq.items.map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a } })) };
+---
+<Base lang={lang} title={H.seo.title} description={H.seo.description} path="" dark jsonld={[faqLd]}>
+  <Hero lang={lang} />
+  <Problem lang={lang} />
+  <Concept lang={lang} />
+  <How lang={lang} />
+  <FeatureRows lang={lang} />
+  <Film lang={lang} />
+  <Industries lang={lang} />
+  <ScanCTA lang={lang} />
+  <Principles lang={lang} />
+  <FAQ eyebrow={H.faq.eyebrow} title={H.faq.h2} items={H.faq.items} />
+  <FinalCTA lang={lang} title={H.final.h2} lead={H.final.lead} cta1={H.final.cta1} cta2={H.final.cta2} />
+</Base>

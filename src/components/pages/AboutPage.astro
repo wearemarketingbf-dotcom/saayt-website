@@ -1,0 +1,111 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import Principles from '../sections/Principles.astro';
+import Film from '../sections/Film.astro';
+import CTABand from '../CTABand.astro';
+import { type Lang, asset, crumbsLd } from '../../i18n/util';
+import { NAV } from '../../i18n/nav';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const N = NAV(lang);
+const T = ar ? {
+  seo: { title: 'من نحن | صيت', description: 'صيت منصة سعودية تساعد الأنشطة متعددة الفروع على الظهور بصورة صحيحة وموحدة على Google في كل فرع وكل مدينة' },
+  h1: 'نخلي صيتك واحد في كل فرع', lead: 'صيت منصة سعودية للأنشطة اللي عندها فروع كثيرة نساعدها تبان على Google بصورة صحيحة وموحدة في كل فرع وكل مدينة',
+  nameH: 'ليش صيت؟', nameD: 'الصيت هو اللي يقوله الناس عنك وقبل ما يزورك العميل يشوف صيتك على Google: تقييماتك ومواعيدك وصورك وردودك ومهمتنا إن هذا الصيت يكون واحد وصحيح في كل فروعك',
+  idH: 'الهوية تحكي الفكرة', id: [
+    { t: 'النقاط صارت نجوم', d: 'كل نقطة في الشعار العربي فرع ولما تجتمع على معيار واحد تصير نجمة' },
+    { t: 'شعارين وصوت واحد', d: 'الشعار العربي والشعار اللاتيني مرآة لبعض نفس النجمة ونفس الروح' },
+    { t: 'ألوان من المكان', d: 'الأخضر العميق للثقة والزعفراني للضيافة والرملي لدفء المكان' },
+  ],
+  missionH: 'وش نؤمن فيه', mission: [
+    { t: 'العميل يستاهل معلومة صحيحة', d: 'موعد صحيح ورقم يرد وصورة تشبه المكان أبسط احترام للعميل' },
+    { t: 'الإنسان يعتمد', d: 'الذكاء يقترح لكن القرار دائمًا لشخص من فريقك' },
+    { t: 'بدون اختصارات', d: 'ما نشتري تقييمات وما نعد بترتيب ونلتزم بسياسات Google' },
+  ],
+  flip: 'اضغط لقلب الشعار',
+} : {
+  seo: { title: 'About SAAYT', description: 'SAAYT is a Saudi platform that helps multi-branch businesses show up accurately and consistently on Google in every branch and every city' },
+  h1: 'One reputation across every branch', lead: 'SAAYT is a Saudi platform for businesses with many branches. We help them show up on Google accurately and consistently in every branch and every city',
+  nameH: 'Why SAAYT?', nameD: 'Saayt (صيت) is Arabic for reputation: what people say about you. Before customers visit they see your reputation on Google in your reviews, hours, photos and replies. Our job is to make that reputation one and right across all your branches',
+  idH: 'The identity tells the idea', id: [
+    { t: 'The dots became stars', d: 'Every dot in the Arabic logo is a branch and when they meet one standard they become a star' },
+    { t: 'Two logos one voice', d: 'The Arabic and Latin logos mirror each other with the same star and the same spirit' },
+    { t: 'Colours from the place', d: 'Deep green for trust, saffron for hospitality and sand for the warmth of the place' },
+  ],
+  missionH: 'What we believe', mission: [
+    { t: 'Customers deserve accurate information', d: 'Correct hours, a phone that is answered and photos that look like the place are basic respect' },
+    { t: 'People approve', d: 'AI drafts but the decision always belongs to someone on your team' },
+    { t: 'No shortcuts', d: 'We never buy reviews or promise rankings and we follow Google’s policies' },
+  ],
+  flip: 'Tap to flip the logo',
+};
+const trail = [{ name: N.about, path: 'about/' }];
+---
+<Base lang={lang} title={T.seo.title} description={T.seo.description} path="about/" dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail)]}>
+  <PageHero lang={lang} eyebrow={N.about} title={T.h1} lead={T.lead} crumbs={trail} />
+  <section class="section">
+    <div class="wrap ab-name">
+      <button class="ab-flip" type="button" data-flip aria-label={T.flip}>
+        <span class="ab-flip__in">
+          <span class="ab-flip__f"><img src={asset('brand/saayt_logo_arabic_dark_v01.svg')} alt="صيت" width="260" height="90" /></span>
+          <span class="ab-flip__f ab-flip__b"><img src={asset('brand/saayt_logo_latin_dark_v02.svg')} alt="SAAYT" width="260" height="86" /></span>
+        </span>
+        <small>{T.flip}</small>
+      </button>
+      <div>
+        <h2 class="h2" data-reveal>{T.nameH}</h2>
+        <p class="lead" data-reveal>{T.nameD}</p>
+      </div>
+    </div>
+  </section>
+  <section class="section section--surface">
+    <div class="wrap">
+      <div class="section-head"><h2 class="h2" data-reveal>{T.idH}</h2></div>
+      <div class="grid grid-3" data-stagger="100">
+        {T.id.map((x, i) => <div class="card ab-id"><svg viewBox="-50 -50 100 100" aria-hidden="true" class:list={[`s${i}`]}><path d="M0 -48C0 -20 20 0 48 0C20 0 0 20 0 48C0 20 -20 0 -48 0C-20 0 0 -20 0 -48Z" /></svg><h3>{x.t}</h3><p>{x.d}</p></div>)}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2 class="h2" data-reveal>{T.missionH}</h2></div>
+      <div class="grid grid-3" data-stagger="100">
+        {T.mission.map((x) => <div class="ab-m"><Icon name="star" size={18} /><h3>{x.t}</h3><p>{x.d}</p></div>)}
+      </div>
+    </div>
+  </section>
+  <Film lang={lang} />
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .ab-name { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(36px, 6vw, 96px); align-items: center }
+  .ab-flip { display: grid; justify-items: center; gap: 14px; perspective: 1200px; padding: 0 }
+  .ab-flip__in { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1.3; transform-style: preserve-3d; transition: transform 1.1s var(--ease); display: block }
+  .ab-flip.on .ab-flip__in { transform: rotateY(180deg) }
+  .ab-flip__f { position: absolute; inset: 0; display: grid; place-items: center; border-radius: var(--r-xl); background: var(--green-900); backface-visibility: hidden; -webkit-backface-visibility: hidden }
+  .ab-flip__b { transform: rotateY(180deg); background: var(--green-950) }
+  .ab-flip__f img { width: 58%; height: auto }
+  .ab-flip small { color: var(--muted); font-size: .85rem }
+  .ab-id svg { width: 40px; height: 40px; fill: var(--saffron-400); margin-bottom: 18px }
+  .ab-id svg.s1 { fill: var(--green-700) } .ab-id svg.s2 { fill: var(--sand-600) }
+  .ab-id h3, .ab-m h3 { font-size: 1.2rem }
+  .ab-id p, .ab-m p { color: var(--muted); margin-top: 6px }
+  .ab-m { padding-top: 22px; border-top: 2px solid var(--green-900) }
+  .ab-m :global(.icon) { color: var(--saffron-500); margin-bottom: 12px }
+  @media (max-width: 900px) { .ab-name { grid-template-columns: 1fr } }
+  @media (prefers-reduced-motion: reduce) { .ab-flip__in { transition: none } }
+</style>
+<script>
+  const f = document.querySelector<HTMLButtonElement>('[data-flip]');
+  if (f) {
+    let user = false;
+    f.addEventListener('click', () => { user = true; f.classList.toggle('on'); });
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let t: number | undefined;
+      new IntersectionObserver(([e]) => { clearInterval(t); if (e.isIntersecting) t = window.setInterval(() => { if (!user) f.classList.toggle('on'); }, 3200); }, { threshold: .5 }).observe(f);
+    }
+  }
+</script>

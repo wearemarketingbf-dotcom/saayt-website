@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import Stars from '../ui/Stars.astro';
+import FAQ from '../sections/FAQ.astro';
+import CTABand from '../CTABand.astro';
+import { type Lang, url, asset, crumbsLd, faqLd } from '../../i18n/util';
+import { FEATURES, INDUSTRIES, NAV } from '../../i18n/nav';
+import { INDUSTRY_PAGES, type IndustrySlug } from '../../data/industries';
+interface Props { lang: Lang; slug: IndustrySlug }
+const { lang, slug } = Astro.props;
+const ar = lang === 'ar';
+const N = NAV(lang);
+const P = INDUSTRY_PAGES[lang][slug];
+const ind = INDUSTRIES.find((i) => i.slug === slug)!;
+const path = `industries/${slug}/`;
+const trail = [{ name: N.industries, path: 'industries/' }, { name: ind[lang], path }];
+const others = INDUSTRIES.filter((i) => i.slug !== slug);
+---
+<Base lang={lang} title={P.seo.title} description={P.seo.description} path={path} dark image={`img/og/${slug}.jpg`} jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), faqLd(P.faq)]}>
+  <PageHero lang={lang} eyebrow={ind[lang]} title={P.h1} lead={P.lead} crumbs={trail} img={asset(ind.img)} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow" data-reveal>{ar ? 'التحدي' : 'The challenge'}</span><h2 class="h2" data-reveal>{ar ? 'وش يميز قطاعك على Google' : 'What makes your sector different on Google'}</h2></div>
+      <div class="grid grid-3" data-stagger="100">
+        {P.pains.map((p, i) => <div class="card ip-pain"><span class="num">0{i + 1}</span><h3>{p.t}</h3><p>{p.d}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap ip-ex">
+      <div>
+        <span class="eyebrow" data-reveal>{ar ? 'مثال من قطاعك' : 'An example from your sector'}</span>
+        <h2 class="h2" data-reveal>{ar ? 'رد يناسب عميلك ويحفظ صورتك' : 'A reply that fits your customer and protects your image'}</h2>
+        <p class="lead" data-reveal>{ar ? 'هذا مثال توضيحي لطريقة صيت في اقتراح الرد وفريقك هو اللي يعتمد النص النهائي' : 'This is an illustrative example of how SAAYT drafts a reply. Your team approves the final text'}</p>
+        <div class="ip-seasons" data-reveal><b>{ar ? 'مواسم قطاعك' : 'Your busy seasons'}</b><div>{P.seasons.map((s) => <span class="chip">{s}</span>)}</div></div>
+      </div>
+      <div class="mock ip-card" data-reveal>
+        <div class="mock__bar"><span class="mock__title">{P.example.branch}</span><span class="mock__tag">{ar ? 'مثال توضيحي' : 'Example'}</span></div>
+        <div class="ip-rev"><Stars n={P.example.stars} /><p>{P.example.review}</p></div>
+        <div class="ip-reply"><span><Icon name="star" size={12} />{ar ? 'رد مقترح' : 'Suggested reply'}</span><p>{P.example.reply}</p></div>
+        <p class="ip-note"><Icon name="check" size={16} />{P.example.note}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow" data-reveal>{ar ? 'كيف يساعدك صيت' : 'How SAAYT helps'}</span><h2 class="h2" data-reveal>{ar ? 'الأدوات اللي تفرق معك' : 'The tools that matter for you'}</h2></div>
+      <div class="grid grid-2" data-stagger="90">
+        {P.helps.map((h) => { const f = FEATURES.find((x) => x.slug === h.slug)!; return (
+          <a class="card ip-help" href={url(lang, `features/${f.slug}/`)}><span class="ip-help__i"><Icon name={f.icon} size={22} /></span><div><b>{f[lang].t}</b><p>{h.d}</p></div><Icon name="arrow" size={18} class="arrow" /></a>
+        ); })}
+      </div>
+    </div>
+  </section>
+
+  <FAQ eyebrow={ar ? 'أسئلة القطاع' : 'Sector questions'} title={ar ? 'أسئلة تجينا من قطاعك' : 'Questions we hear from your sector'} items={P.faq} />
+
+  <section class="section section--surface">
+    <div class="wrap">
+      <div class="section-head"><h2 class="h2" data-reveal>{ar ? 'قطاعات ثانية' : 'Other industries'}</h2></div>
+      <div class="ip-others" data-stagger="60">
+        {others.map((o) => <a href={url(lang, `industries/${o.slug}/`)}><img src={asset(o.img)} alt="" width="80" height="80" loading="lazy" /><span>{o[lang]}</span><Icon name="arrow" size={16} class="arrow" /></a>)}
+      </div>
+    </div>
+  </section>
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .ip-pain .num { color: var(--saffron-500); font-weight: 700 }
+  .ip-pain h3 { font-size: 1.2rem; margin-top: 10px }
+  .ip-pain p { color: var(--muted); margin-top: 6px }
+  .ip-ex { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: center }
+  .ip-seasons { margin-top: 28px; display: grid; gap: 10px }
+  .ip-seasons div { display: flex; flex-wrap: wrap; gap: 8px }
+  .ip-seasons .chip { background: rgba(242, 163, 58, .14); color: var(--saffron-400) }
+  .ip-card { display: grid; gap: 12px; color: var(--text) }
+  .ip-rev { padding: 14px; border: 1px solid var(--line); border-radius: 16px; font-size: .95rem }
+  .ip-rev p { margin-top: 6px }
+  .ip-reply { padding: 16px; border-radius: 16px; background: var(--green-900); color: var(--sand-100); font-size: .95rem; line-height: 1.7 }
+  .ip-reply span { display: inline-flex; align-items: center; gap: 6px; color: var(--saffron-400); font-size: .8rem; font-weight: 600 }
+  .ip-reply p { margin-top: 6px }
+  .ip-note { display: flex; gap: 8px; align-items: center; font-size: .85rem; color: var(--green-700); font-weight: 600 }
+  .ip-help { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; transition: border-color .3s }
+  .ip-help:hover { border-color: var(--green-700) }
+  .ip-help__i { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: var(--green-100); color: var(--green-700) }
+  .ip-help p { color: var(--muted); font-size: .97rem }
+  .ip-help :global(.arrow) { color: var(--green-700) }
+  .ip-others { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px }
+  .ip-others a { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 10px; border-radius: var(--r-md); background: var(--bg); border: 1px solid var(--line); font-weight: 600; font-size: .92rem; transition: border-color .3s }
+  .ip-others a:hover { border-color: var(--green-700) }
+  .ip-others img { width: 52px; height: 52px; border-radius: 12px; object-fit: cover }
+  @media (max-width: 1100px) { .ip-others { grid-template-columns: repeat(2, 1fr) } }
+  @media (max-width: 900px) { .ip-ex { grid-template-columns: 1fr } }
+  @media (max-width: 560px) { .ip-others { grid-template-columns: 1fr } }
+</style>

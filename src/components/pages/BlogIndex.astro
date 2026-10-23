@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import CTABand from '../CTABand.astro';
+import { getCollection } from 'astro:content';
+import { type Lang, url, asset, crumbsLd } from '../../i18n/util';
+import { NAV } from '../../i18n/nav';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const N = NAV(lang);
+const ORDER = ['ramadan-eid-hours-google-maps', 'reply-to-google-reviews', 'remove-google-maps-review', 'add-branch-google-maps'];
+const posts = (await getCollection('blog', (p) => p.data.lang === lang)).sort((a, b) => (+b.data.date - +a.data.date) || (ORDER.indexOf(a.data.slug) - ORDER.indexOf(b.data.slug)));
+const covers: Record<string, string> = { 'ramadan-eid-hours-google-maps': 'img/feat-ramadan.webp', 'reply-to-google-reviews': 'img/feat-phone.webp', 'remove-google-maps-review': 'img/feat-alert.webp', 'add-branch-google-maps': 'img/ind-street.webp' };
+const seo = ar
+  ? { title: 'مدونة صيت | أدلة قوقل ماب للأنشطة متعددة الفروع', description: 'أدلة عملية عن الرد على تقييمات قوقل وأوقات رمضان والعيد وإضافة الفروع وإثبات الملكية مبنية على سياسات Google الرسمية' }
+  : { title: 'SAAYT Blog | Google Maps Guides for Multi-Branch Teams', description: 'Practical guides on Google review replies · Ramadan hours · adding branches and ownership — grounded in Google’s official policies' };
+const trail = [{ name: N.blog, path: 'blog/' }];
+const fmt = new Intl.DateTimeFormat(ar ? 'ar-SA-u-nu-latn-ca-gregory' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const [first, ...rest] = posts;
+---
+<Base lang={lang} title={seo.title} description={seo.description} path="blog/" dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail)]}>
+  <PageHero lang={lang} eyebrow={N.blog} title={ar ? 'أدلة عملية لفروعك على Google' : 'Practical guides for your branches on Google'} lead={ar ? 'مقالات مبنية على سياسات Google الرسمية ومكتوبة لأصحاب السلاسل ومدراء العمليات' : 'Articles grounded in Google’s official policies and written for chain owners and operations managers'} crumbs={trail} cta={false} compact />
+  <section class="section">
+    <div class="wrap">
+      {first && (
+        <a class="bl-first" href={url(lang, `blog/${first.data.slug}/`)} data-reveal>
+          <img src={asset(covers[first.data.slug] ?? 'img/ind-riyadh-night.webp')} alt="" width="900" height="600" loading="eager" />
+          <div><span class="chip">{first.data.tags[0]}</span><h2>{first.data.title}</h2><p>{first.data.description}</p><small class="num">{fmt.format(first.data.date)} · {first.data.readingTime} {ar ? 'دقائق قراءة' : 'min read'}</small><span class="bl-more">{ar ? 'اقرأ المقال' : 'Read the article'}<Icon name="arrow" size={18} class="arrow" /></span></div>
+        </a>
+      )}
+      <div class="grid grid-3 bl-grid" data-stagger="90">
+        {rest.map((p) => (
+          <a class="bl-card" href={url(lang, `blog/${p.data.slug}/`)}>
+            <img src={asset(covers[p.data.slug] ?? 'img/ind-riyadh-night.webp')} alt="" width="600" height="400" loading="lazy" />
+            <span class="chip">{p.data.tags[0]}</span><h2>{p.data.title}</h2><p>{p.data.description}</p><small class="num">{fmt.format(p.data.date)} · {p.data.readingTime} {ar ? 'دقائق قراءة' : 'min read'}</small>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .bl-first { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 4vw, 56px); align-items: center; padding: 16px; border-radius: var(--r-xl); background: var(--surface); border: 1px solid var(--line); margin-bottom: 24px; transition: border-color .3s }
+  .bl-first:hover, .bl-card:hover { border-color: var(--green-700) }
+  .bl-first img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--r-lg) }
+  .bl-first h2 { font-size: var(--fs-h3); margin: 12px 0 8px }
+  .bl-first p, .bl-card p { color: var(--muted) }
+  .bl-first small, .bl-card small { display: block; color: var(--ink-400); margin-top: 12px; font-size: .88rem }
+  .bl-more { display: inline-flex; gap: 8px; align-items: center; margin-top: 18px; font-weight: 700; color: var(--green-700) }
+  .bl-card { display: grid; gap: 8px; align-content: start; padding: 14px 14px 22px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); transition: border-color .3s }
+  .bl-card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--r-md); margin-bottom: 8px }
+  .bl-card .chip, .bl-first .chip { justify-self: start }
+  .bl-card h2 { font-size: 1.15rem; line-height: 1.5 }
+  @media (max-width: 900px) { .bl-first { grid-template-columns: 1fr } }
+</style>

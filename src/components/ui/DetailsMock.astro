@@ -1,0 +1,43 @@
+---
+import type { Lang } from '../../i18n/util';
+import { asset } from '../../i18n/util';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const T = ar ? {
+  title: 'ملف الفرع', tag: 'مثال توضيحي', name: 'فرع الملقا', cat: 'عيادة أسنان · الرياض',
+  items: [['الاسم والتصنيف', 'موحّد مع باقي الفروع', 'ok'], ['رقم الجوال', 'تغيّر على Google · راجعه', 'warn'], ['العنوان والموقع', 'صحيح', 'ok'], ['الصور', 'آخر صورة قبل 14 شهرًا', 'warn'], ['الموقع الإلكتروني', 'يعمل', 'ok']],
+  sync: 'طبّق على كل الفروع',
+} : {
+  title: 'Branch profile', tag: 'Example', name: 'Malqa branch', cat: 'Dental clinic · Riyadh',
+  items: [['Name and category', 'Consistent with other branches', 'ok'], ['Phone number', 'Changed on Google · review it', 'warn'], ['Address and pin', 'Correct', 'ok'], ['Photos', 'Last photo 14 months ago', 'warn'], ['Website', 'Working', 'ok']],
+  sync: 'Apply to all branches',
+};
+---
+<div class="mock dt" data-reveal>
+  <div class="mock__bar"><span class="mock__title">{T.title}</span><span class="mock__tag">{T.tag}</span></div>
+  <div class="dt__head">
+    <img src={asset('img/ind-clinics.webp')} alt="" width="72" height="72" loading="lazy" />
+    <div><b>{T.name}</b><small>{T.cat}</small></div>
+  </div>
+  <div class="dt__list">
+    {T.items.map(([k, v, s]) => (
+      <div class="dt__row"><span class:list={['dt__ic', s]}>{s === 'ok' ? '✓' : '!'}</span><span>{k}</span><small class:list={[s]}>{v}</small></div>
+    ))}
+  </div>
+  <span class="btn btn--dark dt__btn">{T.sync}</span>
+</div>
+<style>
+  .dt { display: grid; gap: 12px }
+  .dt__head { display: flex; gap: 12px; align-items: center }
+  .dt__head img { width: 56px; height: 56px; border-radius: 14px; object-fit: cover }
+  .dt__head small { display: block; color: var(--ink-600); font-size: .8rem }
+  .dt__list { border: 1px solid var(--line); border-radius: 14px }
+  .dt__row { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 10px 12px; font-size: .86rem; border-top: 1px solid var(--line) }
+  .dt__row:first-child { border-top: 0 }
+  .dt__row small { font-size: .76rem; color: var(--green-700) }
+  .dt__row small.warn { color: #8A5208; font-weight: 600 }
+  .dt__ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: .74rem; font-weight: 700; background: var(--green-100); color: var(--green-700) }
+  .dt__ic.warn { background: var(--saffron-100); color: #8A5208 }
+  .dt__btn { --h: 42px; font-size: .88rem; pointer-events: none }
+</style>

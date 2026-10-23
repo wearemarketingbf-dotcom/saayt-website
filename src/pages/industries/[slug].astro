@@ -1,0 +1,7 @@
+---
+import IndustryPage from '../../components/pages/IndustryPage.astro';
+import { INDUSTRIES } from '../../i18n/nav';
+export const getStaticPaths = () => INDUSTRIES.map((i) => ({ params: { slug: i.slug } }));
+const { slug } = Astro.params as { slug: any };
+---
+<IndustryPage lang="ar" slug={slug} />

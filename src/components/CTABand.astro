@@ -1,0 +1,9 @@
+---
+import FinalCTA from './sections/FinalCTA.astro';
+import { type Lang } from '../i18n/util';
+import { HOME } from '../data/home';
+interface Props { lang: Lang; title?: string; lead?: string }
+const { lang, title, lead } = Astro.props;
+const F = HOME[lang].final;
+---
+<FinalCTA lang={lang} title={title ?? F.h2} lead={lead ?? F.lead} cta1={F.cta1} cta2={F.cta2} />

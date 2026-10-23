@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import FeatureRows from '../sections/FeatureRows.astro';
+import CTABand from '../CTABand.astro';
+import { type Lang, url, crumbsLd } from '../../i18n/util';
+import { FEATURES, NAV } from '../../i18n/nav';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const N = NAV(lang);
+const seo = ar
+  ? { title: 'مزايا صيت لإدارة فروعك على قوقل ماب', description: 'أوقات عمل جماعية وقوالب رمضان والعيد وصور وبيانات موحدة وردود على تقييمات Google وتنبيهات ومؤشر أداء لكل فرع في لوحة واحدة' }
+  : { title: 'Features for Multi-Branch Google Profiles | SAAYT', description: 'Bulk and special hours with Ramadan templates · photos and details · Google review replies · alerts and a score for every branch in one dashboard' };
+const trail = [{ name: N.features, path: 'features/' }];
+---
+<Base lang={lang} title={seo.title} description={seo.description} path="features/" dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail)]}>
+  <PageHero lang={lang} eyebrow={N.features} title={ar ? 'كل أدوات فروعك على Google في لوحة وحدة' : 'Every tool for your branches on Google in one dashboard'} lead={ar ? 'خمس أدوات تشتغل مع بعض: المواعيد والردود والتنبيهات والبيانات ومؤشر لكل فرع' : 'Five tools that work together: hours, replies, alerts, details and a score for every branch'} crumbs={trail}>
+    <div class="fi-grid" data-stagger="70">
+      {FEATURES.map((f) => <a class="fi" href={url(lang, `features/${f.slug}/`)}><Icon name={f.icon} size={22} /><b>{f[lang].t}</b><span>{f[lang].d}</span></a>)}
+    </div>
+  </PageHero>
+  <FeatureRows lang={lang} />
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .fi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 48px }
+  .fi { display: grid; gap: 6px; align-content: start; padding: 20px; border-radius: var(--r-md); background: rgba(245, 239, 228, .05); border: 1px solid rgba(245, 239, 228, .14); transition: background-color .3s, border-color .3s }
+  .fi:hover { background: rgba(245, 239, 228, .1); border-color: var(--saffron-400) }
+  .fi :global(.icon) { color: var(--saffron-400); margin-bottom: 8px }
+  .fi span { color: var(--green-300); font-size: .92rem; line-height: 1.6 }
+  @media (max-width: 1100px) { .fi-grid { grid-template-columns: repeat(3, 1fr) } }
+  @media (max-width: 640px) { .fi-grid { grid-template-columns: 1fr } }
+</style>

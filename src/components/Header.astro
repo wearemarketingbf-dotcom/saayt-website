@@ -1,0 +1,154 @@
+---
+import Icon from './Icon.astro';
+import { type Lang, url, asset, other } from '../i18n/util';
+import { NAV, FEATURES, INDUSTRIES } from '../i18n/nav';
+import { CONFIG } from '../config';
+interface Props { lang: Lang; path: string; altPath?: string; dark?: boolean }
+const { lang, path, altPath, dark = false } = Astro.props;
+const n = NAV(lang);
+const o = other(lang);
+const switchHref = url(o, altPath ?? path);
+const logoLight = lang === 'ar' ? 'brand/saayt_logo_arabic_light_v01.svg' : 'brand/saayt_logo_latin_light_v02.svg';
+const logoDark = lang === 'ar' ? 'brand/saayt_logo_arabic_dark_v01.svg' : 'brand/saayt_logo_latin_dark_v02.svg';
+---
+<header class:list={['hdr', { 'hdr--dark': dark }]} data-header>
+  <div class="hdr__in wrap">
+    <a class="hdr__logo" href={url(lang)} aria-label={lang === 'ar' ? 'صيت الصفحة الرئيسية' : 'SAAYT home'}>
+      <img class="logo-on-light" src={asset(logoLight)} alt="" width="120" height="40" />
+      <img class="logo-on-dark" src={asset(logoDark)} alt="" width="120" height="40" />
+    </a>
+    <nav class="hdr__nav" aria-label={lang === 'ar' ? 'القائمة الرئيسية' : 'Main'}>
+      <div class="dd">
+        <button class="dd__btn" aria-expanded="false" aria-haspopup="true">{n.features}<Icon name="chev" size={14} class="dd__chev" /></button>
+        <div class="dd__panel dd__panel--wide">
+          <div class="dd__grid">
+            {FEATURES.map((f) => (
+              <a class="dd__item" href={url(lang, `features/${f.slug}/`)}>
+                <span class="dd__ico"><Icon name={f.icon} size={20} /></span>
+                <span><b>{f[lang].t}</b><small>{f[lang].d}</small></span>
+              </a>
+            ))}
+          </div>
+          <a class="dd__all" href={url(lang, 'features/')}>{n.allFeatures}<Icon name="arrow" size={16} class="arrow" /></a>
+        </div>
+      </div>
+      <div class="dd">
+        <button class="dd__btn" aria-expanded="false" aria-haspopup="true">{n.industries}<Icon name="chev" size={14} class="dd__chev" /></button>
+        <div class="dd__panel">
+          {INDUSTRIES.map((i) => <a class="dd__link" href={url(lang, `industries/${i.slug}/`)}>{i[lang]}</a>)}
+          <a class="dd__all" href={url(lang, 'industries/')}>{n.allIndustries}<Icon name="arrow" size={16} class="arrow" /></a>
+        </div>
+      </div>
+      <a class="hdr__link" href={url(lang, 'how-it-works/')}>{n.how}</a>
+      <a class="hdr__link" href={url(lang, 'pricing/')}>{n.pricing}</a>
+      <a class="hdr__link" href={url(lang, 'blog/')}>{n.blog}</a>
+    </nav>
+    <div class="hdr__end">
+      <a class="hdr__lang" href={switchHref} hreflang={o} lang={o}>{n.switch}</a>
+      {CONFIG.loginUrl && <a class="hdr__link hdr__login" href={CONFIG.loginUrl}>{n.login}</a>}
+      <a class="btn btn--primary hdr__cta" href={url(lang, 'demo/')}>{n.demo}</a>
+      <button class="hdr__burger" aria-label={n.menu} aria-expanded="false" data-burger><Icon name="menu" size={24} /></button>
+    </div>
+  </div>
+  <div class="drawer" data-drawer hidden>
+    <div class="drawer__in wrap">
+      <p class="drawer__h">{n.features}</p>
+      {FEATURES.map((f) => <a class="drawer__a" href={url(lang, `features/${f.slug}/`)}>{f[lang].t}</a>)}
+      <p class="drawer__h">{n.industries}</p>
+      {INDUSTRIES.map((i) => <a class="drawer__a" href={url(lang, `industries/${i.slug}/`)}>{i[lang]}</a>)}
+      <p class="drawer__h">{lang === 'ar' ? 'صيت' : 'SAAYT'}</p>
+      <a class="drawer__a" href={url(lang, 'how-it-works/')}>{n.how}</a>
+      <a class="drawer__a" href={url(lang, 'pricing/')}>{n.pricing}</a>
+      <a class="drawer__a" href={url(lang, 'free-scan/')}>{n.scan}</a>
+      <a class="drawer__a" href={url(lang, 'blog/')}>{n.blog}</a>
+      <a class="drawer__a" href={url(lang, 'about/')}>{n.about}</a>
+      <a class="drawer__a" href={switchHref} lang={o}>{n.switch}</a>
+      <a class="btn btn--primary drawer__cta" href={url(lang, 'demo/')}>{n.demo}</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hdr { position: fixed; inset-inline: 0; top: 0; z-index: 50; color: var(--green-950); transition: background-color .35s, box-shadow .35s, color .35s, transform .45s var(--ease) }
+  .hdr__in { display: flex; align-items: center; gap: 28px; height: 76px }
+  .hdr.is-solid { background: rgba(245, 239, 228, .92); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); box-shadow: 0 1px 0 var(--line) }
+  .hdr.is-hidden { transform: translateY(-100%) }
+  .hdr__logo { display: block; flex: none }
+  .hdr__logo img { height: 34px; width: auto }
+  html[lang='ar'] .hdr__logo img { height: 40px }
+  .logo-on-dark { display: none }
+  .hdr--dark:not(.is-solid) { color: var(--sand-100) }
+  .hdr--dark:not(.is-solid) .logo-on-light { display: none }
+  .hdr--dark:not(.is-solid) .logo-on-dark { display: block }
+  .hdr__nav { display: flex; align-items: center; gap: 4px; margin-inline-start: 12px }
+  .hdr__link, .dd__btn { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border-radius: 999px; font-weight: 500; font-size: .98rem; transition: background-color .2s }
+  .hdr__link:hover, .dd__btn:hover, .dd__btn[aria-expanded='true'] { background: rgba(15, 61, 54, .07) }
+  .hdr--dark:not(.is-solid) .hdr__link:hover, .hdr--dark:not(.is-solid) .dd__btn:hover { background: rgba(245, 239, 228, .1) }
+  .dd { position: relative }
+  :global(.dd__chev) { transform: rotate(90deg); transition: transform .25s }
+  .dd__btn[aria-expanded='true'] :global(.dd__chev) { transform: rotate(-90deg) }
+  .dd__panel { position: absolute; top: calc(100% + 10px); inset-inline-start: 0; min-width: 260px; padding: 10px; background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: 0 30px 60px -20px rgba(10, 41, 36, .3); opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .25s, transform .3s var(--ease), visibility .25s }
+  .dd.open .dd__panel { opacity: 1; visibility: visible; transform: none }
+  .dd__panel--wide { width: 620px }
+  .dd__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px }
+  .dd__item { display: flex; gap: 14px; padding: 14px; border-radius: var(--r-md); transition: background-color .2s }
+  .dd__item:hover, .dd__link:hover { background: var(--sand-100) }
+  .dd__item b { display: block; font-weight: 600; font-size: .98rem }
+  .dd__item small { display: block; color: var(--muted); font-size: .86rem; line-height: 1.55; margin-top: 2px }
+  .dd__ico { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border-radius: 12px; background: var(--green-100); color: var(--green-900) }
+  .dd__link { display: block; padding: 10px 14px; border-radius: 12px; font-weight: 500 }
+  .dd__all { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; padding: 12px 14px; border-top: 1px solid var(--line); font-weight: 600; color: var(--green-700) }
+  .hdr__end { display: flex; align-items: center; gap: 10px; margin-inline-start: auto }
+  .hdr__lang { font-weight: 600; font-size: .95rem; padding: 0 10px; height: 40px; display: inline-flex; align-items: center; border-radius: 999px }
+  .hdr__lang:hover { background: rgba(15, 61, 54, .07) }
+  .hdr__cta { --h: 46px; padding: 0 22px }
+  .hdr__burger { display: none; width: 46px; height: 46px; place-items: center; border-radius: 50% }
+  .drawer { position: fixed; inset: 76px 0 0; background: var(--bg); color: var(--text); overflow-y: auto; padding-bottom: 40px }
+  .drawer__in { display: grid; padding-top: 10px }
+  .drawer__h { font-size: .85rem; font-weight: 600; color: var(--green-700); margin: 22px 0 6px }
+  .drawer__a { display: block; padding: 12px 0; font-size: 1.1rem; font-weight: 500; border-bottom: 1px solid var(--line) }
+  .drawer__cta { margin-top: 26px; width: 100% }
+  @media (max-width: 1080px) {
+    .hdr__nav, .hdr__login { display: none }
+    .hdr__burger { display: grid }
+  }
+  @media (max-width: 560px) {
+    .hdr__cta, .hdr__lang { display: none }
+    .hdr__in { height: 68px }
+    .drawer { inset-block-start: 68px }
+  }
+</style>
+
+<script>
+  const hdr = document.querySelector('[data-header]') as HTMLElement;
+  let last = 0;
+  const onScroll = () => {
+    const y = window.scrollY;
+    hdr.classList.toggle('is-solid', y > 24);
+    const open = hdr.classList.contains('menu-open');
+    hdr.classList.toggle('is-hidden', !open && y > 480 && y > last + 4);
+    if (y < last - 4) hdr.classList.remove('is-hidden');
+    last = y;
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  // dropdowns: hover on pointer devices, click everywhere, Escape closes
+  document.querySelectorAll<HTMLElement>('.dd').forEach((dd) => {
+    const btn = dd.querySelector('button')!;
+    const set = (v: boolean) => { dd.classList.toggle('open', v); btn.setAttribute('aria-expanded', String(v)); };
+    btn.addEventListener('click', () => set(!dd.classList.contains('open')));
+    if (matchMedia('(hover: hover)').matches) {
+      let t: number; dd.addEventListener('mouseenter', () => { clearTimeout(t); set(true); });
+      dd.addEventListener('mouseleave', () => { t = window.setTimeout(() => set(false), 140); });
+    }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+    document.addEventListener('click', (e) => { if (!dd.contains(e.target as Node)) set(false); });
+  });
+  const burger = document.querySelector('[data-burger]') as HTMLButtonElement;
+  const drawer = document.querySelector('[data-drawer]') as HTMLElement;
+  burger?.addEventListener('click', () => {
+    const open = drawer.hidden;
+    drawer.hidden = !open; burger.setAttribute('aria-expanded', String(open));
+    hdr.classList.toggle('menu-open', open); hdr.classList.toggle('is-solid', open || scrollY > 24);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+</script>

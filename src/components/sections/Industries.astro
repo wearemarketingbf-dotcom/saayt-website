@@ -1,0 +1,41 @@
+---
+import Icon from '../Icon.astro';
+import { type Lang, url, asset } from '../../i18n/util';
+import { INDUSTRIES } from '../../i18n/nav';
+import { HOME } from '../../data/home';
+interface Props { lang: Lang; head?: boolean }
+const { lang, head = true } = Astro.props;
+const I = HOME[lang].industries;
+---
+<section class="section inds" aria-labelledby={head ? 'inds-h' : undefined}>
+  <div class="wrap">
+    {head && (
+      <div class="inds__head">
+        <div>
+          <span class="eyebrow" data-reveal>{I.eyebrow}</span>
+          <h2 class="h2" id="inds-h" data-reveal>{I.h2}</h2>
+          <p class="lead" data-reveal>{I.lead}</p>
+        </div>
+        <a class="btn btn--light-ghost" href={url(lang, 'industries/')} data-reveal>{I.all}<Icon name="arrow" size={18} class="arrow" /></a>
+      </div>
+    )}
+    <div class="inds__grid" data-stagger="80">
+      {INDUSTRIES.map((i) => (
+        <a class="ind" href={url(lang, `industries/${i.slug}/`)}>
+          <img src={asset(i.img)} alt="" loading="lazy" width="500" height="625" />
+          <span class="ind__t">{i[lang]}<Icon name="arrow" size={18} class="arrow" /></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .inds__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: clamp(32px, 4vw, 52px) }
+  .inds__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px }
+  .ind { position: relative; border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 4 / 4.4; background: var(--green-900); isolation: isolate }
+  .ind img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); z-index: -1 }
+  .ind:hover img { transform: scale(1.06) }
+  .ind__t { position: absolute; inset-inline: 18px; bottom: 18px; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 16px; border-radius: var(--r-md); background: var(--surface); color: var(--green-950); font-weight: 600 }
+  @media (max-width: 900px) { .inds__grid { grid-template-columns: repeat(2, 1fr) } .inds__head { flex-direction: column; align-items: flex-start } }
+  @media (max-width: 520px) { .inds__grid { grid-template-columns: 1fr } .ind { aspect-ratio: 4 / 3.4 } }
+</style>

@@ -1,0 +1,104 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../Icon.astro';
+import CTABand from '../CTABand.astro';
+import { render, getCollection, type CollectionEntry } from 'astro:content';
+import { type Lang, url, asset, crumbsLd } from '../../i18n/util';
+import { NAV } from '../../i18n/nav';
+interface Props { post: CollectionEntry<'blog'> }
+const { post } = Astro.props;
+const lang = post.data.lang as Lang;
+const ar = lang === 'ar';
+const N = NAV(lang);
+const { Content, headings } = await render(post);
+const toc = headings.filter((h) => h.depth === 2);
+const path = `blog/${post.data.slug}/`;
+const trail = [{ name: N.blog, path: 'blog/' }, { name: post.data.title, path }];
+const site = Astro.site!.toString().replace(/\/$/, '');
+const fmt = new Intl.DateTimeFormat(ar ? 'ar-SA-u-nu-latn-ca-gregory' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const others = (await getCollection('blog', (p) => p.data.lang === lang && p.data.slug !== post.data.slug)).slice(0, 3);
+const ld = { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.data.title, description: post.data.description, datePublished: post.data.date.toISOString().slice(0, 10), dateModified: (post.data.updated ?? post.data.date).toISOString().slice(0, 10), inLanguage: ar ? 'ar-SA' : 'en', mainEntityOfPage: site + url(lang, path), image: site + asset('img/og-saayt.jpg'), author: { '@type': 'Organization', name: 'SAAYT' }, publisher: { '@type': 'Organization', name: 'SAAYT', logo: { '@type': 'ImageObject', url: site + asset('favicon-512.png') } } };
+---
+<Base lang={lang} title={`${post.data.title} | ${ar ? 'صيت' : 'SAAYT'}`} description={post.data.description} path={path} dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), ld]}>
+  <div class="bp-progress" aria-hidden="true"><i data-progress></i></div>
+  <header class="bp-head section--deep">
+    <div class="wrap">
+      <nav class="bp-crumbs" aria-label={ar ? 'مسار التنقل' : 'Breadcrumb'}><a href={url(lang)}>{ar ? 'الرئيسية' : 'Home'}</a><span>/</span><a href={url(lang, 'blog/')}>{N.blog}</a></nav>
+      <div class="bp-tags">{post.data.tags.slice(0, 3).map((t) => <span class="chip">{t}</span>)}</div>
+      <h1>{post.data.title}</h1>
+      <p class="lead">{post.data.description}</p>
+      <p class="bp-meta num">{fmt.format(post.data.date)} · {post.data.readingTime} {ar ? 'دقائق قراءة' : 'min read'} · {ar ? 'فريق صيت' : 'SAAYT team'}</p>
+    </div>
+  </header>
+  <div class="section bp">
+    <div class="wrap bp__in">
+      <article class="prose" data-article><Content /></article>
+      <aside class="bp__side">
+        {toc.length > 2 && (
+          <nav class="bp-toc" aria-label={ar ? 'محتويات المقال' : 'In this article'}>
+            <b>{ar ? 'في هذا المقال' : 'In this article'}</b>
+            <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+          </nav>
+        )}
+        <div class="bp-cta">
+          <Icon name="star" size={22} />
+          <b>{ar ? 'وين فروعك من هذا؟' : 'Where do your branches stand?'}</b>
+          <p>{ar ? 'فحص ذاتي مجاني في دقيقتين يرتب لك أولويات كل فرع' : 'A free two-minute self-check that ranks your priorities'}</p>
+          <a class="btn btn--primary" href={url(lang, 'free-scan/')}>{N.scan}</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+  {others.length > 0 && (
+    <section class="section section--surface">
+      <div class="wrap">
+        <h2 class="h2">{ar ? 'اقرأ أيضًا' : 'Read next'}</h2>
+        <div class="grid grid-3 bp-more">
+          {others.map((p) => <a class="card" href={url(lang, `blog/${p.data.slug}/`)}><b>{p.data.title}</b><p>{p.data.description}</p><Icon name="arrow" size={18} class="arrow" /></a>)}
+        </div>
+      </div>
+    </section>
+  )}
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .bp-progress { position: fixed; inset-inline: 0; top: 0; height: 3px; z-index: 60; pointer-events: none }
+  .bp-progress i { display: block; height: 100%; width: 100%; background: var(--saffron-400); transform: scaleX(0); transform-origin: right }
+  html[dir='ltr'] .bp-progress i { transform-origin: left }
+  .bp-head { padding: clamp(130px, 14vw, 170px) 0 clamp(48px, 6vw, 72px) }
+  .bp-head .wrap { max-width: 900px }
+  .bp-crumbs { display: flex; gap: 8px; font-size: .9rem; color: var(--green-300); margin-bottom: 18px }
+  .bp-crumbs a:hover { color: var(--sand-100) }
+  .bp-tags { display: flex; flex-wrap: wrap; gap: 8px }
+  .bp-tags .chip { background: rgba(242, 163, 58, .14); color: var(--saffron-400) }
+  .bp-head h1 { font-family: 'Alexandria', var(--font); font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.25; margin-top: 16px; text-wrap: balance }
+  .bp-head .lead { margin-top: 16px; color: var(--sand-200) }
+  .bp-meta { margin-top: 18px; color: var(--green-300); font-size: .92rem }
+  .bp__in { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: clamp(32px, 5vw, 72px); align-items: start }
+  .bp .prose { max-width: 72ch }
+  .bp__side { position: sticky; top: 96px; display: grid; gap: 16px }
+  .bp-toc { padding: 20px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line) }
+  .bp-toc ol { margin: 10px 0 0; padding-inline-start: 18px; display: grid; gap: 8px; font-size: .92rem }
+  .bp-toc a { color: var(--muted) }
+  .bp-toc a:hover, .bp-toc a.on { color: var(--green-700); font-weight: 600 }
+  .bp-cta { display: grid; gap: 8px; padding: 22px; border-radius: var(--r-lg); background: var(--green-900); color: var(--sand-100) }
+  .bp-cta :global(.icon) { color: var(--saffron-400) }
+  .bp-cta p { color: var(--green-300); font-size: .95rem }
+  .bp-cta .btn { margin-top: 8px }
+  .bp-more { margin-top: 28px }
+  .bp-more .card { display: grid; gap: 8px; align-content: start }
+  .bp-more p { color: var(--muted); font-size: .95rem }
+  .bp-more :global(.arrow) { color: var(--green-700) }
+  @media (max-width: 980px) { .bp__in { grid-template-columns: 1fr } .bp__side { position: static } .bp-toc { display: none } }
+</style>
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-progress]');
+  const art = document.querySelector<HTMLElement>('[data-article]');
+  if (bar && art) {
+    const upd = () => { const r = art.getBoundingClientRect(); const p = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight))); bar.style.transform = `scaleX(${p})`; };
+    addEventListener('scroll', upd, { passive: true }); upd();
+    const links = [...document.querySelectorAll<HTMLAnchorElement>('.bp-toc a')];
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) links.forEach((l) => l.classList.toggle('on', l.hash === '#' + e.target.id)); }), { rootMargin: '-20% 0px -70% 0px' });
+    art.querySelectorAll('h2[id]').forEach((h) => io.observe(h));
+  }
+</script>

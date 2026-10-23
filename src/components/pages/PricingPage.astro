@@ -1,0 +1,141 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import FAQ from '../sections/FAQ.astro';
+import CTABand from '../CTABand.astro';
+import { type Lang, url, crumbsLd, faqLd } from '../../i18n/util';
+import { NAV } from '../../i18n/nav';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const N = NAV(lang);
+const T = ar ? {
+  seo: { title: 'باقات صيت وأسعار الاشتراك الشهري', description: 'اشتراك شهري حسب عدد الفروع مع خيار إدارة كاملة يتولاها فريق صيت عنك — اطلب عرضاً مناسباً لعدد فروعك' },
+  h1: 'سعر يناسب عدد فروعك', lead: 'الاشتراك شهري ويتحدد حسب عدد الفروع اختر عدد فروعك وطريقة العمل ونرسل لك عرض سعر واضح',
+  q1: 'كم فرع عندك؟', q2: 'مين يدير؟',
+  sizes: [{ v: '1-4', l: 'من 1 إلى 4' }, { v: '5-10', l: 'من 5 إلى 10' }, { v: '11-20', l: 'من 11 إلى 20' }, { v: '21+', l: 'أكثر من 20' }],
+  plans: [
+    { id: 'platform', t: 'المنصة', s: 'فريقك يدير من لوحة صيت', items: ['كل الفروع في لوحة وحدة', 'قوالب المواسم والتطبيق الجماعي', 'ردود مقترحة بلهجة العميل', 'التنبيهات ومؤشر الفرع', 'صلاحيات للفريق'] },
+    { id: 'managed', t: 'الإدارة الكاملة', s: 'فريق صيت يتابع عنك وأنت صاحب القرار', items: ['كل مزايا المنصة', 'فريق صيت يتابع التقييمات يوميًا', 'تجهيز مواعيد المواسم قبل وقتها', 'تقرير شهري ومراجعة مع فريقك', 'تبقى الموافقة النهائية لك'] },
+  ],
+  pick: 'اخترت', quote: 'اطلب عرض السعر', note: 'عرض السعر يوضح ضريبة القيمة المضافة بشكل منفصل والدفع بالريال السعودي',
+  sumA: 'عدد الفروع', sumB: 'الباقة',
+  incH: 'في كل الباقات', inc: [
+    { icon: 'shield', t: 'ولا شيء ينشر بدون موافقتك' }, { icon: 'globe', t: 'واجهة عربية كاملة' }, { icon: 'lock', t: 'إلغاء الربط في أي وقت' }, { icon: 'team', t: 'دعم بالعربي من فريق سعودي' },
+  ],
+  faq: [
+    { q: 'ليش ما فيه أسعار منشورة؟', a: 'السعر يعتمد على عدد الفروع وطريقة العمل ونفضل نرسل لك عرض دقيق بدال رقم عام ما يناسب وضعك' },
+    { q: 'هل فيه عقد طويل؟', a: 'الاشتراك شهري وتفاصيل المدة توضح في عرض السعر' },
+    { q: 'هل أقدر أبدأ بالمنصة وأنتقل للإدارة الكاملة؟', a: 'نعم تقدر تغير طريقة العمل لاحقًا حسب احتياجك' },
+    { q: 'هل السعر يتغير لو زادت الفروع؟', a: 'نعم لأن السعر حسب عدد الفروع وتقدر تضيف فروع في أي وقت' },
+  ],
+} : {
+  seo: { title: 'SAAYT Pricing and Monthly Plans', description: 'Monthly plans priced by number of branches with an optional fully managed service by the SAAYT team — get a quote for your branch count' },
+  h1: 'Pricing that fits your branch count', lead: 'Plans are monthly and priced by number of branches. Pick your branch count and how you want to work and we will send a clear quote',
+  q1: 'How many branches?', q2: 'Who runs it?',
+  sizes: [{ v: '1-4', l: '1 to 4' }, { v: '5-10', l: '5 to 10' }, { v: '11-20', l: '11 to 20' }, { v: '21+', l: 'More than 20' }],
+  plans: [
+    { id: 'platform', t: 'Platform', s: 'Your team runs everything from SAAYT', items: ['All branches in one dashboard', 'Season templates and bulk apply', 'Dialect-aware reply drafts', 'Alerts and branch score', 'Team permissions'] },
+    { id: 'managed', t: 'Fully managed', s: 'The SAAYT team follows up while you keep the final say', items: ['Everything in Platform', 'Daily review follow-up by the SAAYT team', 'Season hours prepared ahead of time', 'Monthly report and review with your team', 'Final approval stays with you'] },
+  ],
+  pick: 'Selected', quote: 'Request a quote', note: 'Quotes show VAT separately and are billed in Saudi riyals',
+  sumA: 'Branches', sumB: 'Plan',
+  incH: 'In every plan', inc: [
+    { icon: 'shield', t: 'Nothing posts without your approval' }, { icon: 'globe', t: 'Full Arabic interface' }, { icon: 'lock', t: 'Disconnect at any time' }, { icon: 'team', t: 'Arabic support from a Saudi team' },
+  ],
+  faq: [
+    { q: 'Why are prices not published?', a: 'Price depends on branch count and how you work. We prefer to send an accurate quote instead of a generic number' },
+    { q: 'Is there a long contract?', a: 'Plans are monthly and the term is set out in your quote' },
+    { q: 'Can I start with Platform and move to Fully managed?', a: 'Yes. You can change how you work later' },
+    { q: 'Does the price change if I add branches?', a: 'Yes because pricing is per branch count and you can add branches any time' },
+  ],
+};
+const trail = [{ name: N.pricing, path: 'pricing/' }];
+---
+<Base lang={lang} title={T.seo.title} description={T.seo.description} path="pricing/" dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), faqLd(T.faq)]}>
+  <PageHero lang={lang} eyebrow={N.pricing} title={T.h1} lead={T.lead} crumbs={trail} cta={false} compact />
+  <section class="section pr" data-pricing data-demo={url(lang, 'demo/')}>
+    <div class="wrap">
+      <fieldset class="pr__q">
+        <legend>{T.q1}</legend>
+        <div class="pr__sizes">
+          {T.sizes.map((s, i) => <label><input type="radio" name="branches" value={s.v} checked={i === 1} /><span class="num">{s.l}</span></label>)}
+        </div>
+      </fieldset>
+      <fieldset class="pr__q"><legend>{T.q2}</legend>
+      <div class="pr__plans">
+        {T.plans.map((p, i) => (
+          <label class:list={['pr__plan', { 'pr__plan--dark': i === 1 }]}>
+            <input type="radio" name="plan" value={p.id} checked={i === 0} />
+            <span class="pr__check"><Icon name="check" size={16} /></span>
+            <b class="pr__t">{p.t}</b><span class="pr__s">{p.s}</span>
+            <ul>{p.items.map((x) => <li><Icon name="check" size={16} />{x}</li>)}</ul>
+          </label>
+        ))}
+      </div>
+      </fieldset>
+      <div class="pr__sum">
+        <div><small>{T.sumA}</small><b class="num" data-sum-b>{T.sizes[1].l}</b></div>
+        <div><small>{T.sumB}</small><b data-sum-p>{T.plans[0].t}</b></div>
+        <a class="btn btn--primary" data-quote href={url(lang, 'demo/') + '?branches=5-10&plan=platform'}>{T.quote}<Icon name="arrow" size={18} class="arrow" /></a>
+      </div>
+      <p class="pr__note">{T.note}</p>
+      <div class="pr__inc">
+        <b>{T.incH}</b>
+        <div>{T.inc.map((x) => <span><Icon name={x.icon} size={18} />{x.t}</span>)}</div>
+      </div>
+    </div>
+    <script type="application/json" data-labels set:html={JSON.stringify({ sizes: Object.fromEntries(T.sizes.map((s) => [s.v, s.l])), plans: Object.fromEntries(T.plans.map((p) => [p.id, p.t])) })} />
+  </section>
+  <FAQ eyebrow={ar ? 'أسئلة الأسعار' : 'Pricing questions'} title={ar ? 'عن الباقات' : 'About plans'} items={T.faq} />
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .pr__q { border: 0; padding: 0; margin: 0 0 18px }
+  .pr__q legend { font-weight: 700; font-size: 1.2rem; margin-bottom: 14px; font-family: 'Alexandria', var(--font) }
+  .pr__sizes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px }
+  .pr__sizes label, .pr__plan { cursor: pointer; position: relative }
+  .pr__sizes input, .pr__plan input { position: absolute; opacity: 0; pointer-events: none }
+  .pr__sizes span { display: grid; place-items: center; height: 58px; border-radius: var(--r-md); background: var(--surface); border: 1.5px solid var(--line); font-weight: 600; transition: border-color .25s, background-color .25s }
+  .pr__sizes input:checked + span { border-color: var(--green-900); background: var(--green-100) }
+  .pr__sizes input:focus-visible + span, .pr__plan:has(input:focus-visible) { outline: 2px solid var(--saffron-400); outline-offset: 2px }
+  .pr__plans { display: grid; grid-template-columns: 1fr 1fr; gap: 16px }
+  .pr__plan { display: grid; gap: 4px; align-content: start; padding: 28px; border-radius: var(--r-lg); background: var(--surface); border: 2px solid var(--line); transition: border-color .25s }
+  .pr__plan:has(input:checked) { border-color: var(--saffron-400) }
+  .pr__plan--dark { background: var(--green-900); color: var(--sand-100) }
+  .pr__check { position: absolute; inset-inline-end: 22px; top: 22px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--line); color: transparent }
+  .pr__plan--dark .pr__check { border-color: rgba(245, 239, 228, .3) }
+  .pr__plan:has(input:checked) .pr__check { background: var(--saffron-400); border-color: var(--saffron-400); color: var(--green-950) }
+  .pr__t { font-family: 'Alexandria', var(--font); font-size: 1.6rem }
+  .pr__s { color: var(--muted) }
+  .pr__plan--dark .pr__s { color: var(--green-300) }
+  .pr__plan ul { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px }
+  .pr__plan li { display: flex; gap: 10px; align-items: center }
+  .pr__plan li :global(.icon) { color: var(--green-500); flex: none }
+  .pr__plan--dark li :global(.icon) { color: var(--saffron-400) }
+  .pr__sum { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; margin-top: 20px; padding: 20px 24px; border-radius: var(--r-lg); background: var(--saffron-100) }
+  .pr__sum small { display: block; color: var(--muted); font-size: .85rem }
+  .pr__sum b { font-size: 1.15rem }
+  .pr__sum .btn { margin-inline-start: auto }
+  .pr__note { margin-top: 14px; font-size: .92rem; color: var(--muted) }
+  .pr__inc { margin-top: 40px; display: grid; gap: 14px }
+  .pr__inc > div { display: flex; flex-wrap: wrap; gap: 10px }
+  .pr__inc span { display: inline-flex; gap: 8px; align-items: center; padding: 10px 16px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-weight: 500; font-size: .95rem }
+  .pr__inc :global(.icon) { color: var(--green-700) }
+  @media (max-width: 760px) { .pr__sizes { grid-template-columns: 1fr 1fr } .pr__plans { grid-template-columns: 1fr } .pr__sum .btn { margin: 0; flex: 1 1 100% } }
+</style>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-pricing]').forEach((root) => {
+    const L = JSON.parse(root.querySelector('[data-labels]')!.textContent!);
+    const demo = root.dataset.demo!;
+    const upd = () => {
+      const b = (root.querySelector('input[name=branches]:checked') as HTMLInputElement).value;
+      const p = (root.querySelector('input[name=plan]:checked') as HTMLInputElement).value;
+      root.querySelector('[data-sum-b]')!.textContent = L.sizes[b];
+      root.querySelector('[data-sum-p]')!.textContent = L.plans[p];
+      (root.querySelector('[data-quote]') as HTMLAnchorElement).href = `${demo}?branches=${encodeURIComponent(b)}&plan=${p}`;
+    };
+    root.addEventListener('change', upd);
+  });
+</script>

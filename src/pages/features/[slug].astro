@@ -1,0 +1,7 @@
+---
+import FeaturePage from '../../components/pages/FeaturePage.astro';
+import { FEATURES } from '../../i18n/nav';
+export const getStaticPaths = () => FEATURES.map((f) => ({ params: { slug: f.slug } }));
+const { slug } = Astro.params as { slug: any };
+---
+<FeaturePage lang="ar" slug={slug} />

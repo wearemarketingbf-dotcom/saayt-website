@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Industries from '../sections/Industries.astro';
+import Principles from '../sections/Principles.astro';
+import CTABand from '../CTABand.astro';
+import { type Lang, crumbsLd } from '../../i18n/util';
+import { NAV } from '../../i18n/nav';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const N = NAV(lang);
+const seo = ar
+  ? { title: 'صيت للأنشطة متعددة الفروع في السعودية', description: 'حلول لإدارة فروع العيادات والصالونات ومراكز صيانة السيارات والبصريات والعطور والذهب على قوقل ماب من لوحة واحدة' }
+  : { title: 'Built for Multi-Branch Businesses in Saudi | SAAYT', description: 'Google Maps management for clinics · salons · auto service · optics · perfume and gold retailers with many branches' };
+const trail = [{ name: N.industries, path: 'industries/' }];
+---
+<Base lang={lang} title={seo.title} description={seo.description} path="industries/" dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail)]}>
+  <PageHero lang={lang} eyebrow={N.industries} title={ar ? 'لكل قطاع مواسمه وعملاؤه وطريقة رده' : 'Every industry has its own seasons, customers and voice'} lead={ar ? 'صيت مصمم لسلاسل الفروع في السعودية ونبدأ معك من واقع قطاعك: مواسمه وأسئلة عملائه ونبرة الرد المناسبة' : 'SAAYT is built for branch chains in Saudi Arabia and starts from your sector’s reality: its seasons, customer questions and the right tone of reply'} crumbs={trail} compact />
+  <Industries lang={lang} head={false} />
+  <Principles lang={lang} />
+  <CTABand lang={lang} />
+</Base>

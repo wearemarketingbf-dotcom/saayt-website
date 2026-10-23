@@ -1,0 +1,86 @@
+---
+import { type Lang } from '../../i18n/util';
+import { HOME } from '../../data/home';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const P = HOME[lang].problem;
+const ar = lang === 'ar';
+const names = ar ? ['العليا', 'الملقا', 'النرجس', 'الياسمين', 'البطحاء', 'الحمراء', 'الروضة', 'العزيزية', 'السليمانية'] : ['Olaya', 'Malqa', 'Narjis', 'Yasmin', 'Batha', 'Hamra', 'Rawdah', 'Aziziyah', 'Sulaimaniyah'];
+const messy = ar ? ['8:00 م – 1:00 ص', '9:00 ص – 11:00 م', 'مغلق', '7:30 م – 12:00 ص', '24 ساعة', '9:00 م – 3:00 ص', '4:00 م – 11:00 م', 'غير محدد', '10:00 ص – 10:00 م'] : ['8 PM – 1 AM', '9 AM – 11 PM', 'Closed', '7:30 PM – 12 AM', 'Open 24h', '9 PM – 3 AM', '4 PM – 11 PM', 'Not set', '10 AM – 10 PM'];
+const clean = ar ? '9:00 م – 2:00 ص' : '9 PM – 2 AM';
+const rot = [-7, 5, -3, 8, -5, 3, -8, 6, -2];
+const off = [[-14, 10], [12, -8], [-6, 16], [16, 6], [-12, -10], [8, 14], [-16, 4], [10, -14], [-4, 8]];
+---
+<section class="section prob" aria-labelledby="prob-h">
+  <div class="wrap prob__in">
+    <div class="prob__copy">
+      <span class="eyebrow" data-reveal>{P.eyebrow}</span>
+      <h2 class="h2" id="prob-h" data-reveal>{P.h2}</h2>
+      <p class="lead" data-reveal>{P.lead}</p>
+      <div class="prob__pains" data-stagger="110">
+        {P.pains.map((p, i) => (
+          <div class="prob__pain"><span class="prob__n num">0{i + 1}</span><div><b>{p.t}</b><p>{p.d}</p></div></div>
+        ))}
+      </div>
+    </div>
+    <div class="prob__board" data-chaos>
+      <div class="prob__toggle" role="group" aria-label={ar ? 'قبل وبعد' : 'Before and after'}>
+        <button type="button" class="on" data-mode="before" aria-pressed="true">{P.before}</button>
+        <button type="button" data-mode="after" aria-pressed="false">{P.after}</button>
+      </div>
+      <div class="prob__grid">
+        {names.map((n, i) => (
+          <div class="pcard" style={`--r:${rot[i]}deg;--x:${off[i][0]}px;--y:${off[i][1]}px;--d:${i * 70}ms`}>
+            <span class="pcard__b">{ar ? 'فرع ' : ''}{n}</span>
+            <span class="pcard__t num"><span class="m">{messy[i]}</span><span class="c">{clean}</span></span>
+          </div>
+        ))}
+      </div>
+      <p class="prob__cap"><span class="m">{P.beforeCap}</span><span class="c">{P.afterCap}</span></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .prob__in { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: center }
+  .prob__pains { display: grid; gap: 14px; margin-top: 34px }
+  .prob__pain { display: flex; gap: 16px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md) }
+  .prob__pain b { font-size: 1.08rem }
+  .prob__pain p { color: var(--muted); font-size: .98rem }
+  .prob__n { font-weight: 700; color: var(--saffron-500); font-size: .95rem; padding-top: 2px }
+  .prob__board { background: var(--green-900); border-radius: var(--r-xl); padding: clamp(20px, 3vw, 34px); color: var(--sand-100) }
+  .prob__toggle { display: inline-flex; padding: 4px; border-radius: 999px; background: rgba(245, 239, 228, .08); margin-bottom: 22px }
+  .prob__toggle button { height: 38px; padding: 0 18px; border-radius: 999px; font-weight: 600; font-size: .9rem; color: var(--green-300); transition: background-color .3s, color .3s }
+  .prob__toggle button.on { background: var(--saffron-400); color: var(--green-950) }
+  .prob__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px }
+  .prob__in > * { min-width: 0 }
+  .pcard { background: var(--surface); color: var(--text); border-radius: 14px; padding: 12px; display: grid; gap: 4px; transform: translate(var(--x), var(--y)) rotate(var(--r)); transition: transform .8s var(--ease) var(--d), box-shadow .5s }
+  .pcard__b { font-weight: 600; font-size: .86rem; overflow-wrap: anywhere }
+  .pcard__t { position: relative; font-size: .76rem; color: var(--crit); min-height: 1.4em }
+  .pcard__t .c { position: absolute; inset-inline-start: 0; color: var(--green-700); font-weight: 600; opacity: 0; transition: opacity .4s var(--d) }
+  .pcard__t .m { transition: opacity .3s var(--d) }
+  .prob__cap { position: relative; margin-top: 22px; font-weight: 600; color: var(--saffron-400); min-height: 1.6em }
+  .prob__cap .c { position: absolute; inset-inline-start: 0; opacity: 0; transition: opacity .4s .5s }
+  .prob__board.ordered .pcard { transform: none }
+  .prob__board.ordered .pcard__t .m, .prob__board.ordered .prob__cap .m { opacity: 0 }
+  .prob__board.ordered .pcard__t .c, .prob__board.ordered .prob__cap .c { opacity: 1 }
+  @media (max-width: 900px) { .prob__in { grid-template-columns: 1fr } }
+  @media (max-width: 480px) { .prob__grid { gap: 8px } .pcard { padding: 10px 7px } .pcard__b { font-size: .78rem } .pcard__t { font-size: .64rem; white-space: nowrap } }
+  @media (prefers-reduced-motion: reduce) { .pcard, .pcard__t .c, .pcard__t .m { transition: none } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-chaos]').forEach((b) => {
+    const btns = [...b.querySelectorAll<HTMLButtonElement>('[data-mode]')];
+    let touched = false;
+    const set = (after: boolean) => {
+      b.classList.toggle('ordered', after);
+      btns.forEach((x) => { const on = (x.dataset.mode === 'after') === after; x.classList.toggle('on', on); x.setAttribute('aria-pressed', String(on)); });
+    };
+    btns.forEach((x) => x.addEventListener('click', () => { touched = true; set(x.dataset.mode === 'after'); }));
+    // auto: order the board once it is well inside the viewport
+    new IntersectionObserver(([e], o) => {
+      if (e.intersectionRatio > .6 && !touched) { setTimeout(() => !touched && set(true), 900); o.disconnect(); }
+    }, { threshold: [0, .6] }).observe(b);
+  });
+</script>

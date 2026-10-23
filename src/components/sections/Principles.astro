@@ -1,0 +1,26 @@
+---
+import Icon from '../Icon.astro';
+import { type Lang } from '../../i18n/util';
+import { HOME } from '../../data/home';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const P = HOME[lang].principles;
+---
+<section class="section section--dark prin" aria-labelledby="prin-h">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>{P.eyebrow}</span>
+      <h2 class="h2" id="prin-h" data-reveal>{P.h2}</h2>
+    </div>
+    <div class="grid grid-4" data-stagger="100">
+      {P.items.map((it) => (
+        <div class="card prin__c"><span class="prin__i"><Icon name={it.icon} size={24} /></span><h3>{it.t}</h3><p>{it.d}</p></div>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .prin__i { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: rgba(242, 163, 58, .14); color: var(--saffron-400); margin-bottom: 20px }
+  .prin__c h3 { font-size: 1.2rem }
+  .prin__c p { color: var(--green-300); margin-top: 8px; font-size: .98rem }
+</style>

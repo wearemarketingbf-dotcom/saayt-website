@@ -1,0 +1,34 @@
+---
+import Icon from '../Icon.astro';
+import { type Lang, url } from '../../i18n/util';
+import { HOME } from '../../data/home';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const S = HOME[lang].scan;
+const ar = lang === 'ar';
+const q = ar ? ['مواعيد الفرع العادية صحيحة؟', 'مواعيد رمضان والعيد مضافة؟', 'آخر صورة للفرع قبل كم شهر؟', 'كل التقييمات عليها رد؟'] : ['Are regular hours correct?', 'Are Ramadan and Eid hours added?', 'When was the last branch photo added?', 'Does every review have a reply?'];
+---
+<section class="section scan" aria-labelledby="scan-h">
+  <div class="wrap scan__box">
+    <div>
+      <span class="eyebrow" data-reveal>{S.eyebrow}</span>
+      <h2 class="h2" id="scan-h" data-reveal>{S.h2}</h2>
+      <p class="lead" data-reveal>{S.lead}</p>
+      <a class="btn btn--primary scan__cta" href={url(lang, 'free-scan/')} data-reveal>{S.cta}<Icon name="arrow" size={18} class="arrow" /></a>
+    </div>
+    <ul class="scan__q" data-stagger="120">
+      {q.map((x, i) => <li><span class="num">{i + 1}</span>{x}<span class="scan__yn"><i>{ar ? 'نعم' : 'Yes'}</i><i>{ar ? 'لا' : 'No'}</i></span></li>)}
+    </ul>
+  </div>
+</section>
+<style>
+  .scan__box { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 5vw, 72px); align-items: center; background: var(--saffron-100); border-radius: var(--r-xl); padding: clamp(28px, 5vw, 64px) }
+  .scan__cta { margin-top: 28px }
+  .scan__q { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px }
+  .scan__q li { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 14px 16px; background: var(--surface); border-radius: var(--r-md); font-weight: 500 }
+  .scan__q li > .num { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--green-900); color: var(--saffron-400); font-size: .85rem; font-weight: 700 }
+  .scan__yn { display: flex; gap: 6px }
+  .scan__yn i { font-style: normal; font-size: .78rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--sand-100) }
+  .scan__yn i:first-child { background: var(--green-100); color: var(--green-700) }
+  @media (max-width: 900px) { .scan__box { grid-template-columns: 1fr } }
+</style>

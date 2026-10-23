@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import { render, getEntry } from 'astro:content';
+import { type Lang, crumbsLd } from '../../i18n/util';
+interface Props { lang: Lang; doc: 'privacy' | 'terms' }
+const { lang, doc } = Astro.props;
+const ar = lang === 'ar';
+const e = (await getEntry('legal', `${lang}/${doc}`))!;
+const { Content } = await render(e);
+const trail = [{ name: e.data.title, path: `${doc}/` }];
+const fmt = new Intl.DateTimeFormat(ar ? 'ar-SA-u-nu-latn-ca-gregory' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base lang={lang} title={`${e.data.title} | ${ar ? 'صيت' : 'SAAYT'}`} description={e.data.description} path={`${doc}/`} dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail)]}>
+  <PageHero lang={lang} title={e.data.title} lead={`${ar ? 'آخر تحديث' : 'Last updated'} ${fmt.format(e.data.updated)}`} crumbs={trail} cta={false} compact />
+  <section class="section"><div class="wrap"><article class="prose lg"><Content /></article></div></section>
+</Base>
+<style>.lg { max-width: 78ch }</style>

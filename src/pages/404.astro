@@ -1,0 +1,43 @@
+---
+import '@fontsource/alexandria/arabic-700.css';
+import '@fontsource/alexandria/latin-700.css';
+import '@fontsource/ibm-plex-sans-arabic/arabic-400.css';
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '../styles/global.css';
+import { url, asset } from '../i18n/util';
+---
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>الصفحة غير موجودة | Page not found — صيت SAAYT</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href={asset('favicon.svg')} type="image/svg+xml" />
+</head>
+<body class="nf">
+  <main class="nf__in">
+    <img src={asset('brand/saayt_logo_arabic_dark_v01.svg')} alt="صيت" width="140" height="48" />
+    <svg viewBox="-50 -50 100 100" aria-hidden="true"><path d="M0 -48C0 -20 20 0 48 0C20 0 0 20 0 48C0 20 -20 0 -48 0C-20 0 0 -20 0 -48Z" /></svg>
+    <h1>هذا الفرع مو على الخريطة</h1>
+    <p>الصفحة اللي تدورها غير موجودة أو تغير رابطها</p>
+    <div class="nf__l"><a class="btn btn--primary" href={url('ar')}>الرئيسية</a><a class="btn btn--ghost" href={url('ar', 'free-scan/')}>افحص فروعك مجانًا</a><a class="btn btn--ghost" href={url('ar', 'blog/')}>المدونة</a></div>
+    <hr />
+    <div lang="en" dir="ltr">
+      <h2>This branch isn’t on the map</h2>
+      <p>The page you are looking for doesn’t exist or has moved</p>
+      <div class="nf__l"><a class="btn btn--ghost" href={url('en')}>English home</a><a class="btn btn--ghost" href={url('en', 'free-scan/')}>Free branch scan</a></div>
+    </div>
+  </main>
+</body>
+</html>
+<style>
+  .nf { background: var(--green-900); color: var(--sand-100); min-height: 100svh; display: grid; place-items: center; padding: 40px 20px }
+  .nf__in { max-width: 640px; display: grid; justify-items: center; text-align: center; gap: 14px }
+  .nf svg { width: 56px; fill: var(--saffron-400); margin-top: 20px }
+  .nf h1 { font-family: 'Alexandria', var(--font); font-size: clamp(1.8rem, 5vw, 2.8rem) }
+  .nf h2 { font-family: 'IBM Plex Sans', sans-serif; font-size: 1.4rem }
+  .nf p { color: var(--green-300) }
+  .nf__l { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px }
+  .nf .btn--ghost { color: var(--sand-100); border-color: rgba(245, 239, 228, .4) }
+  .nf hr { width: 100%; border: 0; border-top: 1px solid rgba(245, 239, 228, .15); margin: 24px 0 }
+</style>

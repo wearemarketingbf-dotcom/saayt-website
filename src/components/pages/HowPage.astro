@@ -1,0 +1,121 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import FAQ from '../sections/FAQ.astro';
+import CTABand from '../CTABand.astro';
+import { type Lang, crumbsLd, faqLd } from '../../i18n/util';
+import { NAV } from '../../i18n/nav';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const N = NAV(lang);
+const T = ar ? {
+  seo: { title: 'كيف يعمل صيت في ثلاث خطوات', description: 'اربط حساب Google لفروعك ثم راجع حالة كل فرع وابدأ تحديث الأوقات والرد على التقييمات من لوحة واحدة مع فريقك' },
+  h1: 'من الربط إلى أول رد معتمد', lead: 'ما تحتاج تغير طريقة شغلك صيت يجمع فروعك في مكان واحد وفريقك يعتمد كل شيء قبل ما يوصل لـ Google',
+  steps: [
+    { icon: 'lock', t: 'اربط حساب Google', d: 'تسجل الدخول بحساب Google اللي يدير ملفات فروعك وتوافق على الصلاحيات من شاشة Google الرسمية', pts: ['ما نطلب كلمة مرورك', 'تقدر تلغي الربط في أي وقت', 'تختار الفروع اللي تبي تديرها'] },
+    { icon: 'search', t: 'الفحص الأول', d: 'صيت يراجع كل فرع ويوريك الأولويات: مواعيد ناقصة وتقييمات بدون رد وبيانات غير موحدة', pts: ['قائمة مرتبة لكل فرع', 'مؤشر أولي لكل فرع', 'خطة تصحيح واضحة'] },
+    { icon: 'team', t: 'جهز فريقك', d: 'تضيف أعضاء الفريق وتحدد صلاحية كل واحد وتكتب نبرة الردود والكلمات الممنوعة', pts: ['صلاحيات حسب الفرع', 'نبرة ردود تشبه علامتك', 'مين يعتمد ومين يقترح'] },
+    { icon: 'check', t: 'اعتمد ويتطبق', d: 'من هنا الشغل اليومي: تعتمد الردود والتعديلات بضغطة وتتابع التنبيهات والمؤشر', pts: ['ولا شيء ينشر بدون موافقة', 'تعديل واحد لكل الفروع', 'تقرير أسبوعي للإدارة'] },
+  ],
+  needH: 'وش تحتاج قبل ما تبدأ', need: [
+    { t: 'حساب Google يدير الفروع', d: 'الحساب المالك أو المدير لملفات الفروع على Google' },
+    { t: 'فروع موثقة', d: 'إذا فيه فرع غير موثق نساعدك تعرف الخطوات من Google' },
+    { t: 'شخص مسؤول', d: 'شخص من فريقك يعتمد الردود والتعديلات' },
+  ],
+  modesH: 'طريقتين للعمل', modes: [
+    { t: 'فريقك يدير', d: 'فريقك يستخدم صيت مباشرة ويعتمد كل شيء بنفسه' },
+    { t: 'فريق صيت يدير عنك', d: 'خدمة اختيارية يتولى فيها فريق صيت المتابعة واقتراح الردود وأنت صاحب القرار' },
+  ],
+  faq: [
+    { q: 'كم ياخذ الإعداد؟', a: 'الربط نفسه دقائق ومدة تجهيز الفريق والنبرة تعتمد على عدد الفروع ونرتبها معك في العرض' },
+    { q: 'هل أحتاج أغير الحساب اللي يدير الفروع؟', a: 'لا تربط نفس الحساب الحالي وتبقى ملكية الفروع لك' },
+    { q: 'وش يصير لو ألغيت الربط؟', a: 'صيت يتوقف عن الوصول لملفات فروعك فورًا وكل ما نشر على Google يبقى كما هو' },
+  ],
+} : {
+  seo: { title: 'How SAAYT Works in Three Steps | SAAYT', description: 'Connect your branches’ Google account · review each branch’s status then update hours and reply to reviews with your team from one dashboard' },
+  h1: 'From connection to your first approved reply', lead: 'You do not need to change how you work. SAAYT brings your branches into one place and your team approves everything before it reaches Google',
+  steps: [
+    { icon: 'lock', t: 'Connect Google', d: 'Sign in with the Google account that manages your branch profiles and approve access on Google’s official consent screen', pts: ['We never ask for your password', 'Disconnect at any time', 'Choose which branches to manage'] },
+    { icon: 'search', t: 'First scan', d: 'SAAYT reviews every branch and shows the priorities: missing hours, unanswered reviews and inconsistent details', pts: ['A sorted list per branch', 'An initial score per branch', 'A clear fix plan'] },
+    { icon: 'team', t: 'Set up your team', d: 'Add team members, set each person’s permissions and write your reply tone and banned words', pts: ['Per-branch permissions', 'A reply tone that matches your brand', 'Who drafts and who approves'] },
+    { icon: 'check', t: 'Approve and apply', d: 'This is the daily work: approve replies and changes in one tap and follow alerts and scores', pts: ['Nothing posts without approval', 'One edit for every branch', 'A weekly report for management'] },
+  ],
+  needH: 'What you need to start', need: [
+    { t: 'A Google account that manages branches', d: 'The owner or manager account of your branch profiles on Google' },
+    { t: 'Verified branches', d: 'If a branch is not verified we help you find Google’s steps' },
+    { t: 'A responsible person', d: 'Someone on your team who approves replies and changes' },
+  ],
+  modesH: 'Two ways to work', modes: [
+    { t: 'Your team runs it', d: 'Your team uses SAAYT directly and approves everything' },
+    { t: 'The SAAYT team runs it for you', d: 'An optional service where the SAAYT team follows up and drafts replies while you keep the final say' },
+  ],
+  faq: [
+    { q: 'How long does setup take?', a: 'Connecting takes minutes. Team and tone setup depends on your branch count and we plan it with you in the demo' },
+    { q: 'Do I need to change the account that manages my branches?', a: 'No. Connect the same account and branch ownership stays with you' },
+    { q: 'What happens if I disconnect?', a: 'SAAYT loses access to your branch profiles immediately and everything already on Google stays as it is' },
+  ],
+};
+const trail = [{ name: N.how, path: 'how-it-works/' }];
+const howLd = { '@context': 'https://schema.org', '@type': 'HowTo', name: T.h1, step: T.steps.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, name: s.t, text: s.d })) };
+---
+<Base lang={lang} title={T.seo.title} description={T.seo.description} path="how-it-works/" dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), faqLd(T.faq), howLd]}>
+  <PageHero lang={lang} eyebrow={N.how} title={T.h1} lead={T.lead} crumbs={trail} />
+  <section class="section">
+    <div class="wrap">
+      <ol class="hw">
+        {T.steps.map((s, i) => (
+          <li class="hw__s" data-reveal>
+            <div class="hw__rail"><span class="hw__n num">{i + 1}</span></div>
+            <div class="hw__body">
+              <span class="hw__i"><Icon name={s.icon} size={22} /></span>
+              <h2>{s.t}</h2><p>{s.d}</p>
+              <ul>{s.pts.map((p) => <li><Icon name="check" size={16} />{p}</li>)}</ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <section class="section section--surface">
+    <div class="wrap hw-2">
+      <div>
+        <h2 class="h2" data-reveal>{T.needH}</h2>
+        <div class="hw-need" data-stagger="90">{T.need.map((n) => <div><Icon name="check" size={18} /><div><b>{n.t}</b><p>{n.d}</p></div></div>)}</div>
+      </div>
+      <div>
+        <h2 class="h2" data-reveal>{T.modesH}</h2>
+        <div class="hw-modes" data-stagger="90">{T.modes.map((m, i) => <div class:list={['card', { 'hw-modes--dark': i === 1 }]}><b>{m.t}</b><p>{m.d}</p></div>)}</div>
+      </div>
+    </div>
+  </section>
+  <FAQ eyebrow={ar ? 'أسئلة البداية' : 'Getting started'} title={ar ? 'قبل ما تربط' : 'Before you connect'} items={T.faq} />
+  <CTABand lang={lang} />
+</Base>
+<style>
+  .hw { list-style: none; margin: 0 auto; padding: 0; max-width: 860px }
+  .hw__s { display: grid; grid-template-columns: 64px 1fr; gap: 20px }
+  .hw__rail { position: relative; display: flex; justify-content: center }
+  .hw__rail::after { content: ''; position: absolute; top: 52px; bottom: -8px; border-inline-start: 2px dashed var(--saffron-400); opacity: .6 }
+  .hw__s:last-child .hw__rail::after { display: none }
+  .hw__n { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--green-900); color: var(--saffron-400); font-weight: 700; font-size: 1.1rem; position: relative; z-index: 1 }
+  .hw__body { padding: 26px 28px; margin-bottom: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg) }
+  .hw__i { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--green-100); color: var(--green-700); margin-bottom: 14px }
+  .hw__body h2 { font-size: var(--fs-h3) }
+  .hw__body > p { color: var(--muted); margin-top: 6px }
+  .hw__body ul { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: .95rem; font-weight: 500 }
+  .hw__body li { display: inline-flex; align-items: center; gap: 6px }
+  .hw__body li :global(.icon) { color: var(--green-500) }
+  .hw-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 80px) }
+  .hw-need { display: grid; gap: 14px; margin-top: 26px }
+  .hw-need > div { display: flex; gap: 12px }
+  .hw-need :global(.icon) { color: var(--saffron-500); flex: none; margin-top: 4px }
+  .hw-need p, .hw-modes p { color: var(--muted) }
+  .hw-modes { display: grid; gap: 14px; margin-top: 26px }
+  .hw-modes b { font-size: 1.15rem }
+  .hw-modes--dark { background: var(--green-900); color: var(--sand-100); border-color: transparent }
+  .hw-modes--dark p { color: var(--green-300) }
+  @media (max-width: 900px) { .hw-2 { grid-template-columns: 1fr } }
+  @media (max-width: 560px) { .hw__s { grid-template-columns: 40px 1fr; gap: 12px } .hw__n { width: 36px; height: 36px; font-size: .95rem } .hw__rail::after { top: 40px } .hw__body { padding: 20px } }
+</style>

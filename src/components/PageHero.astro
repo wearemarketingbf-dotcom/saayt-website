@@ -1,0 +1,50 @@
+---
+import Icon from './Icon.astro';
+import { type Lang, url } from '../i18n/util';
+interface Props { lang: Lang; eyebrow?: string; title: string; lead?: string; crumbs?: { name: string; path: string }[]; cta?: boolean; img?: string; compact?: boolean }
+const { lang, eyebrow, title, lead, crumbs = [], cta = true, img, compact = false } = Astro.props;
+const ar = lang === 'ar';
+const home = { name: ar ? 'الرئيسية' : 'Home', path: '' };
+const trail = [home, ...crumbs];
+---
+<section class:list={['phero section--deep', { 'phero--img': img, 'phero--compact': compact }]} aria-labelledby="ph-h">
+  {img && <div class="phero__bg" aria-hidden="true"><img src={img} alt="" width="1600" height="900" fetchpriority="high" /><span></span></div>}
+  <div class="wrap phero__in">
+    {crumbs.length > 0 && (
+      <nav class="crumbs" aria-label={ar ? 'مسار التنقل' : 'Breadcrumb'}>
+        <ol>
+          {trail.map((c, i) => (
+            <li>{i < trail.length - 1 ? <a href={url(lang, c.path)}>{c.name}</a> : <span aria-current="page">{c.name}</span>}</li>
+          ))}
+        </ol>
+      </nav>
+    )}
+    {eyebrow && <span class="eyebrow" data-reveal>{eyebrow}</span>}
+    <h1 class="phero__h" id="ph-h" data-reveal>{title}</h1>
+    {lead && <p class="lead phero__lead" data-reveal>{lead}</p>}
+    {cta && (
+      <div class="phero__ctas" data-reveal>
+        <a class="btn btn--primary" href={url(lang, 'demo/')}>{ar ? 'احجز عرضًا' : 'Book a demo'}<Icon name="arrow" size={18} class="arrow" /></a>
+        <a class="btn btn--ghost" href={url(lang, 'free-scan/')}>{ar ? 'افحص فروعك مجانًا' : 'Free branch scan'}</a>
+      </div>
+    )}
+    <slot />
+  </div>
+</section>
+<style>
+  .phero { position: relative; isolation: isolate; overflow: hidden; padding: clamp(130px, 14vw, 180px) 0 clamp(64px, 8vw, 104px) }
+  .phero--compact { padding-bottom: clamp(44px, 5vw, 64px) }
+  .phero__bg { position: absolute; inset: 0; z-index: -1 }
+  .phero__bg img { width: 100%; height: 100%; object-fit: cover }
+  .phero__bg span { position: absolute; inset: 0; background: rgba(10, 41, 36, .78) }
+  .phero__h { font-family: 'Alexandria', var(--font); font-weight: 700; font-size: clamp(2.2rem, 4.6vw, 4rem); line-height: 1.18; max-width: 18ch; margin-top: 14px; text-wrap: balance }
+  html[lang='en'] .phero__h { letter-spacing: -0.025em; line-height: 1.08 }
+  .phero__lead { margin-top: 20px; max-width: 40em; color: var(--sand-200) }
+  .phero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px }
+  .phero__ctas .btn--ghost { color: var(--sand-100); border-color: rgba(245, 239, 228, .45) }
+  .crumbs ol { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; font-size: .9rem; color: var(--green-300) }
+  .crumbs li + li::before { content: '/'; margin-inline-end: 6px; opacity: .5 }
+  .crumbs a:hover { color: var(--sand-100) }
+  .crumbs [aria-current] { color: var(--sand-200) }
+  @media (max-width: 560px) { .phero__ctas .btn { flex: 1 1 100% } }
+</style>

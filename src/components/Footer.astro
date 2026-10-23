@@ -1,0 +1,75 @@
+---
+import Icon from './Icon.astro';
+import { type Lang, url, asset, other, CONTACT } from '../i18n/util';
+import { NAV, FEATURES, INDUSTRIES } from '../i18n/nav';
+import { CONFIG } from '../config';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const n = NAV(lang);
+const ar = lang === 'ar';
+const wa = CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}` : url(lang, 'demo/');
+---
+<footer class="ftr section--deep">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <img src={asset(ar ? 'brand/saayt_logo_arabic_dark_v01.svg' : 'brand/saayt_logo_latin_dark_v02.svg')} alt={ar ? 'صيت' : 'SAAYT'} width="140" height="46" loading="lazy" />
+        <p class="ftr__line">{ar ? 'فروعك كثيرة وصيتك واحد' : 'Every branch · one standard'}</p>
+        <p class="ftr__about">{ar ? 'منصة سعودية تدير حضور فروعك على Google من شاشة وحدة' : 'A Saudi platform that runs every branch’s presence on Google from one screen'}</p>
+        <div class="ftr__ctas">
+          <a class="btn btn--primary" href={url(lang, 'demo/')}>{n.demo}</a>
+          <a class="btn btn--ghost" href={wa}><Icon name="whatsapp" size={18} />{n.whatsapp}</a>
+        </div>
+      </div>
+      <div class="ftr__cols">
+        <div>
+          <p class="ftr__h">{n.features}</p>
+          {FEATURES.map((f) => <a href={url(lang, `features/${f.slug}/`)}>{f[lang].t}</a>)}
+        </div>
+        <div>
+          <p class="ftr__h">{n.industries}</p>
+          {INDUSTRIES.map((i) => <a href={url(lang, `industries/${i.slug}/`)}>{i[lang]}</a>)}
+        </div>
+        <div>
+          <p class="ftr__h">{ar ? 'صيت' : 'Company'}</p>
+          <a href={url(lang, 'how-it-works/')}>{n.how}</a>
+          <a href={url(lang, 'pricing/')}>{n.pricing}</a>
+          <a href={url(lang, 'free-scan/')}>{n.scan}</a>
+          <a href={url(lang, 'about/')}>{n.about}</a>
+          <a href={url(lang, 'security/')}>{n.security}</a>
+          <a href={url(lang, 'blog/')}>{n.blog}</a>
+        </div>
+      </div>
+    </div>
+    <div class="ftr__bottom">
+      <p>© 2026 {ar ? 'صيت · جميع الحقوق محفوظة' : 'SAAYT · All rights reserved'}</p>
+      <div class="ftr__legal">
+        <a href={url(lang, 'privacy/')}>{ar ? 'سياسة الخصوصية' : 'Privacy policy'}</a>
+        <a href={url(lang, 'terms/')}>{ar ? 'الشروط والأحكام' : 'Terms'}</a>
+        <a href={`mailto:${CONFIG.email}`} class="ltr">{CONFIG.email}</a>
+        <span>{CONTACT.city[lang]}</span>
+        <a href={url(other(lang))} lang={other(lang)}>{n.switch}</a>
+      </div>
+    </div>
+    <p class="ftr__note">{ar ? 'Google وGoogle Maps علامتان تجاريتان لشركة Google LLC وصيت منصة مستقلة غير تابعة لها' : 'Google and Google Maps are trademarks of Google LLC. SAAYT is an independent platform and is not affiliated with Google'}</p>
+  </div>
+</footer>
+
+<style>
+  .ftr { padding: clamp(64px, 8vw, 104px) 0 calc(36px + env(safe-area-inset-bottom)) }
+  .ftr__top { display: grid; grid-template-columns: 1.1fr 1.6fr; gap: clamp(40px, 6vw, 96px) }
+  .ftr__brand img { height: 46px; width: auto }
+  .ftr__line { margin-top: 22px; font-size: 1.35rem; font-weight: 700; color: var(--saffron-400) }
+  .ftr__about { margin-top: 8px; color: var(--green-300); max-width: 38ch }
+  .ftr__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px }
+  .ftr__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px }
+  .ftr__cols a { display: block; padding: 6px 0; color: var(--green-300); font-size: .98rem; transition: color .2s }
+  .ftr__cols a:hover { color: var(--sand-100) }
+  .ftr__h { font-weight: 600; margin-bottom: 10px; color: var(--sand-100) }
+  .ftr__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(245, 239, 228, .12); color: var(--green-300); font-size: .92rem }
+  .ftr__legal { display: flex; flex-wrap: wrap; gap: 8px 22px }
+  .ftr__legal a:hover { color: var(--sand-100) }
+  .ftr__note { margin-top: 18px; font-size: .8rem; color: var(--green-500) }
+  @media (max-width: 900px) { .ftr__top { grid-template-columns: 1fr } }
+  @media (max-width: 560px) { .ftr__cols { grid-template-columns: 1fr 1fr } }
+</style>

@@ -1,0 +1,88 @@
+---
+import Stars from './Stars.astro';
+import type { Lang } from '../../i18n/util';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const T = ar ? {
+  title: 'التقييمات', tag: 'مثال توضيحي', filters: ['الكل', 'بدون رد', 'منخفضة'],
+  list: [
+    { b: 'فرع العليا', t: 'قبل 10 دقائق', n: 2, x: 'جيت الساعة 11 والفرع مسكر وقوقل يقول مفتوح', sel: true },
+    { b: 'فرع الملقا', t: 'قبل ساعة', n: 5, x: 'تعامل راقي والموظفة أمل خدمتني بسرعة' },
+    { b: 'فرع النرجس', t: 'أمس', n: 4, x: 'المكان نظيف بس المواقف قليلة' },
+  ],
+  sug: 'رد مقترح بلهجة العميل',
+  reply: 'حياك الله ونعتذر لك عن اللي صار في فرع العليا معك حق المواعيد كانت غلط على Google وعدلناها الحين وبلغنا مدير الفرع ونتشرف بزيارتك الجاية',
+  approve: 'اعتمد الرد', edit: 'عدّل', note: 'ما ينشر أي رد قبل موافقتك', done: 'تم النشر بعد موافقتك',
+} : {
+  title: 'Reviews', tag: 'Example', filters: ['All', 'Unanswered', 'Low rating'],
+  list: [
+    { b: 'Olaya branch', t: '10 min ago', n: 2, x: 'Came at 11 and the branch was closed though Google said open', sel: true },
+    { b: 'Malqa branch', t: '1 hour ago', n: 5, x: 'Lovely service and Amal helped me quickly' },
+    { b: 'Narjis branch', t: 'Yesterday', n: 4, x: 'Clean place but parking is limited' },
+  ],
+  sug: 'Suggested reply in the customer’s tone',
+  reply: 'Thank you and we’re sorry about your visit to the Olaya branch. You’re right, the hours on Google were wrong and we’ve fixed them now. We’ve informed the branch manager and hope to welcome you again',
+  approve: 'Approve reply', edit: 'Edit', note: 'Nothing posts before your approval', done: 'Published after your approval',
+};
+---
+<div class="mock rv" data-rv data-reveal>
+  <div class="mock__bar"><span class="mock__title">{T.title}</span><span class="mock__tag">{T.tag}</span></div>
+  <div class="rv__filters">{T.filters.map((f, i) => <span class:list={['rv__f', { on: i === 1 }]}>{f}</span>)}</div>
+  <div class="rv__list">
+    {T.list.map((r) => (
+      <div class:list={['rv__item', { sel: r.sel }]}>
+        <div class="rv__top"><b>{r.b}</b><Stars n={r.n} /><small>{r.t}</small></div>
+        <p>{r.x}</p>
+      </div>
+    ))}
+  </div>
+  <div class="rv__sug">
+    <span class="rv__lbl">{T.sug}</span>
+    <p class="rv__reply" data-text={T.reply}>{T.reply}</p>
+    <div class="rv__acts">
+      <span class="btn btn--primary rv__ok"><span class="rv__a1">{T.approve}</span><span class="rv__a2">{T.done}</span></span>
+      <span class="btn btn--light-ghost">{T.edit}</span>
+    </div>
+    <small class="rv__note">{T.note}</small>
+  </div>
+</div>
+<style>
+  .rv { display: grid; gap: 12px }
+  .rv__filters { display: flex; gap: 6px }
+  .rv__f { padding: 5px 12px; border-radius: 999px; font-size: .8rem; font-weight: 600; background: var(--sand-100); color: var(--ink-600) }
+  .rv__f.on { background: var(--green-900); color: var(--sand-100) }
+  .rv__list { display: grid; gap: 8px }
+  .rv__item { padding: 11px 13px; border-radius: 14px; border: 1px solid var(--line); font-size: .86rem }
+  .rv__item.sel { border-color: var(--saffron-400); background: #FFFBF4 }
+  .rv__top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px }
+  .rv__top small { margin-inline-start: auto; color: var(--ink-400); font-size: .76rem }
+  .rv__item p { color: var(--ink-700) }
+  .rv__sug { padding: 14px; border-radius: 16px; background: var(--green-900); color: var(--sand-100) }
+  .rv__lbl { font-size: .76rem; font-weight: 600; color: var(--saffron-400) }
+  .rv__reply { margin-top: 6px; font-size: .9rem; min-height: 4.6em }
+  .rv__reply.typing::after { content: ''; display: inline-block; width: 2px; height: 1em; background: var(--saffron-400); margin-inline-start: 2px; vertical-align: -2px; animation: blink .8s steps(2) infinite }
+  @keyframes blink { 50% { opacity: 0 } }
+  .rv__acts { display: flex; gap: 8px; margin-top: 12px }
+  .rv__acts .btn { --h: 40px; padding: 0 16px; font-size: .86rem; pointer-events: none }
+  .rv__acts .btn--light-ghost { color: var(--sand-100); border-color: rgba(245, 239, 228, .3) }
+  .rv__a2 { display: none }
+  .rv.ok .rv__a1 { display: none }
+  .rv.ok .rv__a2 { display: inline }
+  .rv.ok .rv__ok { background: var(--green-300); }
+  .rv__note { display: block; margin-top: 10px; font-size: .74rem; color: var(--green-300) }
+</style>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rv]').forEach((el) => {
+    const p = el.querySelector<HTMLElement>('.rv__reply')!;
+    const text = p.dataset.text || '';
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    p.textContent = '';
+    const run = () => {
+      p.classList.add('typing'); let i = 0;
+      const step = () => { i += 2; p.textContent = text.slice(0, i); if (i < text.length) setTimeout(step, 22); else { p.classList.remove('typing'); setTimeout(() => el.classList.add('ok'), 900); } };
+      setTimeout(step, 500);
+    };
+    new IntersectionObserver(([e], o) => { if (e.isIntersecting) { run(); o.disconnect(); } }, { threshold: .4 }).observe(el);
+  });
+</script>

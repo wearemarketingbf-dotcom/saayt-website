@@ -1,0 +1,36 @@
+---
+import Icon from '../Icon.astro';
+import { type Lang, url, asset } from '../../i18n/util';
+interface Props { lang: Lang; title: string; lead: string; cta1: string; cta2: string }
+const { lang, title, lead, cta1, cta2 } = Astro.props;
+---
+<section class="section section--dark fcta" aria-labelledby="fcta-h">
+  <div class="wrap fcta__in">
+    <svg class="fcta__star" viewBox="-50 -50 100 100" aria-hidden="true"><path d="M0 -48C0 -20 20 0 48 0C20 0 0 20 0 48C0 20 -20 0 -48 0C-20 0 0 -20 0 -48Z" fill="currentColor"/></svg>
+    <div class="fcta__logos" aria-hidden="true">
+      <img src={asset('brand/saayt_logo_latin_dark_v02.svg')} alt="" width="150" height="50" loading="lazy" />
+      <span></span>
+      <img src={asset('brand/saayt_logo_arabic_dark_v01.svg')} alt="" width="150" height="52" loading="lazy" />
+    </div>
+    <h2 class="h2" id="fcta-h" data-reveal>{title}</h2>
+    <p class="lead" data-reveal>{lead}</p>
+    <div class="fcta__btns" data-reveal>
+      <a class="btn btn--primary" href={url(lang, 'demo/')}>{cta1}<Icon name="arrow" size={18} class="arrow" /></a>
+      <a class="btn btn--ghost" href={url(lang, 'free-scan/')}>{cta2}</a>
+    </div>
+  </div>
+</section>
+<style>
+  .fcta { overflow: hidden }
+  .fcta__in { display: grid; justify-items: center; text-align: center; position: relative }
+  .fcta__star { width: 64px; height: 64px; color: var(--saffron-400); animation: spin 18s linear infinite }
+  @keyframes spin { to { transform: rotate(360deg) } }
+  .fcta__logos { display: flex; align-items: center; gap: 22px; margin: 26px 0 8px }
+  .fcta__logos img { height: 40px; width: auto }
+  .fcta__logos span { width: 1.5px; height: 44px; background: rgba(245, 239, 228, .35) }
+  .fcta .h2, .fcta .lead { margin-inline: auto; text-align: center }
+  .fcta .h2 { max-width: 20ch }
+  .fcta__btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px }
+  .fcta__btns .btn--ghost { color: var(--sand-100); border-color: rgba(245, 239, 228, .45) }
+  @media (prefers-reduced-motion: reduce) { .fcta__star { animation: none } }
+</style>

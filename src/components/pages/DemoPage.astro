@@ -1,0 +1,140 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import { type Lang, url, crumbsLd } from '../../i18n/util';
+import { NAV } from '../../i18n/nav';
+import { CONFIG } from '../../config';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const N = NAV(lang);
+const T = ar ? {
+  seo: { title: 'اطلب عرضاً تجريبياً لصيت', description: 'احجز عرضاً مباشراً مع فريق صيت وشاهد كيف تدير كل فروعك على قوقل ماب من مكان واحد أو تواصل معنا بأي سؤال' },
+  h1: 'خلنا نوريك فروعك على Google', lead: 'عرض مباشر مع فريق صيت نراجع فيه وضع فروعك ونوريك كيف تمسكها كلها من شاشة وحدة',
+  name: 'الاسم', company: 'اسم النشاط', phone: 'رقم الجوال', phoneHint: '05XXXXXXXX', branches: 'عدد الفروع', pick: 'اختر', msg: 'وش تبي نركز عليه؟ (اختياري)',
+  sizes: [['1-4', 'من 1 إلى 4'], ['5-10', 'من 5 إلى 10'], ['11-20', 'من 11 إلى 20'], ['21+', 'أكثر من 20']],
+  consent: 'أوافق على أن يتواصل معي فريق صيت بخصوص طلبي وعلى معالجة بياناتي وفق', policy: 'سياسة الخصوصية',
+  send: 'أرسل الطلب', sending: 'جاري الإرسال', ok: 'وصلنا طلبك', okD: 'بيتواصل معك فريق صيت قريبًا لتحديد موعد العرض', mailNote: 'بيفتح تطبيق البريد برسالة جاهزة اضغط إرسال فيها', err: 'تأكد من الحقول المطلوبة', fail: 'ما قدرنا نرسل الطلب جرب مرة ثانية أو راسلنا على البريد',
+  get: 'وش بتحصل في العرض', gets: ['مراجعة سريعة لوضع فروعك على Google', 'جولة في صيت على أمثلة من قطاعك', 'إجابة على أسئلة فريقك', 'عرض سعر حسب عدد فروعك'],
+  other: 'تفضل تتواصل مباشرة؟', mail: 'البريد الإلكتروني', wa: 'واتساب', scanLbl: 'نتيجة الفحص المجاني', planLbl: 'الباقة',
+  plans: { platform: 'المنصة', managed: 'الإدارة الكاملة' } as Record<string, string>,
+  subject: 'طلب عرض صيت',
+} : {
+  seo: { title: 'Book a SAAYT Demo or Contact Us', description: 'Book a live walkthrough with the SAAYT team and see how to run every branch on Google Maps from one place — or just ask us a question' },
+  h1: 'Let us show you your branches on Google', lead: 'A live session with the SAAYT team where we review your branches and show you how to run them all from one screen',
+  name: 'Name', company: 'Business name', phone: 'Mobile number', phoneHint: '05XXXXXXXX', branches: 'Number of branches', pick: 'Choose', msg: 'What should we focus on? (optional)',
+  sizes: [['1-4', '1 to 4'], ['5-10', '5 to 10'], ['11-20', '11 to 20'], ['21+', 'More than 20']],
+  consent: 'I agree that the SAAYT team may contact me about my request and process my data under the', policy: 'Privacy Policy',
+  send: 'Send request', sending: 'Sending', ok: 'We got your request', okD: 'The SAAYT team will contact you soon to schedule the demo', mailNote: 'Your email app will open with a ready message. Press send there', err: 'Please check the required fields', fail: 'We could not send your request. Try again or email us',
+  get: 'What you get in the demo', gets: ['A quick review of your branches on Google', 'A tour of SAAYT with examples from your sector', 'Answers to your team’s questions', 'A quote based on your branch count'],
+  other: 'Prefer to reach us directly?', mail: 'Email', wa: 'WhatsApp', scanLbl: 'Free scan result', planLbl: 'Plan',
+  plans: { platform: 'Platform', managed: 'Fully managed' } as Record<string, string>,
+  subject: 'SAAYT demo request',
+};
+const trail = [{ name: N.demo, path: 'demo/' }];
+---
+<Base lang={lang} title={T.seo.title} description={T.seo.description} path="demo/" dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail)]}>
+  <PageHero lang={lang} eyebrow={N.demo} title={T.h1} lead={T.lead} crumbs={trail} cta={false} compact />
+  <section class="section dm">
+    <div class="wrap dm__in">
+      <form class="dm__form" data-demo-form data-endpoint={CONFIG.formEndpoint} data-email={CONFIG.email} data-subject={T.subject} novalidate>
+        <div class="dm__f"><label for="f-name">{T.name}</label><input id="f-name" name="name" autocomplete="name" required maxlength="80" /></div>
+        <div class="dm__f"><label for="f-company">{T.company}</label><input id="f-company" name="company" autocomplete="organization" required maxlength="120" /></div>
+        <div class="dm__f"><label for="f-phone">{T.phone}</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder={T.phoneHint} required pattern="^(\+?966|0)?5\d{8}$" /></div>
+        <div class="dm__f"><label for="f-branches">{T.branches}</label>
+          <select id="f-branches" name="branches" required><option value="">{T.pick}</option>{T.sizes.map(([v, l]) => <option value={v}>{l}</option>)}</select></div>
+        <div class="dm__f dm__f--full"><label for="f-msg">{T.msg}</label><textarea id="f-msg" name="message" rows="3" maxlength="800"></textarea></div>
+        <input type="hidden" name="plan" /><input type="hidden" name="scan" /><input type="hidden" name="lang" value={lang} />
+        <div class="dm__ctx" data-ctx hidden></div>
+        <label class="dm__consent dm__f--full"><input type="checkbox" name="consent" required /><span>{T.consent} <a href={url(lang, 'privacy/')}>{T.policy}</a></span></label>
+        <button class="btn btn--primary dm__send" type="submit"><span data-l>{T.send}</span><Icon name="arrow" size={18} class="arrow" /></button>
+        <p class="dm__msg" data-msg role="status" hidden></p>
+        <script type="application/json" data-t set:html={JSON.stringify({ err: T.err, fail: T.fail, sending: T.sending, send: T.send, mailNote: T.mailNote, scanLbl: T.scanLbl, planLbl: T.planLbl, plans: T.plans, sizes: Object.fromEntries(T.sizes) })} />
+      </form>
+      <div class="dm__ok" data-ok hidden tabindex="-1"><span class="dm__okI"><Icon name="check" size={30} /></span><h2>{T.ok}</h2><p>{T.okD}</p></div>
+      <aside class="dm__side">
+        <h2>{T.get}</h2>
+        <ul>{T.gets.map((g) => <li><Icon name="check" size={18} />{g}</li>)}</ul>
+        <div class="dm__other">
+          <b>{T.other}</b>
+          <a href={`mailto:${CONFIG.email}`}><Icon name="mail" size={18} /><span>{T.mail}</span><span class="ltr">{CONFIG.email}</span></a>
+          {CONFIG.whatsapp && <a href={`https://wa.me/${CONFIG.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} /><span>{T.wa}</span></a>}
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+<style>
+  .dm__in { display: grid; grid-template-columns: 1.3fr .7fr; gap: clamp(28px, 5vw, 64px); align-items: start }
+  .dm__form, .dm__ok { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: clamp(22px, 4vw, 40px); border-radius: var(--r-xl); background: var(--surface); border: 1px solid var(--line) }
+  .dm__f { display: grid; gap: 6px }
+  .dm__f--full, .dm__ctx, .dm__send, .dm__msg { grid-column: 1 / -1 }
+  .dm__f label { font-weight: 600; font-size: .95rem }
+  .dm__f input, .dm__f select, .dm__f textarea { font: inherit; width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--sand-300); background: #fff; color: var(--text); transition: border-color .2s }
+  .dm__f input { height: 52px }
+  .dm__f select { height: 52px }
+  .dm__f input:focus, .dm__f select:focus, .dm__f textarea:focus { outline: none; border-color: var(--green-700); box-shadow: 0 0 0 3px var(--green-100) }
+  .dm__f [aria-invalid='true'] { border-color: var(--crit) }
+  html[dir='rtl'] #f-phone { text-align: right }
+  .dm__consent { display: flex; gap: 10px; align-items: flex-start; font-size: .93rem; color: var(--ink-700); cursor: pointer }
+  .dm__consent input { width: 20px; height: 20px; margin-top: 4px; accent-color: var(--green-900); flex: none }
+  .dm__consent a { color: var(--green-700); text-decoration: underline; text-underline-offset: 3px }
+  .dm__consent[data-bad] span { color: var(--crit) }
+  .dm__send { justify-self: start }
+  .dm__msg { font-weight: 600; color: var(--crit) }
+  .dm__msg.info { color: var(--green-700) }
+  .dm__ctx { display: flex; flex-wrap: wrap; gap: 8px }
+  .dm__ctx span { padding: 6px 14px; border-radius: 99px; background: var(--saffron-100); font-size: .9rem; font-weight: 600 }
+  .dm__ok { grid-template-columns: 1fr; justify-items: start; outline: none }
+  .dm__okI { width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--green-900); color: var(--saffron-400) }
+  .dm__ok p { color: var(--muted) }
+  .dm__side { padding: 28px; border-radius: var(--r-xl); background: var(--green-900); color: var(--sand-100) }
+  .dm__side h2 { font-size: 1.3rem }
+  .dm__side ul { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px }
+  .dm__side li { display: flex; gap: 10px }
+  .dm__side li :global(.icon) { color: var(--saffron-400); flex: none; margin-top: 4px }
+  .dm__other { display: grid; gap: 10px; margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(245, 239, 228, .14) }
+  .dm__other a { display: flex; gap: 10px; align-items: center; color: var(--sand-200); flex-wrap: wrap }
+  .dm__other a:hover { color: var(--saffron-400) }
+  @media (max-width: 900px) { .dm__in { grid-template-columns: 1fr } }
+  @media (max-width: 560px) { .dm__form { grid-template-columns: 1fr } .dm__send { justify-self: stretch } }
+</style>
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-demo-form]');
+  if (form) {
+    const T = JSON.parse(form.querySelector('[data-t]')!.textContent!);
+    const msg = form.querySelector<HTMLElement>('[data-msg]')!;
+    const qs = new URLSearchParams(location.search);
+    const ctx: string[] = [];
+    const b = qs.get('branches'); if (b && T.sizes[b]) (form.elements.namedItem('branches') as HTMLSelectElement).value = b;
+    const p = qs.get('plan'); if (p && T.plans[p]) { (form.elements.namedItem('plan') as HTMLInputElement).value = p; ctx.push(`${T.planLbl}: ${T.plans[p]}`); }
+    const s = qs.get('scan'); if (s && /^\d{1,3}$/.test(s)) { (form.elements.namedItem('scan') as HTMLInputElement).value = s; ctx.push(`${T.scanLbl}: ${s}/100`); }
+    if (ctx.length) { const c = form.querySelector<HTMLElement>('[data-ctx]')!; c.innerHTML = ctx.map((x) => `<span>${x}</span>`).join(''); c.hidden = false; }
+    const norm = (v: string) => v.replace(/[\s-]/g, '').replace(/[٠-٩]/g, (d) => String('٠١٢٣٤٥٦٧٨٩'.indexOf(d)));
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const phone = form.elements.namedItem('phone') as HTMLInputElement; phone.value = norm(phone.value);
+      let bad: HTMLElement | null = null;
+      form.querySelectorAll<HTMLInputElement>('[required]').forEach((el) => {
+        const ok = el.type === 'checkbox' ? el.checked : el.checkValidity() && el.value.trim() !== '';
+        if (el.type === 'checkbox') el.closest('label')!.toggleAttribute('data-bad', !ok); else el.setAttribute('aria-invalid', String(!ok));
+        if (!ok && !bad) bad = el;
+      });
+      if (bad) { msg.textContent = T.err; msg.className = 'dm__msg'; msg.hidden = false; (bad as HTMLElement).focus(); return; }
+      const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+      const ep = form.dataset.endpoint;
+      const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!; const l = btn.querySelector('[data-l]')!;
+      const done = () => { form.hidden = true; const ok = document.querySelector<HTMLElement>('[data-ok]')!; ok.hidden = false; ok.focus(); };
+      if (ep) {
+        btn.disabled = true; l.textContent = T.sending;
+        try { const r = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, page: location.href }) }); if (!r.ok) throw 0; done(); }
+        catch { msg.textContent = T.fail; msg.className = 'dm__msg'; msg.hidden = false; btn.disabled = false; l.textContent = T.send; }
+      } else {
+        const lines = [`${data.name}`, `${data.company}`, `${data.phone}`, `${T.sizes[data.branches] || data.branches}`, data.plan ? `${T.planLbl}: ${T.plans[data.plan]}` : '', data.scan ? `${T.scanLbl}: ${data.scan}/100` : '', data.message || ''].filter(Boolean);
+        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(form.dataset.subject!)}&body=${encodeURIComponent(lines.join('\n'))}`;
+        msg.textContent = T.mailNote; msg.className = 'dm__msg info'; msg.hidden = false;
+      }
+    });
+  }
+</script>

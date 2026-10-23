@@ -1,0 +1,70 @@
+---
+import type { Lang } from '../../i18n/util';
+interface Props { lang: Lang; variant?: 'alerts' | 'score' | 'both' }
+const { lang, variant = 'both' } = Astro.props;
+const ar = lang === 'ar';
+const T = ar ? {
+  title: 'تنبيهات اليوم', tag: 'مثال توضيحي',
+  alerts: [
+    { b: 'فرع النرجس', s: 'تقييم نجمة وحدة بدون رد منذ 3 ساعات', c: 'crit', l: 'يحتاجك الآن' },
+    { b: 'فرع الملقا', s: 'رقم الجوال تغيّر على Google', c: 'accent', l: 'بيانات الفرع' },
+    { b: 'فرع الياسمين', s: 'صورة الواجهة أقدم من 12 شهرًا', c: 'ok', l: 'الصور' },
+  ],
+  score: 'مؤشر الفرع', scoreSub: 'اكتمال البيانات وسرعة الرد ودقة المواعيد',
+  rows: [['العليا', 92], ['الملقا', 86], ['النرجس', 71], ['الحمراء · جدة', 58]] as [string, number][],
+  hint: 'فرع الحمراء يحتاج متابعة هذا الأسبوع',
+} : {
+  title: 'Today’s alerts', tag: 'Example',
+  alerts: [
+    { b: 'Narjis branch', s: 'One-star review unanswered for 3 hours', c: 'crit', l: 'Needs you now' },
+    { b: 'Malqa branch', s: 'Phone number changed on Google', c: 'accent', l: 'Branch details' },
+    { b: 'Yasmin branch', s: 'Storefront photo older than 12 months', c: 'ok', l: 'Photos' },
+  ],
+  score: 'Branch score', scoreSub: 'Profile completeness, reply speed and hours accuracy',
+  rows: [['Olaya', 92], ['Malqa', 86], ['Narjis', 71], ['Hamra · Jeddah', 58]] as [string, number][],
+  hint: 'Hamra branch needs follow-up this week',
+};
+---
+<div class="mock al" data-al data-reveal>
+  {variant !== 'score' && (
+    <>
+      <div class="mock__bar"><span class="mock__title">{T.title}</span><span class="mock__tag">{T.tag}</span></div>
+      <div class="al__list">
+        {T.alerts.map((a) => (
+          <div class="al__item"><span class={`al__dot al__dot--${a.c}`}></span><div><b>{a.b}</b><p>{a.s}</p></div><span class={`chip chip--${a.c}`}>{a.l}</span></div>
+        ))}
+      </div>
+    </>
+  )}
+  {variant !== 'alerts' && (
+    <div class="al__score">
+      <div class="al__sh"><b>{T.score}</b><small>{T.scoreSub}</small></div>
+      {T.rows.map(([n, v]) => (
+        <div class="al__row"><span>{n}</span><span class="al__track"><i style={`--v:${v}%`} class:list={{ low: v < 65 }}></i></span><b class="num">{v}</b></div>
+      ))}
+      <p class="al__hint">{T.hint}</p>
+    </div>
+  )}
+</div>
+<style>
+  .al { display: grid; gap: 12px }
+  .al__list { display: grid; gap: 8px }
+  .al__item { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 11px 13px; border: 1px solid var(--line); border-radius: 14px; font-size: .86rem; opacity: 0; transform: translateY(10px); transition: opacity .5s var(--ease), transform .5s var(--ease) }
+  .al__item p { color: var(--ink-600); font-size: .82rem }
+  .al__item .chip { height: 26px; font-size: .72rem; padding: 0 10px }
+  .al__dot { width: 10px; height: 10px; border-radius: 50% }
+  .al__dot--crit { background: var(--crit); box-shadow: 0 0 0 4px #F6E3DF }
+  .al__dot--accent { background: var(--saffron-400) }
+  .al__dot--ok { background: var(--green-500) }
+  .al.in .al__item, .no-js .al__item { opacity: 1; transform: none }
+  .al.in .al__item:nth-child(2) { transition-delay: .15s } .al.in .al__item:nth-child(3) { transition-delay: .3s }
+  .al__score { padding: 14px; border-radius: 16px; background: var(--sand-100); display: grid; gap: 9px }
+  .al__sh small { display: block; font-size: .76rem; color: var(--ink-600) }
+  .al__row { display: grid; grid-template-columns: 7.5em 1fr 2.2em; gap: 10px; align-items: center; font-size: .84rem }
+  .al__track { height: 8px; border-radius: 99px; background: var(--sand-200); overflow: hidden }
+  .al__track i { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--green-700); transition: width 1.1s var(--ease) }
+  .al__track i.low { background: var(--saffron-400) }
+  .al.in .al__track i { width: var(--v) }
+  .al__hint { font-size: .8rem; font-weight: 600; color: #8A5208 }
+  @media (prefers-reduced-motion: reduce) { .al__item { opacity: 1; transform: none } .al__track i { width: var(--v); transition: none } }
+</style>

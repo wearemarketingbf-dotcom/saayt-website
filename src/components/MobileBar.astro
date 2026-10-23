@@ -1,0 +1,34 @@
+---
+import Icon from './Icon.astro';
+import { type Lang, url } from '../i18n/util';
+import { NAV } from '../i18n/nav';
+import { CONFIG } from '../config';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const n = NAV(lang);
+const wa = CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(lang === 'ar' ? 'السلام عليكم ودي أعرف أكثر عن صيت' : 'Hi, I would like to know more about SAAYT')}` : url(lang, 'free-scan/');
+---
+<div class="mbar" data-mbar aria-hidden="true">
+  <a class="btn btn--primary" href={url(lang, 'demo/')} tabindex="-1">{n.demo}</a>
+  <a class="btn btn--dark" href={wa} tabindex="-1">{CONFIG.whatsapp ? <><Icon name="whatsapp" size={18} />{n.whatsapp}</> : n.scan}</a>
+</div>
+<style>
+  .mbar { display: none }
+  @media (max-width: 760px) {
+    .mbar { position: fixed; inset-inline: 0; bottom: 0; z-index: 40; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: rgba(245, 239, 228, .94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid var(--line); transform: translateY(110%); transition: transform .4s var(--ease) }
+    .mbar.show { transform: none }
+    .mbar .btn { --h: 48px; padding: 0 12px; font-size: .95rem }
+  }
+</style>
+<script>
+  const bar = document.querySelector('[data-mbar]') as HTMLElement;
+  const footer = document.querySelector('footer');
+  let footerVisible = false;
+  if (footer) new IntersectionObserver(([e]) => { footerVisible = e.isIntersecting; tick(); }).observe(footer);
+  const tick = () => {
+    const show = scrollY > innerHeight * 0.7 && !footerVisible;
+    bar.classList.toggle('show', show); bar.setAttribute('aria-hidden', String(!show));
+    bar.querySelectorAll('a').forEach((a) => a.tabIndex = show ? 0 : -1);
+  };
+  addEventListener('scroll', tick, { passive: true }); tick();
+</script>
