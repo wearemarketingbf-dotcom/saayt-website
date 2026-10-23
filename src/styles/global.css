@@ -2,7 +2,7 @@
 :root {
   --green-950: #0A2924; --green-900: #0F3D36; --green-800: #184E46; --green-700: #246057;
   --green-600: #36786E; --green-500: #50958B; --green-300: #A9C6C2; --green-100: #E6EFEE;
-  --saffron-500: #E1870F; --saffron-400: #F2A33A; --saffron-200: #F2D8B5; --saffron-100: #F3EADD;
+  --saffron-500: #E1870F; --saffron-700: #94560A; --saffron-400: #F2A33A; --saffron-200: #F2D8B5; --saffron-100: #F3EADD;
   --sand-50: #FCFBFA; --sand-100: #F5EFE4; --sand-200: #E8DFCE; --sand-300: #DCCDB2; --sand-600: #A7823E;
   --ink-900: #1C1C1A; --ink-700: #3D3D38; --ink-600: #63635E; --ink-400: #A1A19C; --ink-200: #DCDCDB;
   --crit: #B4412F;
@@ -114,3 +114,6 @@ html[dir='rtl'] .prose blockquote { border-radius: var(--r-md) 0 0 var(--r-md) }
 .stars i { width: 13px; height: 13px; background: currentColor; clip-path: path('M6.5 0C6.5 2.7 10.3 6.5 13 6.5C10.3 6.5 6.5 10.3 6.5 13C6.5 10.3 2.7 6.5 0 6.5C2.7 6.5 6.5 2.7 6.5 0Z') }
 .stars i.off { color: var(--ink-200) }
 [hidden] { display: none !important }
+
+.prose pre { overflow-x: auto; direction: ltr; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 14px 16px; font-size: .9rem }
+.prose code { direction: ltr; unicode-bidi: isolate; font-size: .92em }

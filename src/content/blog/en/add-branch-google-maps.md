@@ -18,7 +18,7 @@ Each branch gets its own Business Profile on Google. Google's guidelines say: "D
 
 The profile must be for a real place customers can visit. Google says to create the profile for your actual, real-world location, and virtual offices aren't eligible ([Google](https://support.google.com/business/answer/3038177?hl=en)).
 
-## Adding a branch, step by step
+## Adding a branch step by step
 
 To add a new Business Profile, Google's steps are ([Google](https://support.google.com/business/answer/2911778?hl=en)):
 

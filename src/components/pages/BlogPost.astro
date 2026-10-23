@@ -76,6 +76,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'BlogPosting', headline:
   .bp-meta { margin-top: 18px; color: var(--green-300); font-size: .92rem }
   .bp__in { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: clamp(32px, 5vw, 72px); align-items: start }
   .bp .prose { max-width: 72ch }
+  .bp__in > * { min-width: 0 }
   .bp__side { position: sticky; top: 96px; display: grid; gap: 16px }
   .bp-toc { padding: 20px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line) }
   .bp-toc ol { margin: 10px 0 0; padding-inline-start: 18px; display: grid; gap: 8px; font-size: .92rem }
@@ -98,7 +99,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'BlogPosting', headline:
     const upd = () => { const r = art.getBoundingClientRect(); const p = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight))); bar.style.transform = `scaleX(${p})`; };
     addEventListener('scroll', upd, { passive: true }); upd();
     const links = [...document.querySelectorAll<HTMLAnchorElement>('.bp-toc a')];
-    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) links.forEach((l) => l.classList.toggle('on', l.hash === '#' + e.target.id)); }), { rootMargin: '-20% 0px -70% 0px' });
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) links.forEach((l) => l.classList.toggle('on', decodeURIComponent(l.hash) === '#' + e.target.id)); }), { rootMargin: '-20% 0px -70% 0px' });
     art.querySelectorAll('h2[id]').forEach((h) => io.observe(h));
   }
 </script>

@@ -86,6 +86,7 @@ const logoDark = lang === 'ar' ? 'brand/saayt_logo_arabic_dark_v01.svg' : 'brand
   .hdr--dark:not(.is-solid) .hdr__link:hover, .hdr--dark:not(.is-solid) .dd__btn:hover { background: rgba(245, 239, 228, .1) }
   .dd { position: relative }
   :global(.dd__chev) { transform: rotate(90deg); transition: transform .25s }
+  html[lang='en'] .dd__panel { min-width: 300px }
   .dd__btn[aria-expanded='true'] :global(.dd__chev) { transform: rotate(-90deg) }
   .dd__panel { position: absolute; top: calc(100% + 10px); inset-inline-start: 0; min-width: 260px; padding: 10px; background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: 0 30px 60px -20px rgba(10, 41, 36, .3); opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .25s, transform .3s var(--ease), visibility .25s }
   .dd.open .dd__panel { opacity: 1; visibility: visible; transform: none }
@@ -103,6 +104,7 @@ const logoDark = lang === 'ar' ? 'brand/saayt_logo_arabic_dark_v01.svg' : 'brand
   .hdr__lang:hover { background: rgba(15, 61, 54, .07) }
   .hdr__cta { --h: 46px; padding: 0 22px }
   .hdr__burger { display: none; width: 46px; height: 46px; place-items: center; border-radius: 50% }
+  .hdr.menu-open { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--bg) }
   .drawer { position: fixed; inset: 76px 0 0; background: var(--bg); color: var(--text); overflow-y: auto; padding-bottom: 40px }
   .drawer__in { display: grid; padding-top: 10px }
   .drawer__h { font-size: .85rem; font-weight: 600; color: var(--green-700); margin: 22px 0 6px }
@@ -145,10 +147,12 @@ const logoDark = lang === 'ar' ? 'brand/saayt_logo_arabic_dark_v01.svg' : 'brand
   });
   const burger = document.querySelector('[data-burger]') as HTMLButtonElement;
   const drawer = document.querySelector('[data-drawer]') as HTMLElement;
-  burger?.addEventListener('click', () => {
-    const open = drawer.hidden;
+  const setMenu = (open: boolean) => {
     drawer.hidden = !open; burger.setAttribute('aria-expanded', String(open));
     hdr.classList.toggle('menu-open', open); hdr.classList.toggle('is-solid', open || scrollY > 24);
     document.body.style.overflow = open ? 'hidden' : '';
-  });
+    if (open) drawer.querySelector<HTMLElement>('a')?.focus(); else burger.focus();
+  };
+  burger?.addEventListener('click', () => setMenu(drawer.hidden));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !drawer.hidden) setMenu(false); });
 </script>

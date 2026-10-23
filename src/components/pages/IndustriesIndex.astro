@@ -16,7 +16,7 @@ const seo = ar
 const trail = [{ name: N.industries, path: 'industries/' }];
 ---
 <Base lang={lang} title={seo.title} description={seo.description} path="industries/" dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail)]}>
-  <PageHero lang={lang} eyebrow={N.industries} title={ar ? 'لكل قطاع مواسمه وعملاؤه وطريقة رده' : 'Every industry has its own seasons, customers and voice'} lead={ar ? 'صيت مصمم لسلاسل الفروع في السعودية ونبدأ معك من واقع قطاعك: مواسمه وأسئلة عملائه ونبرة الرد المناسبة' : 'SAAYT is built for branch chains in Saudi Arabia and starts from your sector’s reality: its seasons, customer questions and the right tone of reply'} crumbs={trail} compact />
+  <PageHero lang={lang} eyebrow={N.industries} title={ar ? 'لكل قطاع مواسمه وعملاؤه وطريقة رده' : 'Every industry has its own seasons and its own customers'} lead={ar ? 'صيت مصمم لسلاسل الفروع في السعودية ونبدأ معك من واقع قطاعك: مواسمه وأسئلة عملائه ونبرة الرد المناسبة' : 'SAAYT is built for branch chains in Saudi Arabia and starts from your sector’s reality: its seasons, customer questions and the right tone of reply'} crumbs={trail} compact />
   <Industries lang={lang} head={false} />
   <Principles lang={lang} />
   <CTABand lang={lang} />

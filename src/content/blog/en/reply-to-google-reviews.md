@@ -27,7 +27,7 @@ Note what Google does not say: it doesn't promise that replying raises your rati
 
 Source for all of the above except roles: [Google](https://support.google.com/business/answer/3474050?hl=en).
 
-## How to reply, step by step
+## How to reply step by step
 
 1. Go to your Business Profile
 2. Select **Read reviews**
@@ -95,7 +95,7 @@ When a customer writes in Saudi dialect, reply in a register close to theirs wit
 
 Our advice: in a public reply, avoid anything that confirms the person was a patient or mentions their treatment or condition. Thank them and invite them to a private channel. This applies Google's rule against sharing private information directly.
 
-## How long a reply takes to appear, and why it may be rejected
+## How long a reply takes to appear and why it may be rejected
 
 Google says replies usually take up to 10 minutes to review, but sometimes it can take up to 30 days. Google checks each reply against its content policies, and if a reply isn't approved you're asked to edit it ([Google](https://support.google.com/business/answer/3474050?hl=en)).
 

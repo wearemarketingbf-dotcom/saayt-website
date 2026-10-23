@@ -33,7 +33,7 @@ Google has a content policy for everything users post on Maps. Key prohibited ca
 
 If a review doesn't fall into one of these categories, it will most likely stay up, however harsh it feels.
 
-## How to report a review, step by step
+## How to report a review step by step
 
 From your Business Profile ([Google](https://support.google.com/business/answer/4596773?hl=en)):
 

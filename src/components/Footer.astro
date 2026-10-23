@@ -18,7 +18,7 @@ const wa = CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}` : url(lang, 'dem
         <p class="ftr__about">{ar ? 'منصة سعودية تدير حضور فروعك على Google من شاشة وحدة' : 'A Saudi platform that runs every branch’s presence on Google from one screen'}</p>
         <div class="ftr__ctas">
           <a class="btn btn--primary" href={url(lang, 'demo/')}>{n.demo}</a>
-          <a class="btn btn--ghost" href={wa}><Icon name="whatsapp" size={18} />{n.whatsapp}</a>
+          {CONFIG.whatsapp && <a class="btn btn--ghost" href={wa} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} />{n.whatsapp}</a>}
         </div>
       </div>
       <div class="ftr__cols">
@@ -44,8 +44,8 @@ const wa = CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}` : url(lang, 'dem
     <div class="ftr__bottom">
       <p>© 2026 {ar ? 'صيت · جميع الحقوق محفوظة' : 'SAAYT · All rights reserved'}</p>
       <div class="ftr__legal">
-        <a href={url(lang, 'privacy/')}>{ar ? 'سياسة الخصوصية' : 'Privacy policy'}</a>
-        <a href={url(lang, 'terms/')}>{ar ? 'الشروط والأحكام' : 'Terms'}</a>
+        <a href={url(lang, 'privacy/')}>{ar ? 'سياسة الخصوصية' : 'Privacy Policy'}</a>
+        <a href={url(lang, 'terms/')}>{ar ? 'الشروط والأحكام' : 'Terms of Service'}</a>
         <a href={`mailto:${CONFIG.email}`} class="ltr">{CONFIG.email}</a>
         <span>{CONTACT.city[lang]}</span>
         <a href={url(other(lang))} lang={other(lang)}>{n.switch}</a>

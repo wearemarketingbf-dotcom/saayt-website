@@ -10,7 +10,6 @@ DRAFT: This document is an initial draft and must be reviewed by a licensed Saud
 Fill in every item in square brackets [ ] and confirm that each description matches SAAYT's actual practices before publishing.
 -->
 
-# Privacy Policy
 
 **Last updated:** 23 October 2026
 

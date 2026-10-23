@@ -10,7 +10,6 @@ DRAFT: This document is an initial draft and must be reviewed by a licensed Saud
 Fill in every item in square brackets [ ] and confirm the terms match SAAYT's actual plans and contracts before publishing.
 -->
 
-# Terms of Service
 
 **Last updated:** 23 October 2026
 

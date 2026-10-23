@@ -10,10 +10,7 @@ const C = HOME[lang].heroCard;
 ---
 <section class="hero section--deep" aria-labelledby="hero-h">
   <div class="hero__media" aria-hidden="true">
-    <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster={asset('img/hero-poster.webp')}>
-      <source src={asset('media/hero-loop-sm.mp4')} type="video/mp4" media="(max-width: 760px)" />
-      <source src={asset('media/hero-loop.mp4')} type="video/mp4" />
-    </video>
+    <video class="hero__video" muted loop playsinline preload="none" poster={asset('img/hero-poster.webp')} data-sm={asset('media/hero-loop-sm.mp4')} data-lg={asset('media/hero-loop.mp4')}></video>
     <div class="hero__veil"></div>
   </div>
   <div class="hero__in wrap">
@@ -78,7 +75,7 @@ const C = HOME[lang].heroCard;
   @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(242, 163, 58, 0) } 100% { box-shadow: 0 0 0 0 rgba(242, 163, 58, 0) } }
   .hc__review { padding: 13px 14px; border: 1px solid var(--line); border-radius: 16px; font-size: .9rem; line-height: 1.6 }
   .hc__rh { display: flex; align-items: center; gap: 10px; margin-bottom: 4px }
-  .hc__rh small { margin-inline-start: auto; color: var(--ink-400); font-size: .76rem }
+  .hc__rh small { margin-inline-start: auto; color: var(--ink-600); font-size: .76rem }
   .hc__sug { padding: 14px; border-radius: 16px; background: var(--green-900); color: var(--sand-100) }
   .hc__lbl { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 600; color: var(--saffron-400) }
   .hc__reply { margin-top: 6px; font-size: .9rem; line-height: 1.65; min-height: 6.6em }
@@ -137,6 +134,11 @@ const C = HOME[lang].heroCard;
     };
     setTimeout(cycle, 600);
   }
+  // pick one video source for the screen size so phones only download the small file
   const v = document.querySelector<HTMLVideoElement>('.hero__video');
-  if (v && reduce) { v.pause(); v.removeAttribute('autoplay'); }
+  const saveData = (navigator as any).connection?.saveData;
+  if (v && !reduce && !saveData) {
+    v.src = matchMedia('(max-width: 760px)').matches ? v.dataset.sm! : v.dataset.lg!;
+    v.play().catch(() => {});
+  }
 </script>

@@ -8,6 +8,7 @@ import CTABand from '../CTABand.astro';
 import { type Lang, url, asset, crumbsLd, faqLd } from '../../i18n/util';
 import { FEATURES, INDUSTRIES, NAV } from '../../i18n/nav';
 import { INDUSTRY_PAGES, type IndustrySlug } from '../../data/industries';
+import { HOME } from '../../data/home';
 interface Props { lang: Lang; slug: IndustrySlug }
 const { lang, slug } = Astro.props;
 const ar = lang === 'ar';
@@ -17,8 +18,9 @@ const ind = INDUSTRIES.find((i) => i.slug === slug)!;
 const path = `industries/${slug}/`;
 const trail = [{ name: N.industries, path: 'industries/' }, { name: ind[lang], path }];
 const others = INDUSTRIES.filter((i) => i.slug !== slug);
+const faqs = [...P.faq, HOME[lang].faq.items[0], HOME[lang].faq.items[4]];
 ---
-<Base lang={lang} title={P.seo.title} description={P.seo.description} path={path} dark image={`img/og/${slug}.jpg`} jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), faqLd(P.faq)]}>
+<Base lang={lang} title={P.seo.title} description={P.seo.description} path={path} dark image={`img/og/${slug}.jpg`} jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), faqLd(faqs)]}>
   <PageHero lang={lang} eyebrow={ind[lang]} title={P.h1} lead={P.lead} crumbs={trail} img={asset(ind.img)} />
 
   <section class="section">
@@ -58,7 +60,7 @@ const others = INDUSTRIES.filter((i) => i.slug !== slug);
     </div>
   </section>
 
-  <FAQ eyebrow={ar ? 'أسئلة القطاع' : 'Sector questions'} title={ar ? 'أسئلة تجينا من قطاعك' : 'Questions we hear from your sector'} items={P.faq} />
+  <FAQ eyebrow={ar ? 'أسئلة القطاع' : 'Sector questions'} title={ar ? 'أسئلة تجينا من قطاعك' : 'Questions we hear from your sector'} items={faqs} />
 
   <section class="section section--surface">
     <div class="wrap">
@@ -71,7 +73,7 @@ const others = INDUSTRIES.filter((i) => i.slug !== slug);
   <CTABand lang={lang} />
 </Base>
 <style>
-  .ip-pain .num { color: var(--saffron-500); font-weight: 700 }
+  .ip-pain .num { color: var(--saffron-700); font-weight: 700 }
   .ip-pain h3 { font-size: 1.2rem; margin-top: 10px }
   .ip-pain p { color: var(--muted); margin-top: 6px }
   .ip-ex { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: center }

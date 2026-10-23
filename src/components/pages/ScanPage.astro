@@ -17,7 +17,7 @@ const T = ar ? {
   yes: 'نعم', part: 'بعض الفروع', no: 'لا', of: 'من', weight: 'الوزن', progress: 'جاوبت على', result: 'نتيجتك',
   bands: [{ min: 80, t: 'وضع فروعك ممتاز', d: 'باقي تفاصيل بسيطة وتقدر تحافظ على المستوى بمتابعة منتظمة' }, { min: 55, t: 'أساس جيد يحتاج ترتيب', d: 'فيه نقاط واضحة لو صححتها بيتحسن انطباع العميل عن فروعك' }, { min: 0, t: 'فروعك تحتاج اهتمام', d: 'العميل غالبًا يشوف معلومات ناقصة أو قديمة ابدأ بالأولويات تحت' }],
   prio: 'أولوياتك', none: 'ما عندك أولويات عاجلة', learn: 'كيف يساعدك صيت', demo: 'احجز عرضًا ونراجعها معك', print: 'اطبع النتيجة', wa: 'أرسل النتيجة على واتساب', reset: 'أعد الفحص',
-  method: 'طريقة الحساب', methodD: 'كل سؤال له وزن ظاهر جنبه ومجموع الأوزان 100 الإجابة بنعم تعطي الوزن كامل وبعض الفروع نصفه ولا صفر هذه أداة تقييم ذاتي وليست قراءة من Google ولا مقارنة بأنشطة ثانية',
+  method: 'طريقة الحساب', methodD: 'كل سؤال له وزن ظاهر جنبه ومجموع الأوزان 100 · الإجابة بنعم تاخذ الوزن كامل وبعض الفروع تاخذ نصفه ولا ما تاخذ شيء · هذه أداة تقييم ذاتي وليست قراءة من Google ولا مقارنة بأنشطة ثانية',
   privacy: 'إجاباتك تبقى في متصفحك وما تنرسل لنا', see: 'شوف النتيجة', need: 'جاوب على كل الأسئلة عشان تطلع النتيجة',
 } : {
   seo: { title: 'Free Google Maps Scan for Your Branches | SAAYT', description: 'See how every branch looks on Google in minutes — profile completeness · hours and unanswered reviews — free with no commitment' },
@@ -61,7 +61,7 @@ const data = { qs: S.qs, areas: S.areas, bands: T.bands, feat: featName, featUrl
 
       <aside class="sc__res" data-res hidden tabindex="-1" aria-live="polite">
         <span class="eyebrow">{T.result}</span>
-        <div class="sc__score"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" /><circle cx="60" cy="60" r="52" data-ring /></svg><b class="num" data-score>0</b><small class="num">/ 100</small></div>
+        <div class="sc__score"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" /><circle cx="60" cy="60" r="52" data-ring /></svg><b class="num" data-score>0</b><small class="num" dir="ltr">/ 100</small></div>
         <h2 data-band-t></h2><p data-band-d></p>
         <div class="sc__areas" data-areas></div>
         <h3>{T.prio}</h3>
@@ -110,16 +110,17 @@ const data = { qs: S.qs, areas: S.areas, bands: T.bands, feat: featName, featUrl
   .sc__res h2 { font-size: var(--fs-h3) }
   .sc__res > p { color: var(--green-300); margin-top: 4px }
   .sc__areas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 24px 0 }
-  .sc__areas div { padding: 14px; border-radius: var(--r-md); background: rgba(245, 239, 228, .06) }
-  .sc__areas b { display: block; font-size: 1.4rem }
-  .sc__areas i { display: block; height: 5px; border-radius: 9px; background: rgba(245, 239, 228, .12); margin-top: 8px; overflow: hidden }
-  .sc__areas em { display: block; height: 100%; background: var(--saffron-400) }
+  .sc__areas :global(div) { padding: 14px; border-radius: var(--r-md); background: rgba(245, 239, 228, .06) }
+  .sc__areas :global(b) { display: block; font-size: 1.4rem }
+  .sc__areas :global(small) { color: var(--green-300); font-size: .85rem }
+  .sc__areas :global(i) { display: block; height: 5px; border-radius: 9px; background: rgba(245, 239, 228, .12); margin-top: 8px; overflow: hidden }
+  .sc__areas :global(em) { display: block; height: 100%; background: var(--saffron-400) }
   .sc__res h3 { font-size: 1.15rem; margin-bottom: 10px }
   .sc__prio { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; counter-reset: p }
-  .sc__prio li { counter-increment: p; display: grid; grid-template-columns: auto 1fr; gap: 12px; padding: 14px 16px; border-radius: var(--r-md); background: rgba(245, 239, 228, .06) }
-  .sc__prio li::before { content: counter(p); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--saffron-400); color: var(--green-950); font-weight: 700; font-size: .85rem }
-  .sc__prio a { color: var(--saffron-400); font-size: .88rem; font-weight: 600 }
-  .sc__prio small { display: block; color: var(--green-300) }
+  .sc__prio :global(li) { counter-increment: p; display: grid; grid-template-columns: auto 1fr; gap: 12px; padding: 14px 16px; border-radius: var(--r-md); background: rgba(245, 239, 228, .06) }
+  .sc__prio :global(li)::before { content: counter(p); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--saffron-400); color: var(--green-950); font-weight: 700; font-size: .85rem }
+  .sc__prio :global(a) { display: inline-block; margin-top: 4px; color: var(--saffron-400); font-size: .88rem; font-weight: 600 }
+  .sc__prio :global(small) { display: block; color: var(--green-300) }
   .sc__ctas { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 26px }
   .sc__ctas .btn--ghost { color: var(--sand-100); border-color: rgba(245, 239, 228, .4) }
   .sc__reset { color: var(--green-300); text-decoration: underline; text-underline-offset: 4px; padding: 8px }

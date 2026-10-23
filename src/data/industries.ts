@@ -20,7 +20,7 @@ export const INDUSTRY_PAGES: Record<'ar' | 'en', Record<IndustrySlug, IndustryPa
       pains: [
         { t: 'خصوصية المريض', d: 'الرد على تقييم مريض يحتاج حذر لأن أي تفصيل عن حالته ما ينكتب في رد عام' },
         { t: 'مواعيد الأطباء والمواسم', d: 'دوام رمضان والإجازات يختلف بين الفروع والمريض يحتاج يعرف قبل ما يحجز' },
-        { t: 'شكاوى الانتظار', d: 'أغلب التقييمات السلبية عن الانتظار والاستقبال وتحتاج رد سريع وهادي' },
+        { t: 'شكاوى الانتظار', d: 'كثير من التقييمات السلبية تكون عن الانتظار والاستقبال وتحتاج رد سريع وهادي' },
       ],
       helps: [
         { slug: 'reviews', d: 'ردود مهنية جاهزة تتجنب أي معلومة صحية ويعتمدها شخص من فريقك' },
@@ -154,7 +154,7 @@ export const INDUSTRY_PAGES: Record<'ar' | 'en', Record<IndustrySlug, IndustryPa
       pains: [
         { t: 'Patient privacy', d: 'Replying to a patient needs care because details about their condition never belong in a public reply' },
         { t: 'Doctor schedules and seasons', d: 'Ramadan and holiday hours differ by branch and patients need to know before booking' },
-        { t: 'Waiting-time complaints', d: 'Most negative reviews are about waiting and reception and need a quick calm reply' },
+        { t: 'Waiting-time complaints', d: 'Many negative reviews are about waiting and reception and need a quick calm reply' },
       ],
       helps: [
         { slug: 'reviews', d: 'Professional drafts that avoid health details and are approved by your team' },

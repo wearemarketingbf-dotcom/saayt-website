@@ -6,7 +6,7 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const S = HOME[lang].scan;
 const ar = lang === 'ar';
-const q = ar ? ['مواعيد الفرع العادية صحيحة؟', 'مواعيد رمضان والعيد مضافة؟', 'آخر صورة للفرع قبل كم شهر؟', 'كل التقييمات عليها رد؟'] : ['Are regular hours correct?', 'Are Ramadan and Eid hours added?', 'When was the last branch photo added?', 'Does every review have a reply?'];
+const q = ar ? ['مواعيد الفرع العادية صحيحة؟', 'مواعيد رمضان والعيد مضافة؟', 'صور الفروع محدّثة خلال آخر 6 شهور؟', 'كل التقييمات عليها رد؟'] : ['Are regular hours correct?', 'Are Ramadan and Eid hours added?', 'Were branch photos updated in the last 6 months?', 'Does every review have a reply?'];
 ---
 <section class="section scan" aria-labelledby="scan-h">
   <div class="wrap scan__box">
