@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import { type Lang, url } from '../../i18n/util';
+import { CONFIG } from '../../config';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const T = ar ? {
+  title: 'وصلنا طلبك | صيت', h1: 'وصلنا طلبك وبنتواصل معك قريب', lead: 'فريق صيت بيراجع بياناتك ويتواصل معك على الجوال لتحديد موعد العرض',
+  next: 'إلى ذلك الوقت', items: [
+    { icon: 'search', t: 'افحص فروعك', d: 'فحص ذاتي في دقيقتين يجهز لك أسئلة العرض', href: 'free-scan/' },
+    { icon: 'layers', t: 'شوف المزايا', d: 'كل أدوات صيت بالتفصيل', href: 'features/' },
+    { icon: 'calendar', t: 'جهز مواسمك', d: 'دليل مواعيد رمضان والعيد على قوقل ماب', href: 'blog/ramadan-eid-hours-google-maps/' },
+  ], home: 'الرجوع للرئيسية', wa: 'تواصل على واتساب',
+} : {
+  title: 'Request received | SAAYT', h1: 'We got your request and will be in touch soon', lead: 'The SAAYT team will review your details and call you to schedule the demo',
+  next: 'In the meantime', items: [
+    { icon: 'search', t: 'Scan your branches', d: 'A two-minute self-check that prepares your demo questions', href: 'free-scan/' },
+    { icon: 'layers', t: 'Explore features', d: 'Every SAAYT tool in detail', href: 'features/' },
+    { icon: 'calendar', t: 'Prepare your seasons', d: 'Guide to Ramadan and Eid hours on Google Maps', href: 'blog/ramadan-eid-hours-google-maps/' },
+  ], home: 'Back to home', wa: 'Message us on WhatsApp',
+};
+---
+<Base lang={lang} title={T.title} description={T.lead} path="demo/thanks/" dark noindex>
+  <PageHero lang={lang} title={T.h1} lead={T.lead} cta={false} compact>
+    <div class="ty__btns">
+      <a class="btn btn--primary" href={url(lang)}>{T.home}</a>
+      {CONFIG.whatsapp && <a class="btn btn--ghost ty__wa" href={`https://wa.me/${CONFIG.whatsapp}`} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} />{T.wa}</a>}
+    </div>
+  </PageHero>
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h2">{T.next}</h2>
+      <div class="grid grid-3 ty__grid">
+        {T.items.map((x) => <a class="card ty__c" href={url(lang, x.href)}><Icon name={x.icon} size={22} /><b>{x.t}</b><p>{x.d}</p><Icon name="arrow" size={18} class="arrow" /></a>)}
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .ty__btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px }
+  .ty__wa { color: var(--sand-100); border-color: rgba(245, 239, 228, .45) }
+  .ty__grid { margin-top: 28px }
+  .ty__c { display: grid; gap: 8px; align-content: start; transition: border-color .3s }
+  .ty__c:hover { border-color: var(--green-700) }
+  .ty__c > :global(.icon:first-child) { color: var(--saffron-700) }
+  .ty__c p { color: var(--muted) }
+  .ty__c :global(.arrow) { color: var(--green-700) }
+</style>

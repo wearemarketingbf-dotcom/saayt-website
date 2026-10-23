@@ -29,8 +29,8 @@ Also review
 
 ## Deploy
 
-- Preview: GitHub Pages via `.github/workflows/deploy.yml` (noindex while on github.io)
-- Production: point saayt.app to the host and build with `SITE_URL=https://saayt.app BASE_PATH=/` and without `NOINDEX`
+- Live: https://saayt.app on GitHub Pages (custom domain set in repo Settings → Pages, DNS on Cloudflare)
+- Demo form posts to a GoHighLevel inbound webhook (workflow "SAAYT website · Demo request") which creates the contact, tags it, adds a note, opens an opportunity and emails the team
 
 ## Structure
 

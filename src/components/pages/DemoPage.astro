@@ -12,7 +12,7 @@ const N = NAV(lang);
 const T = ar ? {
   seo: { title: 'اطلب عرضاً تجريبياً لصيت', description: 'احجز عرضاً مباشراً مع فريق صيت وشاهد كيف تدير كل فروعك على قوقل ماب من مكان واحد أو تواصل معنا بأي سؤال' },
   h1: 'خلنا نوريك فروعك على Google', lead: 'عرض مباشر مع فريق صيت نراجع فيه وضع فروعك ونوريك كيف تمسكها كلها من شاشة وحدة',
-  name: 'الاسم', company: 'اسم النشاط', phone: 'رقم الجوال', phoneHint: '05XXXXXXXX', branches: 'عدد الفروع', pick: 'اختر', msg: 'وش تبي نركز عليه؟ (اختياري)',
+  name: 'الاسم', company: 'اسم النشاط', phone: 'رقم الجوال', email: 'البريد الإلكتروني (اختياري)', phoneHint: '05XXXXXXXX', branches: 'عدد الفروع', pick: 'اختر', msg: 'وش تبي نركز عليه؟ (اختياري)',
   sizes: [['1-4', 'من 1 إلى 4'], ['5-10', 'من 5 إلى 10'], ['11-20', 'من 11 إلى 20'], ['21+', 'أكثر من 20']],
   consent: 'أوافق على أن يتواصل معي فريق صيت بخصوص طلبي وعلى معالجة بياناتي وفق', policy: 'سياسة الخصوصية',
   send: 'أرسل الطلب', sending: 'جاري الإرسال', ok: 'وصلنا طلبك', okD: 'بيتواصل معك فريق صيت قريبًا لتحديد موعد العرض', mailNote: 'بيفتح تطبيق البريد برسالة جاهزة اضغط إرسال فيها', err: 'تأكد من الحقول المطلوبة', fail: 'ما قدرنا نرسل الطلب جرب مرة ثانية أو راسلنا على البريد',
@@ -23,7 +23,7 @@ const T = ar ? {
 } : {
   seo: { title: 'Book a SAAYT Demo or Contact Us', description: 'Book a live walkthrough with the SAAYT team and see how to run every branch on Google Maps from one place — or just ask us a question' },
   h1: 'Let us show you your branches on Google', lead: 'A live session with the SAAYT team where we review your branches and show you how to run them all from one screen',
-  name: 'Name', company: 'Business name', phone: 'Mobile number', phoneHint: '05XXXXXXXX', branches: 'Number of branches', pick: 'Choose', msg: 'What should we focus on? (optional)',
+  name: 'Name', company: 'Business name', phone: 'Mobile number', email: 'Email (optional)', phoneHint: '05XXXXXXXX', branches: 'Number of branches', pick: 'Choose', msg: 'What should we focus on? (optional)',
   sizes: [['1-4', '1 to 4'], ['5-10', '5 to 10'], ['11-20', '11 to 20'], ['21+', 'More than 20']],
   consent: 'I agree that the SAAYT team may contact me about my request and process my data under the', policy: 'Privacy Policy',
   send: 'Send request', sending: 'Sending', ok: 'We got your request', okD: 'The SAAYT team will contact you soon to schedule the demo', mailNote: 'Your email app will open with a ready message. Press send there', err: 'Please check the required fields', fail: 'We could not send your request. Try again or email us',
@@ -38,12 +38,13 @@ const trail = [{ name: N.demo, path: 'demo/' }];
   <PageHero lang={lang} eyebrow={N.demo} title={T.h1} lead={T.lead} crumbs={trail} cta={false} compact />
   <section class="section dm">
     <div class="wrap dm__in">
-      <form class="dm__form" data-demo-form data-endpoint={CONFIG.formEndpoint} data-email={CONFIG.email} data-subject={T.subject} novalidate>
+      <form class="dm__form" data-demo-form data-endpoint={CONFIG.formEndpoint} data-email={CONFIG.email} data-subject={T.subject} data-thanks={url(lang, 'demo/thanks/')} novalidate>
         <div class="dm__f"><label for="f-name">{T.name}</label><input id="f-name" name="name" autocomplete="name" required maxlength="80" /></div>
         <div class="dm__f"><label for="f-company">{T.company}</label><input id="f-company" name="company" autocomplete="organization" required maxlength="120" /></div>
         <div class="dm__f"><label for="f-phone">{T.phone}</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder={T.phoneHint} required pattern="^(\+?966|0)?5\d{8}$" /></div>
         <div class="dm__f"><label for="f-branches">{T.branches}</label>
           <select id="f-branches" name="branches" required><option value="">{T.pick}</option>{T.sizes.map(([v, l]) => <option value={v}>{l}</option>)}</select></div>
+        <div class="dm__f dm__f--full"><label for="f-email">{T.email}</label><input id="f-email" name="email" type="email" autocomplete="email" dir="ltr" maxlength="120" /></div>
         <div class="dm__f dm__f--full"><label for="f-msg">{T.msg}</label><textarea id="f-msg" name="message" rows="3" maxlength="800"></textarea></div>
         <input type="hidden" name="plan" /><input type="hidden" name="scan" /><input type="hidden" name="lang" value={lang} />
         <div class="dm__ctx" data-ctx hidden></div>
@@ -76,7 +77,7 @@ const trail = [{ name: N.demo, path: 'demo/' }];
   .dm__f select { height: 52px }
   .dm__f input:focus, .dm__f select:focus, .dm__f textarea:focus { outline: none; border-color: var(--green-700); box-shadow: 0 0 0 3px var(--green-100) }
   .dm__f [aria-invalid='true'] { border-color: var(--crit) }
-  html[dir='rtl'] #f-phone { text-align: right }
+  html[dir='rtl'] #f-phone, html[dir='rtl'] #f-email { text-align: right }
   .dm__consent { display: flex; gap: 10px; align-items: flex-start; font-size: .93rem; color: var(--ink-700); cursor: pointer }
   .dm__consent input { width: 20px; height: 20px; margin-top: 4px; accent-color: var(--green-900); flex: none }
   .dm__consent a { color: var(--green-700); text-decoration: underline; text-underline-offset: 3px }
@@ -128,7 +129,14 @@ const trail = [{ name: N.demo, path: 'demo/' }];
       const done = () => { form.hidden = true; const ok = document.querySelector<HTMLElement>('[data-ok]')!; ok.hidden = false; ok.focus(); };
       if (ep) {
         btn.disabled = true; l.textContent = T.sending;
-        try { const r = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, page: location.href }) }); if (!r.ok) throw 0; done(); }
+        const phoneIntl = data.phone.replace(/^0/, '+966').replace(/^966/, '+966').replace(/^5/, '+9665');
+        const payload = {
+          full_name: data.name.trim(), first_name: data.name.trim().split(/\s+/)[0], company: data.company.trim(), phone: phoneIntl, email: (data.email || '').trim(),
+          branches: data.branches, branches_label: T.sizes[data.branches] || data.branches, plan: data.plan || '', plan_label: data.plan ? T.plans[data.plan] : '', scan_score: data.scan || '',
+          message: (data.message || '').trim(), lang: data.lang, consent: 'yes', page: location.href, referrer: document.referrer, source: 'saayt.app demo form',
+          utm_source: qs.get('utm_source') || '', utm_medium: qs.get('utm_medium') || '', utm_campaign: qs.get('utm_campaign') || '',
+        };
+        try { const r = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); if (!r.ok) throw 0; location.href = form.dataset.thanks!; }
         catch { msg.textContent = T.fail; msg.className = 'dm__msg'; msg.hidden = false; btn.disabled = false; l.textContent = T.send; }
       } else {
         const lines = [`${data.name}`, `${data.company}`, `${data.phone}`, `${T.sizes[data.branches] || data.branches}`, data.plan ? `${T.planLbl}: ${T.plans[data.plan]}` : '', data.scan ? `${T.scanLbl}: ${data.scan}/100` : '', data.message || ''].filter(Boolean);

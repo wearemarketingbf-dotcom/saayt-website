@@ -13,6 +13,7 @@ export default defineConfig({
   build: { format: 'directory', inlineStylesheets: 'auto' },
   markdown: { remarkPlugins: [remarkBase] },
   integrations: [sitemap({
+    filter: (page) => !page.includes('/thanks/'),
     i18n: { defaultLocale: 'ar', locales: { ar: 'ar-SA', en: 'en' } },
   })],
   i18n: { defaultLocale: 'ar', locales: ['ar', 'en'], routing: { prefixDefaultLocale: false } },
