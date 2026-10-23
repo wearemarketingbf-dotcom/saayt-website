@@ -4,5 +4,6 @@ export const CONFIG = {
   formEndpoint: 'https://services.leadconnectorhq.com/hooks/tQmSY3sfz7AuHHAuG9eE/webhook-trigger/6fc5d00a-1f74-4ac4-8c2d-f0bc9d8fa884', // GoHighLevel inbound webhook · workflow: SAAYT demo request
   loginUrl: 'https://app.saayt.app', // client login (existing app subdomain)
   email: 'hello@saayt.app',
+  gaId: 'G-85TPKXGR5S', social: { x: 'https://x.com/saaytapp', facebook: 'https://www.facebook.com/profile.php?id=61595387177941' } as Record<string, string>,
   noindex: process.env.NOINDEX === '1', // set on the temporary github.io preview
 };
