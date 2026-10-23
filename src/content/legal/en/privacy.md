@@ -53,7 +53,7 @@ We never ask for or store your Google password.
 
 ### Technical data
 
-When you visit the website or use the platform, we may collect limited technical data such as IP address, browser and device type, and usage and error logs, to run and secure the service. We use cookies that are strictly necessary for the website to work. We do not use non-essential analytics or marketing cookies without your consent.
+When you visit the website or use the platform, we may collect limited technical data such as IP address, browser and device type, and usage and error logs, to run and secure the service. We use cookies that are strictly necessary for the website to work. We do not use non-essential analytics or marketing cookies without your consent. We use Google Analytics to measure website visits, and it only stores cookies on your device after you press "Accept" in the consent bar. You can change your choice by clearing this site's data in your browser.
 
 ## How we use data and our lawful basis
 
