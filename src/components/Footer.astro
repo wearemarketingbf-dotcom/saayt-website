@@ -47,6 +47,8 @@ const wa = CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}` : url(lang, 'dem
         <a href={url(lang, 'privacy/')}>{ar ? 'سياسة الخصوصية' : 'Privacy Policy'}</a>
         <a href={url(lang, 'terms/')}>{ar ? 'الشروط والأحكام' : 'Terms of Service'}</a>
         <a href={`mailto:${CONFIG.email}`} class="ltr">{CONFIG.email}</a>
+        {CONFIG.social.x && <a href={CONFIG.social.x} target="_blank" rel="noopener me" class="ltr">X @saaytapp</a>}
+        {CONFIG.social.facebook && <a href={CONFIG.social.facebook} target="_blank" rel="noopener me">{ar ? 'فيسبوك' : 'Facebook'}</a>}
         <span>{CONTACT.city[lang]}</span>
         <a href={url(other(lang))} lang={other(lang)}>{n.switch}</a>
       </div>
