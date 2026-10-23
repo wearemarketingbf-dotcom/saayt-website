@@ -10,132 +10,203 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const ar = lang === 'ar';
 const N = NAV(lang);
+// Graduated per-branch pricing in SAR excl. VAT · each band is billed on its own so the bill never drops when a branch is added
+const BANDS = [{ upTo: 5, price: 99 }, { upTo: 10, price: 89 }, { upTo: 20, price: 79 }, { upTo: Infinity, price: 69 }];
+const MANAGED = { perBranch: 100, min: 1000 };
 const T = ar ? {
-  seo: { title: 'باقات صيت وأسعار الاشتراك الشهري', description: 'اشتراك شهري حسب عدد الفروع مع خيار إدارة كاملة يتولاها فريق صيت عنك — اطلب عرضاً مناسباً لعدد فروعك' },
-  h1: 'سعر يناسب عدد فروعك', lead: 'الاشتراك شهري ويتحدد حسب عدد فروعك · اختر عدد الفروع وطريقة العمل ونرسل لك عرض سعر واضح',
-  q1: 'كم فرع عندك؟', q2: 'مين يدير؟',
-  sizes: [{ v: '1-4', l: 'من 1 إلى 4' }, { v: '5-10', l: 'من 5 إلى 10' }, { v: '11-20', l: 'من 11 إلى 20' }, { v: '21+', l: 'أكثر من 20' }],
-  plans: [
-    { id: 'platform', t: 'المنصة', s: 'فريقك يدير من لوحة صيت', items: ['كل الفروع في لوحة وحدة', 'قوالب المواسم والتطبيق الجماعي', 'ردود مقترحة بلهجة العميل', 'التنبيهات ومؤشر الفرع', 'صلاحيات للفريق'] },
-    { id: 'managed', t: 'الإدارة الكاملة', s: 'فريق صيت يتابع عنك وأنت صاحب القرار', items: ['كل مزايا المنصة', 'فريق صيت يتابع التقييمات يوميًا', 'تجهيز مواعيد المواسم قبل وقتها', 'تقرير شهري ومراجعة مع فريقك', 'تبقى الموافقة النهائية لك'] },
+  seo: { title: 'أسعار صيت · من 99 ريال للفرع شهريًا', description: 'باقة وحدة بكل المزايا والسعر حسب عدد فروعك · من 99 ريال للفرع شهريًا والسعر للفرع ينزل كل ما زادت فروعك · احسب سعرك الحين' },
+  h1: 'سعر واضح حسب عدد فروعك', lead: 'باقة وحدة فيها كل المزايا · اختر عدد فروعك وتشوف السعر مباشرة',
+  count: 'كم فرع عندك؟', branchWord: 'فرع', billing: 'طريقة الدفع', monthly: 'شهري', yearly: 'سنوي', yearlyTag: 'شهرين مجانًا',
+  managed: 'أضف الإدارة الكاملة', managedS: 'فريق صيت يتابع التقييمات يوميًا ويجهز مواعيد المواسم وأنت صاحب القرار',
+  perMonth: 'شهريًا بدون ضريبة', perYear: 'سنويًا بدون ضريبة', withVat: 'مع ضريبة القيمة المضافة', avg: 'متوسط سعر الفرع', currency: 'ريال',
+  quote: 'احجز عرضك التجريبي', trial: 'تجربة 14 يوم بدون بطاقة',
+  tiersH: 'سعر الفرع حسب الشريحة', tiersS: 'كل شريحة تنحسب لحالها · يعني الفاتورة ما تنقص لما تضيف فرع',
+  tiers: ['أول 5 فروع', 'من 6 إلى 10', 'من 11 إلى 20', '21 فرع وأكثر'], tierUnit: 'للفرع شهريًا',
+  managedRow: 'الإدارة الكاملة', managedRowV: '100 ريال للفرع شهريًا وتبدأ من 1,000 ريال',
+  foundH: 'برنامج العملاء المؤسسين', foundS: 'لأول 10 عملاء · خصم 40% على أول 6 شهور مع إعداد مجاني وسعر ثابت لمدة سنة مقابل دراسة حالة وجلسة رأي شهرية', foundCta: 'اسأل عن البرنامج',
+  incH: 'في كل اشتراك', inc: [
+    { icon: 'calendar', t: 'قوالب رمضان والعيد لكل الفروع' }, { icon: 'reply', t: 'ردود مقترحة بلهجة عميلك' }, { icon: 'shield', t: 'موافقة قبل النشر كإعداد أساسي' }, { icon: 'bell', t: 'تنبيهات ومؤشر لكل فرع' }, { icon: 'team', t: 'صلاحيات لكل دور' }, { icon: 'globe', t: 'واجهة عربية ودعم سعودي' },
   ],
-  pick: 'اخترت', quote: 'اطلب عرض السعر', note: 'عرض السعر يوضح ضريبة القيمة المضافة بشكل منفصل والدفع بالريال السعودي',
-  sumA: 'عدد الفروع', sumB: 'الباقة',
-  incH: 'في كل الباقات', inc: [
-    { icon: 'shield', t: 'ولا شيء ينشر بدون موافقتك' }, { icon: 'globe', t: 'واجهة عربية كاملة' }, { icon: 'lock', t: 'إلغاء الربط في أي وقت' }, { icon: 'team', t: 'دعم بالعربي من فريق سعودي' },
-  ],
+  note: 'الأسعار بالريال السعودي ولا تشمل ضريبة القيمة المضافة 15%',
   faq: [
-    { q: 'ليش ما فيه أسعار منشورة؟', a: 'السعر يعتمد على عدد الفروع وطريقة العمل ونفضل نرسل لك عرض دقيق بدال رقم عام ما يناسب وضعك' },
-    { q: 'هل فيه عقد طويل؟', a: 'الاشتراك شهري وتفاصيل المدة توضح في عرض السعر' },
-    { q: 'هل أقدر أبدأ بالمنصة وأنتقل للإدارة الكاملة؟', a: 'نعم تقدر تغير طريقة العمل لاحقًا حسب احتياجك' },
-    { q: 'هل السعر يتغير لو زادت الفروع؟', a: 'نعم لأن السعر حسب عدد الفروع وتقدر تضيف فروع في أي وقت' },
+    { q: 'كيف ينحسب السعر؟', a: 'كل فرع من أول 5 فروع بـ 99 ريال والفروع من 6 إلى 10 بـ 89 ومن 11 إلى 20 بـ 79 وبعدها 69 ريال للفرع · مثلًا 10 فروع = 940 ريال شهريًا بدون ضريبة' },
+    { q: 'هل فيه عقد طويل؟', a: 'لا · الاشتراك شهري وتقدر توقفه متى ما بغيت · والسنوي يعطيك شهرين مجانًا' },
+    { q: 'هل فيه تجربة مجانية؟', a: 'نعم · 14 يوم بدون بطاقة والموافقة قبل النشر شغالة طول التجربة' },
+    { q: 'هل أقدر أبدأ بالمنصة وأضيف الإدارة الكاملة بعدين؟', a: 'نعم · تقدر تضيفها أو تلغيها في أي وقت' },
+    { q: 'وش يصير لو زادت فروعي؟', a: 'تضيف الفرع من لوحة صيت والسعر يتحدث حسب الشريحة · والسعر للفرع ينزل كل ما زادت فروعك' },
   ],
 } : {
-  seo: { title: 'SAAYT Pricing and Monthly Plans', description: 'Monthly plans priced by number of branches with an optional fully managed service by the SAAYT team — get a quote for your branch count' },
-  h1: 'Pricing that fits your branch count', lead: 'Plans are monthly and priced by number of branches. Pick your branch count and how you want to work and we will send a clear quote',
-  q1: 'How many branches?', q2: 'Who runs it?',
-  sizes: [{ v: '1-4', l: '1 to 4' }, { v: '5-10', l: '5 to 10' }, { v: '11-20', l: '11 to 20' }, { v: '21+', l: 'More than 20' }],
-  plans: [
-    { id: 'platform', t: 'Platform', s: 'Your team runs everything from SAAYT', items: ['All branches in one dashboard', 'Season templates and bulk apply', 'Dialect-aware reply drafts', 'Alerts and branch score', 'Team permissions'] },
-    { id: 'managed', t: 'Fully managed', s: 'The SAAYT team follows up while you keep the final say', items: ['Everything in Platform', 'Daily review follow-up by the SAAYT team', 'Season hours prepared ahead of time', 'Monthly report and review with your team', 'Final approval stays with you'] },
-  ],
-  pick: 'Selected', quote: 'Request a quote', note: 'Quotes show VAT separately and are billed in Saudi riyals',
-  sumA: 'Branches', sumB: 'Plan',
+  seo: { title: 'SAAYT Pricing · From SAR 99 per Branch a Month', description: 'One plan with every feature priced by branch count · from SAR 99 per branch a month and the per-branch price drops as you grow · work out your price now' },
+  h1: 'Clear pricing by branch count', lead: 'One plan with every feature · pick your branch count and see your price right away',
+  count: 'How many branches?', branchWord: 'branches', billing: 'Billing', monthly: 'Monthly', yearly: 'Yearly', yearlyTag: '2 months free',
+  managed: 'Add Fully managed', managedS: 'The SAAYT team follows up on reviews daily and prepares season hours while you keep the final say',
+  perMonth: 'per month excl. VAT', perYear: 'per year excl. VAT', withVat: 'with VAT', avg: 'Average per branch', currency: 'SAR',
+  quote: 'Book a demo', trial: '14-day trial · no card needed',
+  tiersH: 'Per-branch price by band', tiersS: 'Each band is billed on its own · so your bill never drops when you add a branch',
+  tiers: ['First 5 branches', '6 to 10', '11 to 20', '21 and more'], tierUnit: 'per branch a month',
+  managedRow: 'Fully managed', managedRowV: 'SAR 100 per branch a month · from SAR 1,000',
+  foundH: 'Founding customer program', foundS: 'For the first 10 customers · 40% off the first 6 months with free setup and a price locked for a year in return for a case study and a monthly feedback call', foundCta: 'Ask about the program',
   incH: 'In every plan', inc: [
-    { icon: 'shield', t: 'Nothing posts without your approval' }, { icon: 'globe', t: 'Full Arabic interface' }, { icon: 'lock', t: 'Disconnect at any time' }, { icon: 'team', t: 'Arabic support from a Saudi team' },
+    { icon: 'calendar', t: 'Ramadan and Eid templates for all branches' }, { icon: 'reply', t: 'Dialect-aware reply drafts' }, { icon: 'shield', t: 'Approval before posting by default' }, { icon: 'bell', t: 'Alerts and a score per branch' }, { icon: 'team', t: 'Permissions for every role' }, { icon: 'globe', t: 'Arabic interface and Saudi support' },
   ],
+  note: 'Prices are in Saudi riyals and exclude 15% VAT',
   faq: [
-    { q: 'Why are prices not published?', a: 'Price depends on branch count and how you work. We prefer to send an accurate quote instead of a generic number' },
-    { q: 'Is there a long contract?', a: 'Plans are monthly and the term is set out in your quote' },
-    { q: 'Can I start with Platform and move to Fully managed?', a: 'Yes. You can change how you work later' },
-    { q: 'Does the price change if I add branches?', a: 'Yes because pricing is per branch count and you can add branches any time' },
+    { q: 'How is the price worked out?', a: 'Each of your first 5 branches is SAR 99 · branches 6 to 10 are SAR 89 · 11 to 20 are SAR 79 · then SAR 69 per branch · for example 10 branches = SAR 940 a month excl. VAT' },
+    { q: 'Is there a long contract?', a: 'No · plans are monthly and you can stop any time · yearly billing gives you 2 months free' },
+    { q: 'Is there a free trial?', a: 'Yes · 14 days with no card and approval before posting stays on throughout' },
+    { q: 'Can I start with the platform and add Fully managed later?', a: 'Yes · add or remove it at any time' },
+    { q: 'What if I add branches?', a: 'Add the branch in SAAYT and the price updates by band · the per-branch price drops as you grow' },
   ],
 };
+const total = (n: number) => { let t = 0, prev = 0; for (const b of BANDS) { if (n <= prev) break; t += (Math.min(n, b.upTo) - prev) * b.price; prev = b.upTo; } return t; };
+const band = (n: number) => (n <= 5 ? '1-5' : n <= 10 ? '6-10' : n <= 20 ? '11-20' : '21+');
+const START = 10;
+const fmt = (n: number) => n.toLocaleString('en-US', { maximumFractionDigits: 2 });
 const trail = [{ name: N.pricing, path: 'pricing/' }];
+const offerLd = { '@context': 'https://schema.org', '@type': 'Product', name: 'SAAYT', description: T.seo.description, brand: { '@type': 'Brand', name: 'SAAYT' }, offers: { '@type': 'Offer', price: '99', priceCurrency: 'SAR', url: Astro.site!.toString().replace(/\/$/, '') + url(lang, 'pricing/'), priceSpecification: { '@type': 'UnitPriceSpecification', price: '99', priceCurrency: 'SAR', valueAddedTaxIncluded: false, unitText: ar ? 'فرع شهريًا' : 'branch per month' } } };
 ---
-<Base lang={lang} title={T.seo.title} description={T.seo.description} path="pricing/" dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), faqLd(T.faq)]}>
+<Base lang={lang} title={T.seo.title} description={T.seo.description} path="pricing/" dark jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), faqLd(T.faq), offerLd]}>
   <PageHero lang={lang} eyebrow={N.pricing} title={T.h1} lead={T.lead} crumbs={trail} cta={false} compact />
-  <section class="section pr" data-pricing data-demo={url(lang, 'demo/')}>
-    <div class="wrap">
-      <fieldset class="pr__q">
-        <legend>{T.q1}</legend>
-        <div class="pr__sizes">
-          {T.sizes.map((s, i) => <label><input type="radio" name="branches" value={s.v} checked={i === 1} /><span class="num">{s.l}</span></label>)}
+  <section class="section pr" data-pricing data-demo={url(lang, 'demo/')} data-bands={JSON.stringify(BANDS.map((b) => [b.upTo === Infinity ? 9999 : b.upTo, b.price]))} data-managed={JSON.stringify(MANAGED)} data-cur={T.currency}>
+    <div class="wrap pr__grid">
+      <div class="pr__calc">
+        <label class="pr__lbl" for="pr-n">{T.count}</label>
+        <div class="pr__count">
+          <button type="button" class="pr__step" data-step="-1" aria-label={ar ? 'أقل' : 'Fewer'}>−</button>
+          <input id="pr-n" class="num" type="number" inputmode="numeric" min="1" max="500" value={START} />
+          <button type="button" class="pr__step" data-step="1" aria-label={ar ? 'أكثر' : 'More'}>+</button>
+          <span class="pr__unit">{T.branchWord}</span>
         </div>
-      </fieldset>
-      <fieldset class="pr__q"><legend>{T.q2}</legend>
-      <div class="pr__plans">
-        {T.plans.map((p, i) => (
-          <label class:list={['pr__plan', { 'pr__plan--dark': i === 1 }]}>
-            <input type="radio" name="plan" value={p.id} checked={i === 0} />
-            <span class="pr__check"><Icon name="check" size={16} /></span>
-            <b class="pr__t">{p.t}</b><span class="pr__s">{p.s}</span>
-            <ul>{p.items.map((x) => <li><Icon name="check" size={16} />{x}</li>)}</ul>
-          </label>
-        ))}
+        <input class="pr__range" type="range" min="1" max="60" value={START} aria-label={T.count} />
+        <fieldset class="pr__bill"><legend class="pr__lbl">{T.billing}</legend>
+          <label><input type="radio" name="bill" value="m" checked /><span>{T.monthly}</span></label>
+          <label><input type="radio" name="bill" value="y" /><span>{T.yearly} <em>{T.yearlyTag}</em></span></label>
+        </fieldset>
+        <label class="pr__mgd"><input type="checkbox" name="managed" /><span class="pr__box"><Icon name="check" size={14} /></span><span><b>{T.managed}</b><small>{T.managedS}</small></span></label>
       </div>
-      </fieldset>
-      <div class="pr__sum">
-        <div><small>{T.sumA}</small><b class="num" data-sum-b>{T.sizes[1].l}</b></div>
-        <div><small>{T.sumB}</small><b data-sum-p>{T.plans[0].t}</b></div>
-        <a class="btn btn--primary" data-quote href={url(lang, 'demo/') + '?branches=5-10&plan=platform'}>{T.quote}<Icon name="arrow" size={18} class="arrow" /></a>
+      <div class="pr__out" aria-live="polite">
+        <p class="pr__big"><b class="num" data-total>{fmt(total(START))}</b> <span>{T.currency}</span></p>
+        <p class="pr__per" data-per-label data-m={T.perMonth} data-y={T.perYear}>{T.perMonth}</p>
+        <dl class="pr__meta">
+          <div><dt>{T.withVat}</dt><dd class="num" data-vat>{fmt(total(START) * 1.15)} {T.currency}</dd></div>
+          <div><dt>{T.avg}</dt><dd class="num" data-avg>{fmt(total(START) / START)} {T.currency}</dd></div>
+        </dl>
+        <a class="btn btn--primary pr__cta" data-quote href={url(lang, 'demo/') + `?branches=${band(START)}&plan=platform`}>{T.quote}<Icon name="arrow" size={18} class="arrow" /></a>
+        <p class="pr__trial"><Icon name="check" size={16} />{T.trial}</p>
       </div>
-      <p class="pr__note">{T.note}</p>
+    </div>
+    <div class="wrap">
+      <div class="pr__tiers">
+        <div class="pr__th"><h2 class="pr__h">{T.tiersH}</h2><p>{T.tiersS}</p></div>
+        <table>
+          <tbody>
+            {BANDS.map((b, i) => <tr><th scope="row">{T.tiers[i]}</th><td class="num"><b>{b.price}</b> {T.currency} <small>{T.tierUnit}</small></td></tr>)}
+            <tr class="pr__mrow"><th scope="row">{T.managedRow}</th><td>{T.managedRowV}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pr__found">
+        <div><b>{T.foundH}</b><p>{T.foundS}</p></div>
+        <a class="btn btn--dark" href={url(lang, 'demo/') + '?plan=founding'}>{T.foundCta}<Icon name="arrow" size={18} class="arrow" /></a>
+      </div>
       <div class="pr__inc">
         <b>{T.incH}</b>
         <div>{T.inc.map((x) => <span><Icon name={x.icon} size={18} />{x.t}</span>)}</div>
       </div>
+      <p class="pr__note">{T.note}</p>
     </div>
-    <script type="application/json" data-labels set:html={JSON.stringify({ sizes: Object.fromEntries(T.sizes.map((s) => [s.v, s.l])), plans: Object.fromEntries(T.plans.map((p) => [p.id, p.t])) })} />
   </section>
-  <FAQ eyebrow={ar ? 'أسئلة الأسعار' : 'Pricing questions'} title={ar ? 'عن الباقات' : 'About plans'} items={T.faq} />
+  <FAQ eyebrow={ar ? 'أسئلة الأسعار' : 'Pricing questions'} title={ar ? 'عن الأسعار' : 'About pricing'} items={T.faq} />
   <CTABand lang={lang} />
 </Base>
 <style>
-  .pr__q { border: 0; padding: 0; margin: 0 0 18px }
-  .pr__q legend { font-weight: 700; font-size: 1.2rem; margin-bottom: 14px; font-family: 'Alexandria', var(--font) }
-  .pr__sizes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px }
-  .pr__sizes label, .pr__plan { cursor: pointer; position: relative }
-  .pr__sizes input, .pr__plan input { position: absolute; opacity: 0; pointer-events: none }
-  .pr__sizes span { display: grid; place-items: center; height: 58px; border-radius: var(--r-md); background: var(--surface); border: 1.5px solid var(--line); font-weight: 600; transition: border-color .25s, background-color .25s }
-  .pr__sizes input:checked + span { border-color: var(--green-900); background: var(--green-100) }
-  .pr__sizes input:focus-visible + span, .pr__plan:has(input:focus-visible) { outline: 2px solid var(--saffron-400); outline-offset: 2px }
-  .pr__plans { display: grid; grid-template-columns: 1fr 1fr; gap: 16px }
-  .pr__plan { display: grid; gap: 4px; align-content: start; padding: 28px; border-radius: var(--r-lg); background: var(--surface); border: 2px solid var(--line); transition: border-color .25s }
-  .pr__plan:has(input:checked) { border-color: var(--saffron-400) }
-  .pr__plan--dark { background: var(--green-900); color: var(--sand-100) }
-  .pr__check { position: absolute; inset-inline-end: 22px; top: 22px; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--line); color: transparent }
-  .pr__plan--dark .pr__check { border-color: rgba(245, 239, 228, .3) }
-  .pr__plan:has(input:checked) .pr__check { background: var(--saffron-400); border-color: var(--saffron-400); color: var(--green-950) }
-  .pr__t { font-family: 'Alexandria', var(--font); font-size: 1.6rem }
-  .pr__s { color: var(--muted) }
-  .pr__plan--dark .pr__s { color: var(--green-300) }
-  .pr__plan ul { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px }
-  .pr__plan li { display: flex; gap: 10px; align-items: center }
-  .pr__plan li :global(.icon) { color: var(--green-500); flex: none }
-  .pr__plan--dark li :global(.icon) { color: var(--saffron-400) }
-  .pr__sum { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; margin-top: 20px; padding: 20px 24px; border-radius: var(--r-lg); background: var(--saffron-100) }
-  .pr__sum small { display: block; color: var(--muted); font-size: .85rem }
-  .pr__sum b { font-size: 1.15rem }
-  .pr__sum .btn { margin-inline-start: auto }
-  .pr__note { margin-top: 14px; font-size: .92rem; color: var(--muted) }
+  .pr__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: stretch }
+  .pr__calc, .pr__out { border-radius: var(--r-lg); padding: clamp(24px, 3vw, 40px) }
+  .pr__calc { background: var(--surface); border: 1px solid var(--line); display: grid; gap: 18px; align-content: start }
+  .pr__out { background: var(--green-900); color: var(--sand-100); display: grid; gap: 12px; align-content: start }
+  .pr__lbl { font-weight: 700; font-size: 1.15rem; font-family: 'Alexandria', var(--font) }
+  .pr__count { display: flex; align-items: center; gap: 10px }
+  .pr__count input { width: 110px; height: 58px; text-align: center; font-size: 1.6rem; font-weight: 700; border-radius: var(--r-md); border: 1.5px solid var(--line); background: var(--bg); color: var(--text); font-family: inherit; -moz-appearance: textfield }
+  .pr__count input::-webkit-outer-spin-button, .pr__count input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0 }
+  .pr__step { width: 52px; height: 52px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--bg); font-size: 1.5rem; color: var(--green-900); cursor: pointer }
+  .pr__step:hover { border-color: var(--green-900) }
+  .pr__unit { color: var(--muted); font-weight: 600 }
+  .pr__range { width: 100%; accent-color: var(--green-900) }
+  .pr__bill { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px }
+  .pr__bill legend { margin-bottom: 10px }
+  .pr__bill label { cursor: pointer; position: relative }
+  .pr__bill input, .pr__mgd input { position: absolute; opacity: 0; pointer-events: none }
+  .pr__bill span { display: inline-flex; gap: 8px; align-items: center; height: 50px; padding: 0 20px; border-radius: 999px; border: 1.5px solid var(--line); font-weight: 600 }
+  .pr__bill em { font-style: normal; font-size: .8rem; padding: 2px 10px; border-radius: 999px; background: var(--saffron-100); color: #8A5208 }
+  .pr__bill input:checked + span { border-color: var(--green-900); background: var(--green-100) }
+  .pr__bill input:focus-visible + span, .pr__mgd input:focus-visible ~ .pr__box { outline: 2px solid var(--saffron-400); outline-offset: 2px }
+  .pr__mgd { display: flex; gap: 14px; align-items: flex-start; cursor: pointer; padding: 18px; border-radius: var(--r-md); border: 1.5px solid var(--line) }
+  .pr__mgd:has(input:checked) { border-color: var(--saffron-400); background: var(--saffron-100) }
+  .pr__box { flex: none; width: 24px; height: 24px; margin-top: 3px; border-radius: 6px; border: 2px solid var(--line); display: grid; place-items: center; color: transparent }
+  .pr__mgd input:checked ~ .pr__box { background: var(--green-900); border-color: var(--green-900); color: var(--sand-100) }
+  .pr__mgd b { display: block }
+  .pr__mgd small { color: var(--muted); font-size: .92rem; line-height: 1.6 }
+  .pr__big { font-family: 'Alexandria', var(--font); display: flex; align-items: baseline; gap: 10px; margin: 0 }
+  .pr__big b { font-size: clamp(3rem, 7vw, 4.6rem); line-height: 1.1; color: var(--saffron-400) }
+  .pr__big span { font-size: 1.4rem }
+  .pr__per { margin: 0; color: var(--green-300) }
+  .pr__meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0 6px }
+  .pr__meta div { padding: 14px 16px; border-radius: var(--r-md); background: var(--green-800) }
+  .pr__meta dt { font-size: .85rem; color: var(--green-300) }
+  .pr__meta dd { margin: 4px 0 0; font-weight: 700; font-size: 1.15rem }
+  .pr__cta { justify-self: start }
+  .pr__trial { display: flex; gap: 8px; align-items: center; margin: 4px 0 0; color: var(--green-300); font-size: .95rem }
+  .pr__trial :global(.icon) { color: var(--saffron-400) }
+  .pr__tiers { margin-top: 48px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px 48px; align-items: start }
+  .pr__h { font-family: 'Alexandria', var(--font); font-size: 1.5rem; line-height: 1.5 }
+  .pr__th p { color: var(--muted); margin-top: 8px }
+  .pr__tiers table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden }
+  .pr__tiers th, .pr__tiers td { padding: 16px 22px; text-align: start; border-bottom: 1px solid var(--line) }
+  .pr__tiers tr:last-child th, .pr__tiers tr:last-child td { border-bottom: 0 }
+  .pr__tiers th { font-weight: 600; white-space: nowrap }
+  .pr__tiers td b { font-size: 1.3rem; font-family: 'Alexandria', var(--font); color: var(--green-900) }
+  .pr__tiers td small { color: var(--muted) }
+  .pr__mrow { background: var(--green-100) }
+  .pr__found { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 18px 32px; align-items: center; justify-content: space-between; padding: 26px 30px; border-radius: var(--r-lg); background: var(--saffron-100); border: 1px solid var(--saffron-200) }
+  .pr__found b { font-family: 'Alexandria', var(--font); font-size: 1.25rem }
+  .pr__found p { color: var(--ink-700); margin-top: 6px; max-width: 70ch }
   .pr__inc { margin-top: 40px; display: grid; gap: 14px }
   .pr__inc > div { display: flex; flex-wrap: wrap; gap: 10px }
   .pr__inc span { display: inline-flex; gap: 8px; align-items: center; padding: 10px 16px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-weight: 500; font-size: .95rem }
   .pr__inc :global(.icon) { color: var(--green-700) }
-  @media (max-width: 760px) { .pr__sizes { grid-template-columns: 1fr 1fr } .pr__plans { grid-template-columns: 1fr } .pr__sum .btn { margin: 0; flex: 1 1 100% } }
+  .pr__note { margin-top: 18px; font-size: .92rem; color: var(--muted) }
+  @media (max-width: 900px) { .pr__grid, .pr__tiers { grid-template-columns: 1fr } }
+  @media (max-width: 560px) { .pr__meta { grid-template-columns: 1fr } .pr__cta { justify-self: stretch } .pr__found .btn { flex: 1 1 100% } }
 </style>
 <script>
   document.querySelectorAll<HTMLElement>('[data-pricing]').forEach((root) => {
-    const L = JSON.parse(root.querySelector('[data-labels]')!.textContent!);
+    const bands: [number, number][] = JSON.parse(root.dataset.bands!);
+    const M = JSON.parse(root.dataset.managed!);
     const demo = root.dataset.demo!;
-    const upd = () => {
-      const b = (root.querySelector('input[name=branches]:checked') as HTMLInputElement).value;
-      const p = (root.querySelector('input[name=plan]:checked') as HTMLInputElement).value;
-      root.querySelector('[data-sum-b]')!.textContent = L.sizes[b];
-      root.querySelector('[data-sum-p]')!.textContent = L.plans[p];
-      (root.querySelector('[data-quote]') as HTMLAnchorElement).href = `${demo}?branches=${encodeURIComponent(b)}&plan=${p}`;
+    const num = root.querySelector<HTMLInputElement>('#pr-n')!;
+    const range = root.querySelector<HTMLInputElement>('.pr__range')!;
+    const cur = ' ' + root.dataset.cur!;
+    const fmt = (n: number) => n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    const total = (n: number) => { let t = 0, prev = 0; for (const [upTo, price] of bands) { if (n <= prev) break; t += (Math.min(n, upTo) - prev) * price; prev = upTo; } return t; };
+    const band = (n: number) => (n <= 5 ? '1-5' : n <= 10 ? '6-10' : n <= 20 ? '11-20' : '21+');
+    const upd = (src?: HTMLInputElement) => {
+      let n = Math.round(Number((src ?? num).value) || 1); n = Math.min(500, Math.max(1, n));
+      if (src !== num) num.value = String(n);
+      range.value = String(Math.min(60, n));
+      const yearly = (root.querySelector('input[name=bill]:checked') as HTMLInputElement).value === 'y';
+      const managed = (root.querySelector('input[name=managed]') as HTMLInputElement).checked;
+      const monthly = total(n) + (managed ? Math.max(M.min, M.perBranch * n) : 0);
+      const shown = yearly ? monthly * 10 : monthly;
+      root.querySelector('[data-total]')!.textContent = fmt(shown);
+      const per = root.querySelector<HTMLElement>('[data-per-label]')!; per.textContent = yearly ? per.dataset.y! : per.dataset.m!;
+      root.querySelector('[data-vat]')!.textContent = `${fmt(shown * 1.15)}${cur}`;
+      root.querySelector('[data-avg]')!.textContent = `${fmt(monthly / n)}${cur}`;
+      (root.querySelector('[data-quote]') as HTMLAnchorElement).href = `${demo}?branches=${band(n)}&plan=${managed ? 'managed' : 'platform'}`;
     };
-    root.addEventListener('change', upd);
+    num.addEventListener('input', () => upd(num));
+    num.addEventListener('blur', () => upd());
+    range.addEventListener('input', () => upd(range));
+    root.querySelectorAll<HTMLButtonElement>('[data-step]').forEach((b) => b.addEventListener('click', () => { num.value = String((Number(num.value) || 0) + Number(b.dataset.step)); upd(); }));
+    root.addEventListener('change', (e) => { const t = e.target as HTMLInputElement; if (t.name === 'bill' || t.name === 'managed') upd(); });
   });
 </script>
