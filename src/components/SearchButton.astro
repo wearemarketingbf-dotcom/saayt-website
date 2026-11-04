@@ -1,0 +1,17 @@
+---
+// Header search button · opens the site search dialog (SiteSearch.astro), also on / and Ctrl or Cmd+K
+import Icon from './Icon.astro';
+import { type Lang } from '../i18n/util';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const label = lang === 'ar' ? 'ابحث في الموقع' : 'Search the site';
+---
+<button class="hsearch" type="button" data-search-open aria-haspopup="dialog" aria-controls="site-search" aria-keyshortcuts="/ Control+K Meta+K" title={label}>
+  <Icon name="search" size={21} />
+  <span class="sr-only">{label}</span>
+</button>
+<style>
+  .hsearch { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: 50%; transition: background-color .2s }
+  .hsearch:hover { background: rgba(15, 61, 54, .07) }
+  :global(.hdr--dark:not(.is-solid)) .hsearch:hover { background: rgba(245, 239, 228, .1) }
+</style>

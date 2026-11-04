@@ -16,6 +16,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileBar from '../components/MobileBar.astro';
 import Consent from '../components/Consent.astro';
+import SiteSearch from '../components/SiteSearch.astro';
 import { type Lang, dir, url, asset, SITE_NAME } from '../i18n/util';
 import { CONFIG } from '../config';
 
@@ -47,6 +48,7 @@ const org = {
 };
 const track = !!CONFIG.gaId && !CONFIG.noindex; // analytics everywhere except the github.io preview
 const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME[lang], url: site + url(lang), inLanguage: lang === 'ar' ? 'ar-SA' : 'en' };
+const searchTitle = title.replace(/\s*[|·]\s*(صيت|SAAYT)\s*$/i, ''); // site search result title (page title without the brand)
 ---
 <!doctype html>
 <html lang={lang} dir={dir(lang)}>
@@ -93,10 +95,11 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: SI
 <body>
   <a class="skip" href="#main">{lang === 'ar' ? 'انتقل إلى المحتوى' : 'Skip to content'}</a>
   <Header lang={lang} path={path} altPath={altPath} dark={dark} />
-  <main id="main"><slot /></main>
+  <main id="main" data-pagefind-body={noindex ? undefined : ''}><span hidden data-pagefind-meta="title[data-title]" data-title={searchTitle}></span><slot /></main>
   <Footer lang={lang} />
   <MobileBar lang={lang} />
   {track && <Consent lang={lang} />}
+  <SiteSearch lang={lang} />
   <script>import '../scripts/motion.ts';</script>
 </body>
 </html>
