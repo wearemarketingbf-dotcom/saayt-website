@@ -69,7 +69,11 @@ export async function mount(root: HTMLElement, launcher: HTMLButtonElement) {
   const send = el('button', 'ast__send'); send.type = 'submit'; send.setAttribute('aria-label', T.send); send.appendChild(svg('<path d="M5 12h14M13 6l6 6-6 6"/>'));
   form.append(lbl, input, send);
   const acts = el('div', 'ast__acts');
-  if (wa) { const a = el('a', 'btn btn--light-ghost', T.wa); a.href = wa; a.target = '_blank'; a.rel = 'noopener'; acts.appendChild(a); }
+  if (wa) {
+    const a = el('a', 'btn btn--light-ghost'); a.href = wa; a.target = '_blank'; a.rel = 'noopener';
+    const ic = svg('<path d="M4 20l1.3-4A8 8 0 1 1 8 19z"/><path d="M9 9.5c.3 2.4 2.1 4.3 4.5 4.8l1-1.3 2 .8c-.2 1.3-1.2 2-2.5 1.9A7 7 0 0 1 8 9.3c-.1-1.3.6-2.3 1.9-2.5l.8 2z"/>', 18);
+    ic.setAttribute('stroke-width', '1.8'); a.append(ic, T.wa); acts.appendChild(a);
+  }
   const d = el('a', 'btn btn--dark', T.demo); d.href = demo; acts.appendChild(d);
   panel.append(head, log, form, acts);
   root.appendChild(panel);
