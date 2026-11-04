@@ -52,7 +52,7 @@ const org = {
   url: site + url(lang), logo: abs(O.logo),
   address: { '@type': 'PostalAddress', addressLocality: O.locality, addressCountry: O.country },
   email: CONFIG.email,
-  contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: CONFIG.email, areaServed: O.areaServed, availableLanguage: O.languages },
+  contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: CONFIG.email, areaServed: O.areaServed || undefined, availableLanguage: O.languages.length ? O.languages : undefined },
   sameAs: Object.values(CONFIG.social),
 };
 const track = !!CONFIG.gaId && !CONFIG.noindex; // analytics everywhere except the github.io preview

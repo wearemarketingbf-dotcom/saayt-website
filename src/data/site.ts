@@ -9,24 +9,25 @@ import pagesAr from './seo/pages/ar.json';
 import pagesEn from './seo/pages/en.json';
 import { text, mediaPath, optionalMedia, parse } from './schema';
 
-const url = z.union([z.string().url().startsWith('https://'), z.literal('')]);
+// The CMS leaves empty optional fields out of the file, so every optional value defaults to ''
+const url = z.union([z.string().url().startsWith('https://'), z.literal('')]).default('');
 const Settings = z.object({
   email: z.string().email(),
-  whatsapp: z.string().regex(/^\d*$/, 'digits only, e.g. 9665XXXXXXXX'),
+  whatsapp: z.string().regex(/^\d*$/, 'digits only, e.g. 9665XXXXXXXX').default(''),
   loginUrl: url,
   crmInboxUrl: url,
   city: z.object({ ar: text, en: text }),
-  social: z.object({ x: url, facebook: url, instagram: url, linkedin: url, tiktok: url, snapchat: url, youtube: url }).partial(),
+  social: z.object({ x: url, facebook: url, instagram: url, linkedin: url, tiktok: url, snapchat: url, youtube: url }).partial().default({}),
 });
 export const SETTINGS = parse(Settings, settings, 'src/data/settings.json');
 
 const SeoSite = z.object({
   siteName: z.object({ ar: text, en: text }),
   defaultImage: mediaPath,
-  xHandle: z.string().regex(/^[A-Za-z0-9_]{0,15}$/, 'the X username without @'),
+  xHandle: z.string().regex(/^[A-Za-z0-9_]{0,15}$/, 'the X username without @').default(''),
   organization: z.object({
-    name: text, alternateName: z.string(), logo: mediaPath,
-    locality: text, country: z.string().length(2), areaServed: z.string(), languages: z.array(z.string()),
+    name: text, alternateName: z.string().default(''), logo: mediaPath,
+    locality: text, country: z.string().length(2), areaServed: z.string().default(''), languages: z.array(z.string()).default([]),
   }),
 });
 export const SEO_SITE = parse(SeoSite, seoSite, 'src/data/seo/site.json');
