@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import SearchButton from './SearchButton.astro';
 import { type Lang, url, asset, other } from '../i18n/util';
 import { NAV, FEATURES, INDUSTRIES } from '../i18n/nav';
 import { CONFIG } from '../config';
@@ -44,6 +45,7 @@ const logoDark = lang === 'ar' ? 'brand/saayt_logo_arabic_dark_v01.svg' : 'brand
       <a class="hdr__link" href={url(lang, 'blog/')}>{n.blog}</a>
     </nav>
     <div class="hdr__end">
+      <SearchButton lang={lang} />
       <a class="hdr__lang" href={switchHref} hreflang={o} lang={o}>{n.switch}</a>
       {CONFIG.loginUrl && <a class="hdr__link hdr__login" href={CONFIG.loginUrl}>{n.login}</a>}
       <a class="btn btn--primary hdr__cta" href={url(lang, 'demo/')}>{n.demo}</a>
@@ -100,6 +102,7 @@ const logoDark = lang === 'ar' ? 'brand/saayt_logo_arabic_dark_v01.svg' : 'brand
   .dd__link { display: block; padding: 10px 14px; border-radius: 12px; font-weight: 500 }
   .dd__all { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; padding: 12px 14px; border-top: 1px solid var(--line); font-weight: 600; color: var(--green-700) }
   .hdr__end { display: flex; align-items: center; gap: 10px; margin-inline-start: auto }
+  .hdr__link, .dd__btn, .hdr__lang { white-space: nowrap } /* labels stay on one line next to the search button at 1081 to 1110 */
   .hdr__lang { font-weight: 600; font-size: .95rem; padding: 0 10px; height: 40px; display: inline-flex; align-items: center; border-radius: 999px }
   .hdr__lang:hover { background: rgba(15, 61, 54, .07) }
   .hdr__cta { --h: 46px; padding: 0 22px }

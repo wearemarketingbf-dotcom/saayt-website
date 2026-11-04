@@ -28,6 +28,11 @@ Also review
 - `src/content/legal/` · privacy policy and terms are drafts that need a Saudi lawyer and real company details
 - Prices are not published on purpose · the pricing page asks for a quote
 
+## Site search and assistant
+
+- Search: [Pagefind](https://pagefind.app) builds one index per language after `astro build` (`npm run build`). The header search button, `/` or Ctrl/Cmd+K opens it. In `npm run dev` there is no index, so test search with `npm run build && npm run preview`. What gets indexed: `pagefind.yml`
+- Assistant: «مساعد صيت الآلي» answers from `src/data/faq.ar.json` and `src/data/faq.en.json` (each a list of `{ "q", "a", "tags", "link" }`). The first 4 questions are the starter questions. Write answers only from what the site says and link each to its page (`/pricing/`, `/en/pricing/`). `tags` are extra words visitors may type. When nothing matches it shows site search results, WhatsApp (when `whatsapp` is set) and the demo page. No AI, no storage and no cookies
+
 ## Deploy
 
 - Live: https://saayt.app on GitHub Pages (custom domain set in repo Settings → Pages, DNS on Cloudflare)
