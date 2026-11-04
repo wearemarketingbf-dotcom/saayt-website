@@ -20,6 +20,7 @@ Edit `src/config.ts`
 |---|---|
 | `whatsapp` | WhatsApp number (digits only). Empty hides WhatsApp buttons |
 | `formEndpoint` | Webhook URL for the demo form (GoHighLevel or similar). Empty opens a prefilled email |
+| `apiContactEndpoint` | SAAYT API contact endpoint (`https://api.saayt.app/v1/public/contact`). When set the form posts there instead of `formEndpoint`: the message shows in the SAAYT admin and the API forwards it to the CRM webhook (server env `CONTACT_FORWARD_WEBHOOK`; this site's origin must be in `CONTACT_ALLOWED_ORIGINS`). Empty keeps today's behaviour |
 | `loginUrl` | App login link. Empty hides it |
 | `email` | Contact email |
 
