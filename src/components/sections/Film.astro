@@ -12,8 +12,8 @@ const F = HOME[lang].film;
       <h2 class="h2" id="film-h" data-reveal>{F.h2}</h2>
     </div>
     <div class="film__frame" data-reveal>
-      <video class="film__v" preload="none" playsinline controls poster={asset('img/film-poster.webp')} data-film>
-        <source src={asset('media/saayt-brand-film.mp4')} type="video/mp4" />
+      <video class="film__v" preload="none" playsinline controls poster={asset(F.media.poster)} data-film>
+        <source src={asset(F.media.video)} type="video/mp4" />
       </video>
       <button class="film__play" type="button" data-play aria-label={F.play}>
         <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>

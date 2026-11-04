@@ -3,7 +3,10 @@ import Icon from './Icon.astro';
 import { type Lang, url, asset, other, CONTACT } from '../i18n/util';
 import { NAV, FEATURES, INDUSTRIES } from '../i18n/nav';
 import { CONFIG } from '../config';
+import { SEO_SITE } from '../data/site';
 interface Props { lang: Lang }
+// Extra social accounts from the CMS settings, shown only when filled
+const SOCIAL_MORE = [['instagram', { ar: 'إنستقرام', en: 'Instagram' }], ['linkedin', { ar: 'لينكدإن', en: 'LinkedIn' }], ['tiktok', { ar: 'تيك توك', en: 'TikTok' }], ['snapchat', { ar: 'سناب شات', en: 'Snapchat' }], ['youtube', { ar: 'يوتيوب', en: 'YouTube' }]] as const;
 const { lang } = Astro.props;
 const n = NAV(lang);
 const ar = lang === 'ar';
@@ -47,8 +50,9 @@ const wa = CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}` : url(lang, 'dem
         <a href={url(lang, 'privacy/')}>{ar ? 'سياسة الخصوصية' : 'Privacy Policy'}</a>
         <a href={url(lang, 'terms/')}>{ar ? 'الشروط والأحكام' : 'Terms of Service'}</a>
         <a href={`mailto:${CONFIG.email}`} class="ltr">{CONFIG.email}</a>
-        {CONFIG.social.x && <a href={CONFIG.social.x} target="_blank" rel="noopener me" class="ltr">X @saaytapp</a>}
+        {CONFIG.social.x && <a href={CONFIG.social.x} target="_blank" rel="noopener me" class="ltr">{SEO_SITE.xHandle ? `X @${SEO_SITE.xHandle}` : 'X'}</a>}
         {CONFIG.social.facebook && <a href={CONFIG.social.facebook} target="_blank" rel="noopener me">{ar ? 'فيسبوك' : 'Facebook'}</a>}
+        {SOCIAL_MORE.filter(([k]) => CONFIG.social[k]).map(([k, l]) => <a href={CONFIG.social[k]} target="_blank" rel="noopener me">{l[lang]}</a>)}
         <span>{CONTACT.city[lang]}</span>
         <a href={url(other(lang))} lang={other(lang)}>{n.switch}</a>
       </div>

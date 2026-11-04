@@ -3,7 +3,8 @@
   "img": "/img/ind-auto.webp",
   "seo": {
     "title": "Google Reviews for Auto Service Centers | SAAYT",
-    "description": "Track and answer Google reviews for every service center in the customer’s dialect and update hours and services across branches at once"
+    "description": "Track and answer Google reviews for every service center in the customer’s dialect and update hours and services across branches at once",
+    "image": "/img/og/auto-service.jpg"
   },
   "h1": "Every service centre with the same reputation",
   "lead": "Car owners read reviews before handing over their keys. SAAYT lets you answer every review in every centre and update hours and services in one go",

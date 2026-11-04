@@ -18,9 +18,9 @@ const ind = INDUSTRIES.find((i) => i.slug === slug)!;
 const path = `industries/${slug}/`;
 const trail = [{ name: N.industries, path: 'industries/' }, { name: ind[lang], path }];
 const others = INDUSTRIES.filter((i) => i.slug !== slug);
-const faqs = [...P.faq, HOME[lang].faq.items[0], HOME[lang].faq.items[4]];
+const faqs = [...P.faq, HOME[lang].faq.items[0], HOME[lang].faq.items[4]].filter(Boolean); // two shared answers from the home FAQ
 ---
-<Base lang={lang} title={P.seo.title} description={P.seo.description} path={path} dark image={`img/og/${slug}.jpg`} jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), faqLd(faqs)]}>
+<Base lang={lang} title={P.seo.title} description={P.seo.description} path={path} dark image={P.seo.image || `img/og/${slug}.jpg`} noindex={P.seo.noindex} jsonld={[crumbsLd(lang, Astro.site!.toString(), trail), faqLd(faqs)]}>
   <PageHero lang={lang} eyebrow={ind[lang]} title={P.h1} lead={P.lead} crumbs={trail} img={asset(ind.img)} />
 
   <section class="section">
