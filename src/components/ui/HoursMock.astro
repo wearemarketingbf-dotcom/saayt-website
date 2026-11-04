@@ -45,6 +45,8 @@ const T = ar
   .hours.applied .hours__apply { display: none }
   .hours.applied .hours__done { display: inline }
   .hours.applied .hours__btn { background: var(--green-700) }
+  /* the two shift times stay on one line, so tighten them on small phones to avoid a sideways scroll at 360 */
+  @media (max-width: 400px) { .hours__shift { padding: 10px 12px } .hours__shift b { font-size: .95rem } }
 </style>
 <script>
   document.querySelectorAll<HTMLElement>('[data-hours]').forEach((el) => {

@@ -1,0 +1,245 @@
+{
+  "seo": {
+    "title": "Manage Every Branch on Google Maps in One Place | SAAYT",
+    "description": "Update hours · photos and details for all your branches on Google at once and handle reviews with dialect-aware reply drafts your team approves"
+  },
+  "hero": {
+    "eyebrow": "Your branches on Google",
+    "h1a": "Many branches",
+    "h1b": "One reputation",
+    "sub": "SAAYT keeps every branch on Google to the same standard from one screen: hours, photos, details and a reply to every review",
+    "cta1": "Book a demo",
+    "cta2": "Free branch scan",
+    "note": "Nothing is published without your approval",
+    "media": {
+      "poster": "/img/hero-poster.webp",
+      "videoSm": "/media/hero-loop-sm.mp4",
+      "video": "/media/hero-loop.mp4"
+    }
+  },
+  "heroCard": {
+    "label": "Example",
+    "today": "Today across your branches",
+    "branch": "Olaya branch",
+    "time": "12 min ago",
+    "review": "Great service but I waited a long time at the cashier and the staff didn’t know about the offer",
+    "suggested": "Suggested reply in the customer’s tone",
+    "reply": "Thank you for the feedback about our Olaya branch. We’re sorry about the wait at the cashier and we’ve asked the branch manager to follow up. We hope to see you again soon",
+    "approve": "Approve reply",
+    "edit": "Edit",
+    "waiting": "Awaiting your approval",
+    "approved": "Published after your approval",
+    "rows": [
+      {
+        "b": "Malqa branch",
+        "s": "Phone number changed on Google",
+        "tone": "accent"
+      },
+      {
+        "b": "Narjis branch",
+        "s": "Ramadan hours applied",
+        "tone": "ok"
+      }
+    ]
+  },
+  "trust": [
+    "Nothing goes live without your approval",
+    "Arabic first in your customer’s dialect",
+    "Built for Ramadan and Eid",
+    "Made for branch chains in Saudi Arabia"
+  ],
+  "problem": {
+    "eyebrow": "The problem",
+    "h2": "Every branch speaks in a different voice",
+    "lead": "The more branches you run the more small mistakes customers see before they visit: old hours in one branch, an old photo in another and a review nobody answered",
+    "before": "Before SAAYT",
+    "beforeCap": "9 branches and 9 different hours",
+    "after": "With SAAYT",
+    "afterCap": "9 branches and one edit",
+    "pains": [
+      {
+        "t": "Ramadan hours",
+        "d": "Updated in one branch and outdated in the rest so customers arrive at a closed door"
+      },
+      {
+        "t": "Unanswered reviews",
+        "d": "A negative review in a far branch that nobody noticed for days"
+      },
+      {
+        "t": "Wrong details",
+        "d": "An old phone number, photos that don’t look like the store and the wrong category"
+      }
+    ]
+  },
+  "concept": {
+    "eyebrow": "The idea",
+    "h2": "One star that brings every branch together",
+    "lead": "In the SAAYT identity each branch is a point and the star is the standard that connects them. That is what SAAYT does: every branch behaves like one brand",
+    "points": [
+      {
+        "t": "One view",
+        "d": "Every branch and its status on one screen"
+      },
+      {
+        "t": "One edit",
+        "d": "Change it once and it reaches every selected branch"
+      },
+      {
+        "t": "One voice",
+        "d": "Replies that sound like your brand in your customer’s dialect"
+      },
+      {
+        "t": "One standard",
+        "d": "The same level in every branch and every city"
+      }
+    ]
+  },
+  "how": {
+    "eyebrow": "How it works",
+    "h2": "Three steps to start",
+    "steps": [
+      {
+        "t": "Connect your Google account",
+        "d": "Connect your branches’ Business Profiles with your permission and see every branch in one dashboard"
+      },
+      {
+        "t": "See which branches need you",
+        "d": "SAAYT sorts your priorities: an unanswered review, missing hours or changed details"
+      },
+      {
+        "t": "Approve and it reaches every branch",
+        "d": "Approve the reply or the change in one click and apply it to one branch or all of them"
+      }
+    ],
+    "more": "See how it works"
+  },
+  "features": {
+    "eyebrow": "Features",
+    "h2": "Everything customers see about your branches in one place",
+    "hours": {
+      "t": "Hours and seasons",
+      "h": "Ramadan and Eid for every branch in one edit",
+      "d": "Prepare season and holiday hours from ready templates and apply them to the branches you choose before the season starts",
+      "bullets": [
+        "Ramadan, Eid, National Day and Founding Day templates",
+        "Two shifts a day per branch",
+        "Alerts for branches missing season hours"
+      ]
+    },
+    "reviews": {
+      "t": "Review replies",
+      "h": "No review left without a reply",
+      "d": "Every branch review in one inbox with a suggested reply in the customer’s dialect that your team reviews and approves before it posts",
+      "bullets": [
+        "Replies in Saudi dialect, formal Arabic or English",
+        "Nothing posts before a person on your team approves",
+        "One consistent brand tone across branches"
+      ]
+    },
+    "alerts": {
+      "t": "Alerts and branch score",
+      "h": "Know which branch needs you today",
+      "d": "Get alerted when a low rating lands or a number or hours change on Google and see one clear score per branch to compare them",
+      "bullets": [
+        "Alerts sorted by priority",
+        "A score per branch with the method explained",
+        "Response speed compared across branches"
+      ]
+    },
+    "details": {
+      "t": "Details and photos",
+      "h": "Correct details and photos in every branch",
+      "d": "Keep names, categories, contact numbers and photos consistent across branches so customers always see current information",
+      "bullets": [
+        "Bulk updates across branches",
+        "Reminders when branch photos get old",
+        "Track any change made to a branch profile"
+      ]
+    },
+    "cta": "Learn more"
+  },
+  "film": {
+    "eyebrow": "Watch",
+    "h2": "The idea in a minute",
+    "play": "Play the film",
+    "caption": "SAAYT brand film · 55 seconds",
+    "media": {
+      "poster": "/img/film-poster.webp",
+      "video": "/media/saayt-brand-film.mp4"
+    }
+  },
+  "industries": {
+    "eyebrow": "Industries",
+    "h2": "Made for branch chains in Saudi Arabia",
+    "lead": "Every industry has its own seasons, customer questions and way of replying and we start from yours",
+    "all": "All industries"
+  },
+  "scan": {
+    "eyebrow": "Free scan",
+    "h2": "When did you last check your branches on Google?",
+    "lead": "A two-minute self-check that ranks the priorities for each branch: hours, details, photos and reviews. No sign-up and we never read your data",
+    "cta": "Start the free scan"
+  },
+  "principles": {
+    "eyebrow": "Why SAAYT",
+    "h2": "Built on the trust of your team and your customers",
+    "items": [
+      {
+        "icon": "shield",
+        "t": "Your approval first",
+        "d": "SAAYT suggests and you decide. No reply or change goes live on Google without approval from someone on your team"
+      },
+      {
+        "icon": "globe",
+        "t": "Arabic by design",
+        "d": "The product and the replies are written Arabic first and understand your customers’ dialects across the Kingdom and the Gulf"
+      },
+      {
+        "icon": "moon",
+        "t": "Knows our seasons",
+        "d": "Ramadan, Eid, National Day and Founding Day are part of the system, not an add-on"
+      },
+      {
+        "icon": "lock",
+        "t": "Your data stays private",
+        "d": "We use Google data only to manage your branches and follow Saudi Arabia’s Personal Data Protection Law"
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "h2": "Questions we hear a lot",
+    "items": [
+      {
+        "q": "Does SAAYT post replies automatically?",
+        "a": "No. SAAYT suggests a reply in the customer’s dialect and it waits for approval from someone on your team. You can edit it or reject it before anything is posted"
+      },
+      {
+        "q": "What do I need to start?",
+        "a": "The Google account that manages your branches’ Business Profiles. Once connected every branch appears in one dashboard"
+      },
+      {
+        "q": "Does it work if I only have two or three branches?",
+        "a": "SAAYT is designed for chains of 5 branches or more but you can start with any number and we’ll find the right plan together"
+      },
+      {
+        "q": "How do you handle Ramadan and Eid hours?",
+        "a": "You set up the season template once and apply it to the branches you choose. SAAYT alerts you to branches that are missing season hours"
+      },
+      {
+        "q": "Can the SAAYT team manage the branches for me?",
+        "a": "Yes. An optional managed service lets the SAAYT team handle monitoring and replies on your behalf while you stay in control"
+      },
+      {
+        "q": "Is SAAYT part of Google?",
+        "a": "No. SAAYT is an independent Saudi platform that connects to your branch profiles on Google with your permission and you can disconnect at any time"
+      }
+    ]
+  },
+  "final": {
+    "h2": "Keep every branch to the same standard",
+    "lead": "Book a demo with the SAAYT team and we’ll show you how your branches look on Google and how to run them all from one screen",
+    "cta1": "Book a demo",
+    "cta2": "Free branch scan"
+  }
+}

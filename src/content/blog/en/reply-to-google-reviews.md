@@ -6,6 +6,10 @@ slug: "reply-to-google-reviews"
 lang: "en"
 readingTime: 6
 tags: ["Google reviews", "Review replies", "Customer experience", "Multi-branch"]
+cover: "/img/feat-phone.webp"
+coverAlt: "A hand holding a phone that shows a branch profile on the map with a customer review and the owner’s reply inside a café"
+seo:
+  title: "How to Reply to Google Reviews: A Guide with Examples"
 ---
 
 Every review on your Google Business Profile has two readers: the customer who wrote it, and every future customer who reads the review and your reply before deciding to visit. A good reply doesn't change what happened, but it shows how your business treats people.

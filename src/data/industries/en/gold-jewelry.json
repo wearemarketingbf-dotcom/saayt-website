@@ -1,0 +1,66 @@
+{
+  "name": "Gold and jewellery",
+  "img": "/img/ind-gold.webp",
+  "seo": {
+    "title": "Google Maps for Gold & Jewelry Chains | SAAYT",
+    "description": "Accurate Ramadan and holiday hours · consistent photos and details and organized review replies for every jewelry branch on Google",
+    "image": "/img/og/gold-jewelry.jpg"
+  },
+  "h1": "Customer trust starts with your branch profile",
+  "lead": "Buying gold is a decision of trust. Customers read reviews and check the branch before visiting and SAAYT keeps every branch at the same standard",
+  "pains": [
+    {
+      "t": "Trust drives the purchase",
+      "d": "One unanswered negative review affects the image of every branch"
+    },
+    {
+      "t": "Market hours",
+      "d": "Gold markets have their own hours, prayer breaks and wedding and Eid seasons"
+    },
+    {
+      "t": "Consistent details",
+      "d": "The same name, number and photos everywhere show you are one trusted business"
+    }
+  ],
+  "helps": [
+    {
+      "slug": "reviews",
+      "d": "Composed replies that protect trust"
+    },
+    {
+      "slug": "hours",
+      "d": "Eid and Ramadan hours for every branch"
+    },
+    {
+      "slug": "photos-details",
+      "d": "Consistent name, photos and details"
+    },
+    {
+      "slug": "alerts",
+      "d": "Instant alerts for any low rating"
+    }
+  ],
+  "example": {
+    "branch": "Al-Dirah gold souk · Riyadh",
+    "stars": 4,
+    "review": "Lovely collection and respectful staff but the wait at checkout was long",
+    "reply": "Welcome and thank you for your trust and kind words about our collection and team. Your note about the checkout wait has reached the branch management and we are working to improve it",
+    "note": "A composed reply that thanks and acknowledges"
+  },
+  "seasons": [
+    "Wedding season",
+    "Both Eids",
+    "Ramadan",
+    "National Day"
+  ],
+  "faq": [
+    {
+      "q": "Can I make every branch name consistent?",
+      "a": "Yes as long as names follow Google’s guidelines with no extra words"
+    },
+    {
+      "q": "Does it support branches in several cities?",
+      "a": "Yes. All branches in one dashboard with city filters"
+    }
+  ]
+}

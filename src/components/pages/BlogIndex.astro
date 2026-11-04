@@ -6,13 +6,12 @@ import CTABand from '../CTABand.astro';
 import { getCollection } from 'astro:content';
 import { type Lang, url, asset, crumbsLd } from '../../i18n/util';
 import { NAV } from '../../i18n/nav';
+import { sortPosts } from '../../data/blog';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const ar = lang === 'ar';
 const N = NAV(lang);
-const ORDER = ['ramadan-eid-hours-google-maps', 'reply-to-google-reviews', 'remove-google-maps-review', 'add-branch-google-maps'];
-const posts = (await getCollection('blog', (p) => p.data.lang === lang)).sort((a, b) => (+b.data.date - +a.data.date) || (ORDER.indexOf(a.data.slug) - ORDER.indexOf(b.data.slug)));
-const covers: Record<string, string> = { 'ramadan-eid-hours-google-maps': 'img/feat-ramadan.webp', 'reply-to-google-reviews': 'img/feat-phone.webp', 'remove-google-maps-review': 'img/feat-alert.webp', 'add-branch-google-maps': 'img/ind-street.webp' };
+const posts = sortPosts(await getCollection('blog', (p) => p.data.lang === lang));
 const seo = ar
   ? { title: 'مدونة صيت | أدلة قوقل ماب للأنشطة متعددة الفروع', description: 'أدلة عملية عن الرد على تقييمات قوقل وأوقات رمضان والعيد وإضافة الفروع وإثبات الملكية مبنية على سياسات Google الرسمية' }
   : { title: 'SAAYT Blog | Google Maps Guides for Multi-Branch Teams', description: 'Practical guides on Google review replies · Ramadan hours · adding branches and ownership — grounded in Google’s official policies' };
@@ -26,14 +25,14 @@ const [first, ...rest] = posts;
     <div class="wrap">
       {first && (
         <a class="bl-first" href={url(lang, `blog/${first.data.slug}/`)} data-reveal>
-          <img src={asset(covers[first.data.slug] ?? 'img/ind-riyadh-night.webp')} alt="" width="900" height="600" loading="eager" />
+          <img src={asset(first.data.cover)} alt={first.data.coverAlt} width="900" height="600" loading="eager" />
           <div><span class="chip">{first.data.tags[0]}</span><h2>{first.data.title}</h2><p>{first.data.description}</p><small class="num">{fmt.format(first.data.date)} · {first.data.readingTime} {ar ? 'دقائق قراءة' : 'min read'}</small><span class="bl-more">{ar ? 'اقرأ المقال' : 'Read the article'}<Icon name="arrow" size={18} class="arrow" /></span></div>
         </a>
       )}
       <div class="grid grid-3 bl-grid" data-stagger="90">
         {rest.map((p) => (
           <a class="bl-card" href={url(lang, `blog/${p.data.slug}/`)}>
-            <img src={asset(covers[p.data.slug] ?? 'img/ind-riyadh-night.webp')} alt="" width="600" height="400" loading="lazy" />
+            <img src={asset(p.data.cover)} alt={p.data.coverAlt} width="600" height="400" loading="lazy" />
             <span class="chip">{p.data.tags[0]}</span><h2>{p.data.title}</h2><p>{p.data.description}</p><small class="num">{fmt.format(p.data.date)} · {p.data.readingTime} {ar ? 'دقائق قراءة' : 'min read'}</small>
           </a>
         ))}

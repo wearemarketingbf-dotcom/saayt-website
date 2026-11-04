@@ -22,7 +22,7 @@ const site = Astro.site!.toString();
 const svc = { '@context': 'https://schema.org', '@type': 'Service', name: P.h1, description: P.seo.description, provider: { '@type': 'Organization', name: 'SAAYT' }, areaServed: 'SA', serviceType: P.eyebrow };
 const others = FEATURES.filter((f) => f.slug !== slug);
 ---
-<Base lang={lang} title={P.seo.title} description={P.seo.description} path={path} dark jsonld={[crumbsLd(lang, site, trail), faqLd(P.faq), svc]}>
+<Base lang={lang} title={P.seo.title} description={P.seo.description} image={P.seo.image || undefined} noindex={P.seo.noindex} path={path} dark jsonld={[crumbsLd(lang, site, trail), faqLd(P.faq), svc]}>
   <PageHero lang={lang} eyebrow={P.eyebrow} title={P.h1} lead={P.lead} crumbs={trail} />
 
   <section class="section fp-demo">

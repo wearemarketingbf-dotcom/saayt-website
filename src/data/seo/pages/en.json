@@ -1,0 +1,43 @@
+{
+  "about": {
+    "title": "About SAAYT · Google Maps for Multi-Branch Businesses",
+    "description": "SAAYT is a Saudi platform that helps multi-branch businesses show up accurately and consistently on Google in every branch and every city"
+  },
+  "features": {
+    "title": "Features for Multi-Branch Google Profiles | SAAYT",
+    "description": "Bulk and special hours with Ramadan templates · photos and details · Google review replies · alerts and a score for every branch in one dashboard"
+  },
+  "industries": {
+    "title": "Built for Multi-Branch Businesses in Saudi | SAAYT",
+    "description": "Google Maps management for clinics · salons · auto service · optics · perfume and gold retailers with many branches"
+  },
+  "howItWorks": {
+    "title": "How SAAYT Works in Three Steps | SAAYT",
+    "description": "Connect your branches’ Google account · review each branch’s status then update hours and reply to reviews with your team from one dashboard"
+  },
+  "pricing": {
+    "title": "SAAYT Pricing · From SAR 99 per Branch a Month",
+    "description": "One plan with every feature priced by branch count · from SAR 99 per branch a month and the per-branch price drops as you grow · work out your price now"
+  },
+  "security": {
+    "title": "Security and Privacy at SAAYT | SAAYT",
+    "description": "How SAAYT handles your Google connection and branch data: human approval before anything posts · disconnect any time and Saudi PDPL compliance"
+  },
+  "freeScan": {
+    "title": "Free Google Maps Scan for Your Branches | SAAYT",
+    "description": "See how every branch looks on Google in minutes — profile completeness · hours and unanswered reviews — free with no commitment"
+  },
+  "demo": {
+    "title": "Book a SAAYT Demo or Contact Us",
+    "description": "Book a live walkthrough with the SAAYT team and see how to run every branch on Google Maps from one place — or just ask us a question"
+  },
+  "demoThanks": {
+    "title": "Request received | SAAYT",
+    "description": "The SAAYT team will review your details and call you to schedule the demo",
+    "noindex": true
+  },
+  "blog": {
+    "title": "SAAYT Blog | Google Maps Guides for Multi-Branch Teams",
+    "description": "Practical guides on Google review replies · Ramadan hours · adding branches and ownership — grounded in Google’s official policies"
+  }
+}

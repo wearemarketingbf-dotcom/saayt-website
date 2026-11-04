@@ -1,3 +1,5 @@
+import { SETTINGS, SEO_SITE } from '../data/site';
+
 export type Lang = 'ar' | 'en';
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -9,20 +11,27 @@ export function url(lang: Lang, path = ''): string {
   return `${BASE}${prefix}${clean}`;
 }
 
-/** Path to a file in /public */
+/** Path to a file in /public (a full https URL is returned as is) */
 export function asset(path: string): string {
+  if (/^https?:\/\//.test(path)) return path;
   return `${BASE}/${path.replace(/^\//, '')}`;
 }
 
 export const dir = (lang: Lang) => (lang === 'ar' ? 'rtl' : 'ltr');
 export const other = (lang: Lang): Lang => (lang === 'ar' ? 'en' : 'ar');
 
-export const SITE_NAME = { ar: 'صيت', en: 'SAAYT' };
+export const SITE_NAME = SEO_SITE.siteName;
 export const CONTACT = {
-  email: 'hello@saayt.app',
+  email: SETTINGS.email,
   domain: 'saayt.app',
-  city: { ar: 'الرياض، المملكة العربية السعودية', en: 'Riyadh, Saudi Arabia' },
+  city: SETTINGS.city,
 };
+
+/** Page title with the site name appended when it still fits in 60 characters */
+export function withBrand(lang: Lang, title: string): string {
+  const t = `${title} | ${SITE_NAME[lang]}`;
+  return [...t].length <= 60 ? t : title;
+}
 
 /** BreadcrumbList JSON-LD */
 export function crumbsLd(lang: Lang, site: string, trail: { name: string; path: string }[]) {

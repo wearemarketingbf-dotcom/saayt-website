@@ -6,6 +6,10 @@ slug: "ramadan-eid-hours-google-maps"
 lang: "en"
 readingTime: 6
 tags: ["Business hours", "Ramadan", "Eid", "Google Business Profile", "Multi-branch"]
+cover: "/img/feat-ramadan.webp"
+coverAlt: "A lit traditional-style shopfront at dusk under Ramadan lanterns and a crescent moon"
+seo:
+  title: "Set Ramadan and Eid Hours on Google Maps for Every Branch"
 ---
 
 During Ramadan most branches change their hours: later openings, closings after midnight and closed days over Eid. Customers rarely call to ask. They open Google and trust what it says. If Google says a branch is closed when it's open, you lose the visit. If it says open when the door is locked, you may lose the customer.

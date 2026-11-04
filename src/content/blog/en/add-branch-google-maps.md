@@ -6,6 +6,10 @@ slug: "add-branch-google-maps"
 lang: "en"
 readingTime: 6
 tags: ["Multi-branch", "Google Business Profile", "Verification", "Business Profile Manager"]
+cover: "/img/ind-street.webp"
+coverAlt: "A row of lit shopfronts along a wet street at night under a crescent moon"
+seo:
+  title: "Add a Branch on Google Maps and Manage All from One Account"
 ---
 
 You've opened a new branch. The sign is up and the team is ready, but people searching on Google Maps can't find it, or they find it under a different name from your other branches. Adding a branch on Google is an operational step, like putting up the sign. The more branches you run, the more it matters that it's done the same way every time.

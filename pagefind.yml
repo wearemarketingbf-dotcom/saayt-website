@@ -7,9 +7,3 @@ exclude_selectors:
   - ".hero__card"    # homepage example card
   - ".fcta"          # closing call-to-action band repeated on most pages
   - ".crumbs"        # breadcrumbs
-  # chip rows render with no space between items so Pagefind would glue the words together («رمضانليالي العيد»)
-  # the same words are in the page text around them · remove these lines once the chips get spaces
-  - ".hero__trust"
-  - ".pr__inc"
-  - ".ip-seasons"
-  - ".bp-tags"

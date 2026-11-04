@@ -1,0 +1,19 @@
+{
+  "email": "hello@saayt.app",
+  "whatsapp": "",
+  "loginUrl": "https://app.saayt.app",
+  "crmInboxUrl": "",
+  "city": {
+    "ar": "الرياض، المملكة العربية السعودية",
+    "en": "Riyadh, Saudi Arabia"
+  },
+  "social": {
+    "x": "https://x.com/saaytapp",
+    "facebook": "https://www.facebook.com/profile.php?id=61595387177941",
+    "instagram": "",
+    "linkedin": "",
+    "tiktok": "",
+    "snapchat": "",
+    "youtube": ""
+  }
+}

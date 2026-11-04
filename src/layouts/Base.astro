@@ -20,6 +20,7 @@ import SiteSearch from '../components/SiteSearch.astro';
 import Assistant from '../components/Assistant.astro';
 import { type Lang, dir, url, asset, SITE_NAME } from '../i18n/util';
 import { CONFIG } from '../config';
+import { pageSeo, SEO_SITE } from '../data/site';
 
 interface Props {
   lang: Lang;
@@ -31,20 +32,29 @@ interface Props {
   jsonld?: Record<string, unknown>[];
   noindex?: boolean;
   dark?: boolean;          // header starts on a dark hero
+  ogType?: 'website' | 'article';
 }
-const { lang, title, description, path, altPath, image = 'img/og-saayt.jpg', jsonld = [], noindex = false, dark = false } = Astro.props;
+const { lang, path, altPath, jsonld = [], dark = false, ogType = 'website' } = Astro.props;
+// SEO saved in the CMS for this route (src/data/seo/pages) wins over the values the page passes; empty fields keep them
+const saved = pageSeo(lang, path);
+const title = saved?.title || Astro.props.title;
+const description = saved?.description || Astro.props.description;
+const image = saved?.image || Astro.props.image || SEO_SITE.defaultImage;
+const noindex = !!(Astro.props.noindex || saved?.noindex);
 const site = Astro.site!.toString().replace(/\/$/, '');
+const abs = (p: string) => (/^https?:\/\//.test(p) ? p : site + asset(p));
 const canonical = site + url(lang, path);
 const arHref = site + url('ar', lang === 'ar' ? path : (altPath ?? path));
 const enHref = site + url('en', lang === 'en' ? path : (altPath ?? path));
 const fullTitle = title;
-const ogImage = site + asset(image);
+const ogImage = abs(image);
+const O = SEO_SITE.organization;
 const org = {
-  '@context': 'https://schema.org', '@type': 'Organization', name: 'SAAYT', alternateName: 'صيت',
-  url: site + url(lang), logo: site + asset('favicon-512.png'),
-  address: { '@type': 'PostalAddress', addressLocality: 'Riyadh', addressCountry: 'SA' },
+  '@context': 'https://schema.org', '@type': 'Organization', name: O.name, alternateName: O.alternateName || undefined,
+  url: site + url(lang), logo: abs(O.logo),
+  address: { '@type': 'PostalAddress', addressLocality: O.locality, addressCountry: O.country },
   email: CONFIG.email,
-  contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: CONFIG.email, areaServed: 'SA', availableLanguage: ['ar', 'en'] },
+  contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: CONFIG.email, areaServed: O.areaServed || undefined, availableLanguage: O.languages.length ? O.languages : undefined },
   sameAs: Object.values(CONFIG.social),
 };
 const track = !!CONFIG.gaId && !CONFIG.noindex; // analytics everywhere except the github.io preview
@@ -68,7 +78,7 @@ const searchTitle = title.replace(/\s*[|·]\s*(صيت|SAAYT)\s*$/i, ''); // site
   <link rel="icon" href={asset('favicon.svg')} type="image/svg+xml" />
   <link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
   <link rel="manifest" href={asset('site.webmanifest')} />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={ogType} />
   <meta property="og:site_name" content={SITE_NAME[lang]} />
   <meta property="og:locale" content={lang === 'ar' ? 'ar_SA' : 'en_US'} />
   <meta property="og:title" content={fullTitle} />
@@ -76,7 +86,7 @@ const searchTitle = title.replace(/\s*[|·]\s*(صيت|SAAYT)\s*$/i, ''); // site
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImage} />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@saaytapp" />
+  {SEO_SITE.xHandle && <meta name="twitter:site" content={`@${SEO_SITE.xHandle}`} />}
   <meta name="twitter:title" content={fullTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />

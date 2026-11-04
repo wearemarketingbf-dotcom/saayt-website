@@ -1,0 +1,66 @@
+{
+  "name": "Auto service centres",
+  "img": "/img/ind-auto.webp",
+  "seo": {
+    "title": "Google Reviews for Auto Service Centers | SAAYT",
+    "description": "Track and answer Google reviews for every service center in the customer’s dialect and update hours and services across branches at once",
+    "image": "/img/og/auto-service.jpg"
+  },
+  "h1": "Every service centre with the same reputation",
+  "lead": "Car owners read reviews before handing over their keys. SAAYT lets you answer every review in every centre and update hours and services in one go",
+  "pains": [
+    {
+      "t": "Trust comes first",
+      "d": "A review about price or a late handover affects every branch not just one"
+    },
+    {
+      "t": "Different hours",
+      "d": "Some centres work late and some close on Fridays and customers need to know"
+    },
+    {
+      "t": "Technical reviews",
+      "d": "Customers write about a specific part or service and need a clear answer"
+    }
+  ],
+  "helps": [
+    {
+      "slug": "reviews",
+      "d": "Clear replies in the customer’s dialect approved by the centre manager"
+    },
+    {
+      "slug": "hours",
+      "d": "Hours and season hours for every centre from one template"
+    },
+    {
+      "slug": "photos-details",
+      "d": "Services and numbers right in every branch"
+    },
+    {
+      "slug": "branch-score",
+      "d": "Compare centre performance"
+    }
+  ],
+  "example": {
+    "branch": "Sulay centre",
+    "stars": 3,
+    "review": "Clean work but they said the car would be ready at noon and I got it at sunset",
+    "reply": "Thank you for trusting us. We apologise for the late handover and have raised it with the centre manager to tighten delivery times. We hope to serve you better on your next visit",
+    "note": "A clear apology without long excuses"
+  },
+  "seasons": [
+    "Before holiday travel",
+    "Summer",
+    "Ramadan",
+    "Both Eids"
+  ],
+  "faq": [
+    {
+      "q": "Does it support centres in different cities?",
+      "a": "Yes. Filter centres by city and apply changes to one city only"
+    },
+    {
+      "q": "Can each centre manager reply for their centre?",
+      "a": "Yes. Permissions are per branch and operations sees everything"
+    }
+  ]
+}
