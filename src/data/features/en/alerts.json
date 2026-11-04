@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "t": "Branch alerts",
+    "d": "Know which branch needs you before it grows"
+  },
+  "seo": {
+    "title": "Alerts for the Branch That Needs Attention | SAAYT",
+    "description": "Get alerted to low ratings · unanswered reviews or changed branch details on Google so you know exactly where to step in first"
+  },
+  "eyebrow": "Branch alerts",
+  "h1": "Know which branch needs you before it grows",
+  "lead": "Instead of opening every branch to check, SAAYT lines up what needs attention today: a low rating, an unanswered review or details that changed on Google",
+  "why": {
+    "h2": "Small problems hide between branches",
+    "items": [
+      {
+        "t": "Ten branches means ten profiles",
+        "d": "Checking each one every day is work nobody keeps up with"
+      },
+      {
+        "t": "Anyone can suggest an edit",
+        "d": "On Google any user can suggest changes to business details and sometimes something changes without you noticing"
+      },
+      {
+        "t": "Timing matters",
+        "d": "An alert the same day beats finding the problem a week later"
+      }
+    ]
+  },
+  "caps": {
+    "h2": "What you can do",
+    "items": [
+      {
+        "icon": "bell",
+        "t": "Low-rating alerts",
+        "d": "One or two stars and you get an alert with the branch name"
+      },
+      {
+        "icon": "reply",
+        "t": "Unanswered reviews",
+        "d": "A reminder after a time you set if nobody has replied"
+      },
+      {
+        "icon": "pin",
+        "t": "Changed details",
+        "d": "An alert when the phone, address or hours change on a branch profile"
+      },
+      {
+        "icon": "layers",
+        "t": "Sorted by priority",
+        "d": "The most important first so you know where to start"
+      },
+      {
+        "icon": "team",
+        "t": "The right person",
+        "d": "Branch alerts go to the branch manager and the summary goes to management"
+      },
+      {
+        "icon": "mail",
+        "t": "Weekly summary",
+        "d": "The status of every branch in one message each week"
+      }
+    ]
+  },
+  "flow": {
+    "h2": "How it works",
+    "steps": [
+      {
+        "t": "SAAYT watches",
+        "d": "Reviews and details of connected branches"
+      },
+      {
+        "t": "Sorts and sends",
+        "d": "A clear alert to the person responsible"
+      },
+      {
+        "t": "Act in the same place",
+        "d": "Reply or correct details in one tap"
+      }
+    ]
+  },
+  "guard": {
+    "t": "Alerts without noise",
+    "d": "Choose what reaches you and when and switch off any alert type"
+  },
+  "faq": [
+    {
+      "q": "Where do alerts arrive?",
+      "a": "Inside the SAAYT dashboard and by email and you decide who receives each type"
+    },
+    {
+      "q": "Can I change when a review counts as overdue?",
+      "a": "Yes. Set the time that suits your team"
+    },
+    {
+      "q": "Does SAAYT fix details automatically?",
+      "a": "No. SAAYT alerts you and you decide and approve the fix"
+    }
+  ]
+}

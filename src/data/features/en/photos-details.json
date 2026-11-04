@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "t": "Branch details and photos",
+    "d": "Phone, address and photos right in every branch"
+  },
+  "seo": {
+    "title": "Branch Photos & Details on Google Maps | SAAYT",
+    "description": "Keep names · categories · phone numbers and photos consistent across every branch profile on Google so customers always see current information"
+  },
+  "eyebrow": "Details and photos",
+  "h1": "What customers see about every branch is right",
+  "lead": "Name, category, phone, address and photos stay consistent across branches and you update them in one go instead of opening each profile",
+  "why": {
+    "h2": "Small details build trust",
+    "items": [
+      {
+        "t": "An old number is a lost call",
+        "d": "Customers call straight from the map and a wrong number sends them elsewhere"
+      },
+      {
+        "t": "Google values completeness",
+        "d": "Google says complete and accurate profiles are easier to match with relevant searches"
+      },
+      {
+        "t": "Photos are the first impression",
+        "d": "An outdated storefront photo makes customers hesitate"
+      }
+    ]
+  },
+  "caps": {
+    "h2": "What you can do",
+    "items": [
+      {
+        "icon": "layers",
+        "t": "Bulk updates",
+        "d": "Change a description, link or category for all branches in one step"
+      },
+      {
+        "icon": "check",
+        "t": "Completeness check",
+        "d": "A list of missing fields for each branch"
+      },
+      {
+        "icon": "photo",
+        "t": "Photo reminders",
+        "d": "See which branches have outdated photos"
+      },
+      {
+        "icon": "store",
+        "t": "Consistent names",
+        "d": "The same name format in every branch with no extra words"
+      },
+      {
+        "icon": "pin",
+        "t": "Change history",
+        "d": "A log of every edit to a branch profile and who made it"
+      },
+      {
+        "icon": "phone",
+        "t": "Numbers and links",
+        "d": "Phone, website and booking link correct in every branch"
+      }
+    ]
+  },
+  "flow": {
+    "h2": "From mess to one standard",
+    "steps": [
+      {
+        "t": "First scan",
+        "d": "SAAYT shows the differences between branches"
+      },
+      {
+        "t": "Set the standard",
+        "d": "The right format for name, description and links"
+      },
+      {
+        "t": "Apply and approve",
+        "d": "Changes reach chosen branches after your approval"
+      }
+    ]
+  },
+  "guard": {
+    "t": "No keyword stuffing",
+    "d": "We follow Google’s naming guidelines and never add keywords to business names because that breaks policy"
+  },
+  "faq": [
+    {
+      "q": "Can I upload photos for all branches in one place?",
+      "a": "Yes. Pick a branch, upload photos and SAAYT shows the last update for each branch"
+    },
+    {
+      "q": "Does renaming affect a branch?",
+      "a": "Name changes may go through Google review so we recommend changing names only to fix real errors"
+    },
+    {
+      "q": "Does SAAYT write descriptions?",
+      "a": "It suggests one in your brand voice and you edit and approve it"
+    }
+  ]
+}

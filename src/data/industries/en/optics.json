@@ -1,0 +1,65 @@
+{
+  "name": "Optical stores",
+  "img": "/img/ind-optics.webp",
+  "seo": {
+    "title": "Google Maps for Optical Store Chains | SAAYT",
+    "description": "Customers search for an optical store near me open now — keep hours · photos and reviews accurate for every branch on Google"
+  },
+  "h1": "When they search for optics nearby they find your branch right",
+  "lead": "Customers often search for an optical store near them that is open now. SAAYT keeps every branch’s hours, photos and reviews accurate so they come to you",
+  "pains": [
+    {
+      "t": "Near me and open now",
+      "d": "Customers want a branch that is open right now and a wrong time loses them"
+    },
+    {
+      "t": "Mall branches",
+      "d": "Mall hours differ from street branches and change with the seasons"
+    },
+    {
+      "t": "Reviews about eye tests and delivery",
+      "d": "A late pair of glasses or a wrong prescription needs a quick responsible reply"
+    }
+  ],
+  "helps": [
+    {
+      "slug": "hours",
+      "d": "Separate templates for mall and street branches"
+    },
+    {
+      "slug": "photos-details",
+      "d": "Correct photos and details for every branch"
+    },
+    {
+      "slug": "reviews",
+      "d": "Responsible replies approved by the branch manager"
+    },
+    {
+      "slug": "alerts",
+      "d": "Alerts when hours or numbers change on Google"
+    }
+  ],
+  "example": {
+    "branch": "Riyadh Park branch",
+    "stars": 2,
+    "review": "My glasses were a week late from the date they gave me",
+    "reply": "Welcome and we apologise that your glasses were later than agreed. We have informed the branch management and would appreciate you contacting us so we can follow up on your order directly",
+    "note": "A short reply that invites direct contact"
+  },
+  "seasons": [
+    "Back to school",
+    "Ramadan",
+    "Both Eids",
+    "Year-end sales"
+  ],
+  "faq": [
+    {
+      "q": "Can mall branches have separate hours?",
+      "a": "Yes. Group your branches and apply a different template to each group"
+    },
+    {
+      "q": "Will it help me show up for near me searches?",
+      "a": "We never promise rankings but accurate details and correct hours are among the factors Google mentions for local results"
+    }
+  ]
+}

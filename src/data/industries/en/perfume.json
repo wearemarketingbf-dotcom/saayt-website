@@ -1,0 +1,65 @@
+{
+  "name": "Perfume and oud",
+  "img": "/img/ind-perfume.webp",
+  "seo": {
+    "title": "Google Maps for Perfume Retail Chains | SAAYT",
+    "description": "Ramadan and Eid season hours · storefront photos and review replies on Google for every perfume branch across malls and cities"
+  },
+  "h1": "Every perfume branch ready for Eid season",
+  "lead": "Ramadan and Eid are the busiest selling days and customers look for a branch open late at night. SAAYT keeps every branch’s hours and photos right",
+  "pains": [
+    {
+      "t": "Seasons are everything",
+      "d": "Extended Ramadan and Eid-night hours differ between mall and street"
+    },
+    {
+      "t": "Many branches in many cities",
+      "d": "Checking each branch one by one takes time you do not have in season"
+    },
+    {
+      "t": "In-store experience",
+      "d": "Reviews about staff or gift wrapping need a reply that protects the brand"
+    }
+  ],
+  "helps": [
+    {
+      "slug": "hours",
+      "d": "Ramadan and Eid-night hours for every branch from one template"
+    },
+    {
+      "slug": "photos-details",
+      "d": "Showroom and new-release photos in every branch"
+    },
+    {
+      "slug": "reviews",
+      "d": "Refined replies in your brand voice"
+    },
+    {
+      "slug": "branch-score",
+      "d": "Spot which branch needs support before the season"
+    }
+  ],
+  "example": {
+    "branch": "Jeddah · King Road",
+    "stars": 5,
+    "review": "The oud the staff recommended is amazing and the gift wrapping was perfect",
+    "reply": "Thank you for your refined taste. We are delighted you loved the oud and that the gift was presented as it deserves. It is always an honour to welcome you",
+    "note": "A refined tone that fits the brand"
+  },
+  "seasons": [
+    "Ramadan",
+    "Eid nights",
+    "National Day",
+    "Founding Day"
+  ],
+  "faq": [
+    {
+      "q": "Can I prepare Eid hours at the start of Ramadan?",
+      "a": "Yes. Prepare the template with its dates in advance and it applies on time after your approval"
+    },
+    {
+      "q": "Does it suit mall branches?",
+      "a": "Yes. Group mall branches with their own hours"
+    }
+  ]
+}

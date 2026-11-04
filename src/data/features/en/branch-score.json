@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "t": "Branch score",
+    "d": "One clear score per branch so you know who needs support"
+  },
+  "seo": {
+    "title": "A Clear Google Presence Score per Branch | SAAYT",
+    "description": "One score per branch built from profile completeness · review response time and hours accuracy so you can compare branches at a glance"
+  },
+  "eyebrow": "Branch score",
+  "h1": "One score that shows where every branch stands",
+  "lead": "A score out of 100 for each branch combining profile completeness, reply speed and hours accuracy so you know who needs support and who deserves thanks",
+  "why": {
+    "h2": "Why one number",
+    "items": [
+      {
+        "t": "Fair comparison",
+        "d": "The same criteria for every branch in every city"
+      },
+      {
+        "t": "Clearer manager reviews",
+        "d": "A number with a clear reason instead of impressions"
+      },
+      {
+        "t": "Progress you can see",
+        "d": "Track each branch week after week"
+      }
+    ]
+  },
+  "caps": {
+    "h2": "What goes into the score",
+    "items": [
+      {
+        "icon": "check",
+        "t": "Profile completeness",
+        "d": "Core fields, photos and links"
+      },
+      {
+        "icon": "reply",
+        "t": "Reply speed",
+        "d": "Average time to reply to reviews"
+      },
+      {
+        "icon": "clock",
+        "t": "Hours accuracy",
+        "d": "Regular and season hours"
+      },
+      {
+        "icon": "chart",
+        "t": "Full transparency",
+        "d": "Every point has a written reason and the method is visible"
+      },
+      {
+        "icon": "layers",
+        "t": "Branch ranking",
+        "d": "Highest to lowest with city filters"
+      },
+      {
+        "icon": "mail",
+        "t": "Regular report",
+        "d": "A summary for management"
+      }
+    ]
+  },
+  "flow": {
+    "h2": "How to use it",
+    "steps": [
+      {
+        "t": "See the ranking",
+        "d": "Lowest-scoring branches on top"
+      },
+      {
+        "t": "Open the reason",
+        "d": "Exactly what lowered the score"
+      },
+      {
+        "t": "Fix and follow up",
+        "d": "The score updates after the fix"
+      }
+    ]
+  },
+  "guard": {
+    "t": "Not a Google ranking",
+    "d": "The score is an internal readiness measure. It does not represent your position in Google results and we never promise rankings"
+  },
+  "faq": [
+    {
+      "q": "Will the score raise my Google ranking?",
+      "a": "We never promise rankings. The score measures things you control such as completeness and reply speed"
+    },
+    {
+      "q": "Can I change the weights?",
+      "a": "The weights are shown clearly and we review them with you based on your priorities"
+    },
+    {
+      "q": "Does it include star ratings?",
+      "a": "The score focuses on what you control and shows the average rating beside it for context"
+    }
+  ]
+}
