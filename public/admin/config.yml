@@ -1,6 +1,6 @@
 # Sveltia CMS for saayt.app · https://sveltiacms.app/en/docs
-# Editors sign in with a GitHub personal access token (repo write access). Every save is a commit to main,
-# and the deploy workflow publishes it in about two minutes
+# Editors sign in with a GitHub personal access token (repo write access). Every save is a commit to main
+# and the deploy workflow publishes it within a few minutes
 # Field order follows the order of the keys in the files, so a save keeps the files tidy
 
 backend:
