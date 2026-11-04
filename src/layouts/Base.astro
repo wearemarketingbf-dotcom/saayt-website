@@ -17,6 +17,7 @@ import Footer from '../components/Footer.astro';
 import MobileBar from '../components/MobileBar.astro';
 import Consent from '../components/Consent.astro';
 import SiteSearch from '../components/SiteSearch.astro';
+import Assistant from '../components/Assistant.astro';
 import { type Lang, dir, url, asset, SITE_NAME } from '../i18n/util';
 import { CONFIG } from '../config';
 
@@ -100,6 +101,7 @@ const searchTitle = title.replace(/\s*[|·]\s*(صيت|SAAYT)\s*$/i, ''); // site
   <MobileBar lang={lang} />
   {track && <Consent lang={lang} />}
   <SiteSearch lang={lang} />
+  <Assistant lang={lang} />
   <script>import '../scripts/motion.ts';</script>
 </body>
 </html>
