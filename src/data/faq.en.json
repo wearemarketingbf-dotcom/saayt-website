@@ -1,0 +1,152 @@
+[
+  {
+    "q": "How much does SAAYT cost?",
+    "a": "One plan with every feature priced by branch count · each of your first 5 branches is SAR 99 a month · branches 6 to 10 are SAR 89 · 11 to 20 are SAR 79 · then SAR 69 per branch · for example 10 branches = SAR 940 a month excl. VAT",
+    "tags": ["price", "prices", "pricing", "cost", "how much", "plan", "plans", "subscription", "sar", "riyal", "fee", "vat", "monthly"],
+    "link": "/en/pricing/"
+  },
+  {
+    "q": "Is there a free trial?",
+    "a": "Yes · 14 days with no card and approval before posting stays on throughout",
+    "tags": ["trial", "free trial", "trial period", "try", "test", "14 days", "no card", "free"],
+    "link": "/en/pricing/"
+  },
+  {
+    "q": "Does SAAYT post replies automatically?",
+    "a": "No. SAAYT suggests a reply in the customer’s dialect and it waits for approval from someone on your team. You can edit it or reject it before anything is posted",
+    "tags": ["automatic", "automatically", "auto", "post", "publish", "approval", "approve", "reply", "replies", "reply to reviews", "draft"],
+    "link": "/en/features/reviews/"
+  },
+  {
+    "q": "What do I need to start?",
+    "a": "The Google account that manages your branches’ Business Profiles and someone on your team who approves replies and changes. Once connected every branch appears in one dashboard",
+    "tags": ["start", "requirements", "need", "google account", "business profile", "connect", "verified", "verification"],
+    "link": "/en/how-it-works/"
+  },
+  {
+    "q": "What is SAAYT?",
+    "a": "SAAYT is a Saudi platform for businesses with many branches. It keeps every branch on Google to the same standard from one screen: hours · photos · details and a reply to every review",
+    "tags": ["saayt", "platform", "what do you do", "about", "who are you", "product", "idea"],
+    "link": "/en/about/"
+  },
+  {
+    "q": "How do I get started?",
+    "a": "Connect the Google account that manages your branch profiles on Google’s official consent screen. SAAYT then reviews every branch and shows the priorities. Add your team with their permissions and reply tone and from then on you approve replies and changes in one tap",
+    "tags": ["get started", "steps", "how it works", "setup", "set up", "onboarding", "sign up"],
+    "link": "/en/how-it-works/"
+  },
+  {
+    "q": "Is SAAYT part of Google?",
+    "a": "No. SAAYT is an independent Saudi platform that connects to your branch profiles on Google with your permission and you can disconnect at any time",
+    "tags": ["google", "affiliated", "partner", "official", "independent", "disconnect"],
+    "link": "/en/"
+  },
+  {
+    "q": "Can you remove a negative review?",
+    "a": "No. Removal is Google’s decision. You can report reviews that break its policies and SAAYT helps you reply professionally. We never buy or write fake reviews and we follow Google’s policies",
+    "tags": ["remove", "delete", "negative review", "bad review", "fake reviews", "buy reviews"],
+    "link": "/en/features/reviews/"
+  },
+  {
+    "q": "Are replies written in dialect?",
+    "a": "You choose: close to the customer’s dialect · simple Modern Standard Arabic or English based on the review language",
+    "tags": ["dialect", "saudi dialect", "arabic", "english", "language", "tone", "msa"],
+    "link": "/en/features/reviews/"
+  },
+  {
+    "q": "Is the product in Arabic?",
+    "a": "Yes. The product and the replies are written Arabic first and understand your customers’ dialects across the Kingdom and the Gulf · with Saudi support",
+    "tags": ["arabic", "interface", "support", "saudi support", "language", "gulf"],
+    "link": "/en/"
+  },
+  {
+    "q": "How do you handle Ramadan and Eid hours?",
+    "a": "You set up the season template once and apply it to the branches you choose. SAAYT alerts you to branches that are missing season hours. Ready templates cover Ramadan · both Eids · National Day and Founding Day",
+    "tags": ["ramadan", "eid", "season", "seasons", "hours", "opening hours", "holidays", "national day", "founding day", "schedule"],
+    "link": "/en/features/hours/"
+  },
+  {
+    "q": "Can I change hours for every branch at once?",
+    "a": "Yes. Pick branches by city or type and apply hours to all of them in one step. The template is a starting point and you can adjust any branch before approving",
+    "tags": ["bulk", "all branches", "at once", "one step", "change hours", "different hours", "city"],
+    "link": "/en/features/hours/"
+  },
+  {
+    "q": "Where do alerts arrive?",
+    "a": "Inside the SAAYT dashboard and by email and you decide who receives each type. You get an alert for a low rating · a review left without a reply or a change to a branch’s phone · address or hours",
+    "tags": ["alerts", "alert", "notifications", "notify", "email", "low rating", "changed details"],
+    "link": "/en/features/alerts/"
+  },
+  {
+    "q": "Are there reports?",
+    "a": "Yes. A weekly summary shows the status of every branch in one message. Branch alerts go to the branch manager and the summary goes to management",
+    "tags": ["report", "reports", "reporting", "summary", "weekly", "management", "analytics"],
+    "link": "/en/features/alerts/"
+  },
+  {
+    "q": "What is the branch score?",
+    "a": "A score out of 100 for each branch combining profile completeness · reply speed and hours accuracy so you know who needs support and who deserves thanks. Every point has a written reason and the method is visible",
+    "tags": ["score", "branch score", "compare branches", "performance", "points", "rating"],
+    "link": "/en/features/branch-score/"
+  },
+  {
+    "q": "Will SAAYT raise my Google ranking?",
+    "a": "We never promise rankings. The score measures things you control such as completeness and reply speed and it does not represent your position in Google results",
+    "tags": ["ranking", "rank", "seo", "first result", "visibility", "search results"],
+    "link": "/en/features/branch-score/"
+  },
+  {
+    "q": "Can the SAAYT team manage the branches for me?",
+    "a": "Yes. Fully managed is an optional service where the SAAYT team follows up on reviews daily and prepares season hours while you keep the final say. It is SAR 100 per branch a month from SAR 1,000 and you can add or remove it at any time",
+    "tags": ["fully managed", "managed", "manage for me", "saayt team", "service", "on my behalf", "difference between platform and managed"],
+    "link": "/en/pricing/"
+  },
+  {
+    "q": "What is the founding customer program?",
+    "a": "For the first 10 customers · 40% off the first 6 months with free setup and a price locked for a year in return for a case study and a monthly feedback call",
+    "tags": ["founding", "founding customer", "program", "discount", "offer", "first 10 customers"],
+    "link": "/en/pricing/"
+  },
+  {
+    "q": "Is there a long contract?",
+    "a": "No · plans are monthly and you can stop any time · yearly billing gives you 2 months free",
+    "tags": ["contract", "commitment", "yearly", "annual", "monthly", "cancel", "billing"],
+    "link": "/en/pricing/"
+  },
+  {
+    "q": "What if I add branches?",
+    "a": "Add the branch in SAAYT and the price updates by band · the per-branch price drops as you grow",
+    "tags": ["add branches", "new branch", "more branches", "grow", "band", "bands"],
+    "link": "/en/pricing/"
+  },
+  {
+    "q": "Is my data safe?",
+    "a": "You connect through Google’s official consent screen and we never ask for or store your account password. We use Google data only to manage your branches and never sell it or use it for advertising. We comply with Saudi Arabia’s Personal Data Protection Law",
+    "tags": ["security", "secure", "safe", "privacy", "data", "password", "pdpl", "data protection"],
+    "link": "/en/security/"
+  },
+  {
+    "q": "Can I set permissions for my team?",
+    "a": "Yes. Each member sees and edits only the branches they are allowed to · branch managers see their branch and operations sees everything",
+    "tags": ["permissions", "team", "roles", "users", "staff", "branch manager", "access"],
+    "link": "/en/security/"
+  },
+  {
+    "q": "Does it work if I only have two or three branches?",
+    "a": "SAAYT is designed for chains of 5 branches or more but you can start with any number and the price follows your branch count",
+    "tags": ["two branches", "one branch", "three branches", "small", "branch count", "chains"],
+    "link": "/en/"
+  },
+  {
+    "q": "What is the free branch scan?",
+    "a": "A two-minute self-check that ranks the priorities for each branch: hours · details · photos and reviews. No sign-up and we never read your data",
+    "tags": ["scan", "free scan", "check", "audit", "self-check", "test"],
+    "link": "/en/free-scan/"
+  },
+  {
+    "q": "How do I contact you?",
+    "a": "Book a live session with the SAAYT team from the demo page and we review your branches with you · or email us",
+    "tags": ["contact", "talk", "call", "phone", "email", "demo", "meeting", "sales"],
+    "link": "/en/demo/"
+  }
+]
