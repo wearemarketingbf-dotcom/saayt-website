@@ -111,7 +111,7 @@ const offerLd = { '@context': 'https://schema.org', '@type': 'Product', name: 'S
       </div>
       <div class="pr__inc">
         <b>{T.incH}</b>
-        <div>{T.inc.map((x) => <span><Icon name={x.icon} size={18} />{x.t}</span>)}</div>
+        <div>{T.inc.map((x) => <><span><Icon name={x.icon} size={18} />{x.t}</span>{' '}</>)}</div>
       </div>
       <p class="pr__note">{T.note}</p>
     </div>
@@ -132,6 +132,8 @@ const offerLd = { '@context': 'https://schema.org', '@type': 'Product', name: 'S
   .pr__step:hover { border-color: var(--green-900) }
   .pr__unit { color: var(--muted); font-weight: 600 }
   .pr__range { width: 100%; accent-color: var(--green-900) }
+  /* the count row (− number + branches) must fit a 360 px phone */
+  @media (max-width: 420px) { .pr__calc, .pr__out, .pr__count { min-width: 0 } .pr__count { gap: 8px } .pr__step { width: 44px; height: 44px } .pr__count input { width: auto; flex: 1 1 0; min-width: 0; max-width: 110px } }
   .pr__bill { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px }
   .pr__bill legend { margin-bottom: 10px }
   .pr__bill label { cursor: pointer; position: relative }

@@ -527,7 +527,7 @@ singletons:
         i18n: true
         collapsed: true
         summary: '{{fields.q}}'
-        hint: المساعد في الموقع يجاوب من هذي القائمة · يقول دائمًا إنه مساعد آلي
+        hint: المساعد الآلي في الموقع يجاوب من هذي القائمة · أول 4 أسئلة تظهر كأسئلة جاهزة أول ما يفتح المساعد فرتّبها بعناية · الرابط يتأكد منه البناء
         fields:
           - { name: q, label: السؤال, widget: string, i18n: true }
           - { name: a, label: الجواب, widget: text, i18n: true }
@@ -537,7 +537,7 @@ singletons:
             widget: list
             i18n: true
             field: { name: tag, label: كلمة, widget: string, i18n: true }
-          - { name: link, label: رابط داخلي للمزيد, widget: string, i18n: true, required: false, hint: مثل /pricing/ أو /en/pricing/, pattern: ['^/', 'يبدأ بشرطة / لأنه رابط داخل الموقع'] }
+          - { name: link, label: رابط داخلي للمزيد, widget: string, i18n: true, required: false, hint: مثل /pricing/ للعربي و/en/pricing/ للإنجليزي, pattern: ['^/', 'يبدأ بشرطة / لأنه رابط داخل الموقع'] }
 
   - divider: true
 
