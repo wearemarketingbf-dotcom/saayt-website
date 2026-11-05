@@ -172,4 +172,9 @@ for (const [msg, ps] of byMsg) {
 }
 for (const [page, msgs] of byPage) { console.log(`  ${page}`); for (const m of msgs) console.log(`    · ${m}`); }
 console.log('\n  Titles and descriptions are edited in the SAAYT CMS: SEO الصفحات, or the SEO group of the page or article\n');
+// in GitHub Actions each problem is also an annotation, which the SAAYT CMS can read from the run (check run annotations)
+if (process.env.GITHUB_ACTIONS === 'true') {
+  const esc = (s) => String(s).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+  for (const [msg, ps] of byMsg) console.log(`::error title=SEO check::${esc(`${ps.length > 3 ? `${ps.length} pages, e.g. ${ps.slice(0, 3).join(', ')}` : ps.join(', ')}: ${msg}`)}`);
+}
 process.exit(1);
