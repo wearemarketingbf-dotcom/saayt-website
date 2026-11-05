@@ -76,7 +76,7 @@ async function request(url, init, what, timeout = 30_000) {
       if (res.ok) return res;
       throw new Stop(`${what}: HTTP ${res.status}${await reason(res)}`);
     }
-    if (attempt === ATTEMPTS) throw new Stop(`${what}: ${err ? err.message : `HTTP ${res.status}${await reason(res)}`} after ${ATTEMPTS} tries`);
+    if (attempt === ATTEMPTS) throw new Stop(`${what}: ${err ? `${err.message}${err.cause?.code ? ` (${err.cause.code})` : ''}` : `HTTP ${res.status}${await reason(res)}`} after ${ATTEMPTS} tries`);
     const wait = retryWait(res, attempt, what);
     log(`  … ${what}: ${err ? err.cause?.code || err.message : `HTTP ${res.status}`}, trying again in ${Math.round(wait / 1000)} s (${attempt}/${ATTEMPTS - 1})`);
     await sleep(wait * SCALE);
