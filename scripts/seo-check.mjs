@@ -8,7 +8,7 @@
 //   · broken or missing structured data (Organization and WebSite everywhere, BreadcrumbList on inner pages,
 //     BlogPosting on articles, no ratings or reviews)
 //   · an assistant FAQ link (src/data/faq.*.json) to a page that does not exist or is in the other language
-// Characters are counted as Unicode code points, the same way the CMS counter counts them
+// Characters are counted as Unicode code points, the same way the SAAYT CMS counter counts them
 // Usage: node scripts/seo-check.mjs [distDir]
 import fs from 'node:fs';
 import path from 'node:path';
@@ -18,7 +18,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.resolve(process.argv[2] || path.join(ROOT, 'dist'));
 const BASE = (process.env.BASE_PATH || '/').replace(/\/?$/, '/');   // '/' on saayt.app, '/repo/' on the github.io preview
 const MAX_TITLE = 60, MAX_DESC = 160;
-const SKIP_DIRS = new Set(['_astro', 'pagefind', 'admin']);         // assets, search index and the CMS
+const SKIP_DIRS = new Set(['_astro', 'pagefind']);                  // assets and the search index
 const SKIP_PAGES = new Set(['404.html']);                           // bilingual noindex error page
 
 const problems = [];
@@ -171,5 +171,10 @@ for (const [msg, ps] of byMsg) {
   for (const page of ps) byPage.set(page, [...(byPage.get(page) || []), msg]);
 }
 for (const [page, msgs] of byPage) { console.log(`  ${page}`); for (const m of msgs) console.log(`    · ${m}`); }
-console.log('\n  Titles and descriptions are edited in the CMS (/admin/): SEO الصفحات, or the SEO group of the page or article\n');
+console.log('\n  Titles and descriptions are edited in the SAAYT CMS: SEO الصفحات, or the SEO group of the page or article\n');
+// in GitHub Actions each problem is also an annotation, which the SAAYT CMS can read from the run (check run annotations)
+if (process.env.GITHUB_ACTIONS === 'true') {
+  const esc = (s) => String(s).replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+  for (const [msg, ps] of byMsg) console.log(`::error title=SEO check::${esc(`${ps.length > 3 ? `${ps.length} pages, e.g. ${ps.slice(0, 3).join(', ')}` : ps.join(', ')}: ${msg}`)}`);
+}
 process.exit(1);

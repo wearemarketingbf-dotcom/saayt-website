@@ -12,6 +12,9 @@
     "locality": "Riyadh",
     "country": "SA",
     "areaServed": "SA",
-    "languages": ["ar", "en"]
+    "languages": [
+      "ar",
+      "en"
+    ]
   }
 }

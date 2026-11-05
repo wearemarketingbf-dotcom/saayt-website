@@ -1,6 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
-// Both collections are edited in the CMS (/admin/): one file per language in ar/ and en/ with the same file name
+// Both collections are edited in the SAAYT CMS and stored in GoHighLevel; the build writes them here
+// (scripts/fetch-content.mjs): one file per language in ar/ and en/ with the same file name
 // Optional SEO overrides: empty fields fall back to the title, the description and the site's default social image
 const seo = z.object({ title: z.string().optional(), description: z.string().optional(), image: z.string().optional(), noindex: z.boolean().optional() }).optional();
 const blog = defineCollection({

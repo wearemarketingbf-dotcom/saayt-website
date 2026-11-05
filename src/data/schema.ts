@@ -1,4 +1,5 @@
-// Shared shapes for the JSON content files the CMS edits (src/data/**/*.json)
+// Shared shapes for the JSON content files the SAAYT CMS edits (src/data/**/*.json)
+// The CMS stores them in GoHighLevel and scripts/fetch-content.mjs writes them here before each build
 // Every loader parses its files with these schemas so a broken edit stops the build with a clear message
 import { z } from 'astro/zod';
 
