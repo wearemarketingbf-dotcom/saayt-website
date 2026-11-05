@@ -1,4 +1,4 @@
-// Contact email, WhatsApp, login link, CRM inbox link and socials are edited in the CMS (إعدادات الموقع)
+// Contact email, WhatsApp, login link and socials are edited in the SAAYT CMS (إعدادات الموقع)
 // and saved in src/data/settings.json. Empty values hide the related UI safely.
 // The form endpoints, analytics and preview switch below stay here for developers only
 import { SETTINGS } from './data/site';
@@ -12,9 +12,6 @@ export const CONFIG = {
   apiContactEndpoint: '',
   loginUrl: SETTINGS.loginUrl,   // client login (existing app subdomain). Empty hides it
   email: SETTINGS.email,
-  // Link to the CRM conversations inbox, shown on the CMS page «رسائل التواصل». Empty hides the link
-  // Contact messages are never stored in this repo: they stay in GoHighLevel and email
-  crmInboxUrl: SETTINGS.crmInboxUrl,
   gaId: 'G-85TPKXGR5S',  // Google Analytics 4 · loads in consent mode (analytics cookies only after the visitor agrees)
   social: Object.fromEntries(Object.entries(SETTINGS.social).filter(([, v]) => !!v)) as Record<string, string>,
   noindex: process.env.NOINDEX === '1', // set on the temporary github.io preview

@@ -1,4 +1,4 @@
-// Site settings and SEO settings edited in the CMS
+// Site settings and SEO settings edited in the SAAYT CMS
 //   src/data/settings.json         · إعدادات الموقع (contact email, WhatsApp, login link, CRM inbox link, socials)
 //   src/data/seo/site.json         · إعدادات SEO العامة (site name, default social image, X handle, Organization)
 //   src/data/seo/pages/{ar,en}.json · SEO for the pages that have no content file of their own
@@ -9,13 +9,13 @@ import pagesAr from './seo/pages/ar.json';
 import pagesEn from './seo/pages/en.json';
 import { text, mediaPath, optionalMedia, parse } from './schema';
 
-// The CMS leaves empty optional fields out of the file, so every optional value defaults to ''
+// The CMS may leave empty optional fields out of the file, so every optional value defaults to ''
 const url = z.union([z.string().url().startsWith('https://'), z.literal('')]).default('');
 const Settings = z.object({
   email: z.string().email(),
   whatsapp: z.string().regex(/^\d*$/, 'digits only, e.g. 9665XXXXXXXX').default(''),
   loginUrl: url,
-  crmInboxUrl: url,
+  crmInboxUrl: url, // used by the SAAYT CMS page «رسائل التواصل», not by the website
   city: z.object({ ar: text, en: text }),
   social: z.object({ x: url, facebook: url, instagram: url, linkedin: url, tiktok: url, snapchat: url, youtube: url }).partial().default({}),
 });
