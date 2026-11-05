@@ -1,7 +1,7 @@
 ---
 title: "Privacy Policy"
 description: "How SAAYT collects uses protects and shares personal data and Google account data under the Saudi Personal Data Protection Law"
-lang: en
+lang: "en"
 updated: 2026-10-23
 ---
 
