@@ -1,6 +1,6 @@
 // Tests for scripts/fetch-content.mjs against the local HighLevel fake (scripts/lib/ghl-fake.mjs) · npm test
 // Each test works on a copy of the site in the system temp folder, so this checkout is never touched
-import { test } from 'node:test';
+import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -14,7 +14,9 @@ import { SITE_OBJECT, DOCS_OBJECT } from '../lib/content-files.mjs';
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const FETCH = path.join(REPO, 'scripts/fetch-content.mjs');
 const ENV = Object.fromEntries(Object.entries(process.env).filter(([k]) => !/^(GHL_|GITHUB_)/.test(k)));
-const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'saayt-content-'));
+const made = [];
+const tmp = () => { const d = fs.mkdtempSync(path.join(os.tmpdir(), 'saayt-content-')); made.push(d); return d; };
+after(() => { for (const d of made) fs.rmSync(d, { recursive: true, force: true }); });
 const files = (d) => (fs.existsSync(d) ? fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? files(path.join(d, e.name)) : [path.join(d, e.name)])) : []);
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 /** relative path → sha256 of every file under dir */
