@@ -1,7 +1,7 @@
 ---
 title: "Terms of Service"
 description: "The terms that govern use of the SAAYT website and subscription platform for managing business branches on Google"
-lang: en
+lang: "en"
 updated: 2026-10-23
 ---
 

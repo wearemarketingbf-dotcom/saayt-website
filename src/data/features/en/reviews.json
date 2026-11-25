@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "t": "Review replies",
+    "d": "A suggested reply in your customer’s dialect that you approve"
+  },
+  "seo": {
+    "title": "Reply to Google Reviews Across Branches | SAAYT",
+    "description": "All branch reviews in one inbox with suggested replies in the customer’s dialect — a person on your team reviews and approves every reply before it posts"
+  },
+  "eyebrow": "Review replies",
+  "h1": "No review left without a reply",
+  "lead": "Every review from every branch lands in one inbox with a suggested reply in the customer’s own dialect. Your team edits if needed and approves in one tap",
+  "why": {
+    "h2": "More people read your reply than you think",
+    "items": [
+      {
+        "t": "The next customer reads it",
+        "d": "A review and its reply are read by everyone deciding whether to visit, not only the reviewer"
+      },
+      {
+        "t": "Google recommends replying",
+        "d": "Google advises businesses to reply to reviews and says replies show you value your customers"
+      },
+      {
+        "t": "Delay makes it worse",
+        "d": "A negative review left for days suggests nobody is listening"
+      }
+    ]
+  },
+  "caps": {
+    "h2": "What you can do",
+    "items": [
+      {
+        "icon": "reply",
+        "t": "One inbox for all branches",
+        "d": "Filter by branch, rating and unanswered reviews"
+      },
+      {
+        "icon": "spark",
+        "t": "Dialect-aware drafts",
+        "d": "A review in Saudi dialect gets a reply close to that dialect and an English review gets an English reply"
+      },
+      {
+        "icon": "user",
+        "t": "Human approval",
+        "d": "Every reply stays a draft until someone on your team approves, edits or rejects it"
+      },
+      {
+        "icon": "globe",
+        "t": "Your brand voice",
+        "d": "Set greetings, apology style and banned words and every draft follows them"
+      },
+      {
+        "icon": "team",
+        "t": "Team permissions",
+        "d": "Branch managers see their branch and operations sees everything"
+      },
+      {
+        "icon": "chart",
+        "t": "Reply speed per branch",
+        "d": "See which branches reply fast and which need follow-up"
+      }
+    ]
+  },
+  "flow": {
+    "h2": "From review to published reply",
+    "steps": [
+      {
+        "t": "A review arrives",
+        "d": "It appears in the inbox with the branch and rating"
+      },
+      {
+        "t": "A draft is ready",
+        "d": "SAAYT suggests a reply in the customer’s dialect and your voice"
+      },
+      {
+        "t": "Your team approves",
+        "d": "Review, edit, approve and it posts to Google"
+      }
+    ]
+  },
+  "guard": {
+    "t": "No promises of more reviews",
+    "d": "SAAYT never buys, removes or writes fake reviews and follows Google’s policies"
+  },
+  "faq": [
+    {
+      "q": "Are replies posted automatically?",
+      "a": "No. Every reply waits for approval from someone on your team"
+    },
+    {
+      "q": "Can you remove a negative review?",
+      "a": "No. Removal is Google’s decision. You can report reviews that break its policies and SAAYT helps you reply professionally"
+    },
+    {
+      "q": "Is every reply in dialect?",
+      "a": "You choose: close to the customer’s dialect, simple Modern Standard Arabic or English based on the review language"
+    }
+  ]
+}

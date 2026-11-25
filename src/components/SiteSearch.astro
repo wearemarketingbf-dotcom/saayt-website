@@ -1,0 +1,151 @@
+---
+// Site search dialog · opened by SearchButton (header), / or Ctrl or Cmd+K
+// Pagefind and the results script load only when the dialog first opens
+import Icon from './Icon.astro';
+import { type Lang, url } from '../i18n/util';
+import { CONFIG } from '../config';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === 'ar';
+const T = ar ? {
+  title: 'ابحث في الموقع', ph: 'اكتب كلمة مثل الأسعار أو رمضان', close: 'إغلاق البحث', results: 'نتائج البحث',
+  emptyH: 'وش تدور عليه؟', emptyP: 'ابحث في صفحات صيت عن الأسعار والمزايا والمواسم والمقالات',
+  chips: ['الأسعار', 'رمضان والعيد', 'الرد على التقييمات', 'تجربة مجانية'],
+  noneH: 'ما لقينا نتائج لـ «{q}»', noneP: 'جرب كلمة ثانية أو اسألنا مباشرة',
+  errorH: 'البحث مو متاح الحين', errorP: 'جرب بعد شوي أو تواصل معنا مباشرة',
+  help: 'ما لقيت اللي تبيه؟', demo: 'احجز عرضًا', wa: 'كلمنا على واتساب',
+  loading: 'جاري البحث', keys: '↑ ↓ للتنقل · Enter للفتح · Esc للإغلاق',
+} : {
+  title: 'Search the site', ph: 'Try pricing or Ramadan', close: 'Close search', results: 'Search results',
+  emptyH: 'What are you looking for?', emptyP: 'Search SAAYT pages for pricing · features · seasons and articles',
+  chips: ['Pricing', 'Ramadan', 'Review replies', 'Free trial'],
+  noneH: 'No results for “{q}”', noneP: 'Try another word or ask us directly',
+  errorH: 'Search isn’t available right now', errorP: 'Try again shortly or contact us directly',
+  help: 'Didn’t find it?', demo: 'Book a demo', wa: 'Chat on WhatsApp',
+  loading: 'Searching', keys: '↑ ↓ to move · Enter to open · Esc to close',
+};
+const wa = CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(ar ? 'السلام عليكم ودي أعرف أكثر عن صيت' : 'Hi, I would like to know more about SAAYT')}` : '';
+const js = { loading: T.loading, noneH: T.noneH, errorH: T.errorH, lang };
+---
+<dialog id="site-search" class="srch" data-search aria-label={T.title} data-t={JSON.stringify(js)}>
+  <div class="srch__box">
+    <div class="srch__bar">
+      <Icon name="search" size={22} class="srch__ic" />
+      <label class="sr-only" for="srch-q">{T.title}</label>
+      <input id="srch-q" class="srch__q" type="search" autocomplete="off" spellcheck="false" enterkeyhint="search" placeholder={T.ph} aria-controls="srch-list" aria-describedby="srch-status" />
+      <button type="button" class="srch__close" data-search-close><span class="srch__esc" aria-hidden="true">Esc</span><Icon name="x" size={20} class="srch__xi" /><span class="sr-only">{T.close}</span></button>
+    </div>
+    <div class="srch__body">
+      <p id="srch-status" class="srch__status" data-status role="status" aria-live="polite"></p>
+      <ul id="srch-list" class="srch__list" data-list aria-label={T.results} hidden></ul>
+      <div class="srch__state" data-state="empty">
+        <p class="srch__h">{T.emptyH}</p>
+        <p>{T.emptyP}</p>
+        <div class="srch__chips">{T.chips.map((c) => <button type="button" class="srch__chip" data-q={c}>{c}</button>)}</div>
+      </div>
+      <div class="srch__state" data-state="none" hidden><p class="srch__h" data-none-h></p><p>{T.noneP}</p></div>
+      <div class="srch__state" data-state="error" hidden><p class="srch__h">{T.errorH}</p><p>{T.errorP}</p></div>
+      <div class="srch__help" data-help>
+        <p>{T.help}</p>
+        <div>
+          <a class="btn btn--dark srch__b" href={url(lang, 'demo/')}>{T.demo}</a>
+          {wa && <a class="btn btn--light-ghost srch__b" href={wa} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} />{T.wa}</a>}
+        </div>
+      </div>
+    </div>
+    <p class="srch__keys" aria-hidden="true">{T.keys}</p>
+  </div>
+</dialog>
+
+<style is:global>
+  .srch-lock { overflow: hidden }
+  .srch { width: min(680px, calc(100% - 32px)); max-width: none; max-height: min(78vh, 720px); margin: 10vh auto auto; padding: 0; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); color: var(--text); overflow: hidden }
+  .srch[open] { display: flex }
+  .srch::backdrop { background: rgba(10, 41, 36, .5) }
+  .srch__box { display: flex; flex-direction: column; width: 100%; min-height: 0 }
+  .srch__bar { display: flex; align-items: center; gap: 10px; padding: 10px 12px; padding-inline-start: 18px; border-bottom: 1px solid var(--line); flex: none }
+  .srch__ic { color: var(--green-700); flex: none }
+  .srch__q { flex: 1; min-width: 0; height: 52px; border: 0; background: transparent; font: inherit; font-size: 1.12rem; color: var(--text); outline: none }
+  .srch__q:focus-visible { outline: none }
+  .srch__q::placeholder { color: var(--ink-400) }
+  .srch__q::-webkit-search-cancel-button { display: none }
+  .srch__bar:focus-within { box-shadow: inset 0 -2px 0 var(--green-900) }
+  .srch__close { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border-radius: 999px; color: var(--muted); font-size: .85rem; font-weight: 600; flex: none }
+  .srch__close:hover { background: var(--sand-100); color: var(--text) }
+  .srch__esc { border: 1px solid var(--line); border-radius: 6px; padding: 0 6px; line-height: 1.6; font-family: ui-monospace, monospace; direction: ltr }
+  .srch__xi { display: none }
+  .srch__body { overflow-y: auto; overscroll-behavior: contain; padding: 8px 10px 14px; flex: 1; min-height: 0 }
+  .srch__status { font-size: .85rem; color: var(--muted); padding: 4px 8px 6px; min-height: 1.6em }
+  .srch__status:empty { display: none }
+  .srch__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px }
+  .srch__hit { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 12px 14px; border-radius: var(--r-md); border-inline-start: 3px solid transparent }
+  .srch__hit:hover { background: var(--sand-100) }
+  .srch__hit:focus-visible { outline: none; background: var(--green-100); border-inline-start-color: var(--green-900) }
+  .srch__t { font-weight: 600; font-size: 1rem; line-height: 1.5 }
+  .srch__sec { justify-self: end; align-self: start; font-size: .78rem; font-weight: 600; color: var(--green-700); background: var(--green-100); border-radius: 999px; padding: 2px 10px; white-space: nowrap }
+  .srch__ex { grid-column: 1 / -1; margin: 0; font-size: .92rem; line-height: 1.65; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden }
+  .srch__ex mark { background: var(--green-100); color: var(--green-950); font-weight: 600; border-radius: 3px; padding: 0 2px }
+  .srch__state { padding: 18px 8px 6px }
+  .srch__state p { color: var(--muted); font-size: .95rem }
+  .srch__state .srch__h { color: var(--text); font-weight: 700; font-size: 1.05rem; margin-bottom: 4px; overflow-wrap: anywhere }
+  .srch__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px }
+  .srch__chip { height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); font-size: .92rem; font-weight: 500; color: var(--green-900) }
+  .srch__chip:hover { border-color: var(--green-900) }
+  .srch__help { margin: 16px 8px 0; padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 10px }
+  .srch__help p { font-weight: 600; font-size: .95rem }
+  .srch__help div { display: flex; flex-wrap: wrap; gap: 10px }
+  .srch__b { --h: 44px; padding: 0 20px; font-size: .95rem }
+  .srch__keys { flex: none; margin: 0; padding: 10px 18px; border-top: 1px solid var(--line); font-size: .8rem; color: var(--muted) }
+  @media (hover: none) { .srch__keys { display: none } }
+  @media (max-width: 560px) {
+    .srch { width: 100%; height: 100%; max-height: none; margin: 0; border: 0; border-radius: 0 }
+    .srch__bar { padding-inline-start: 16px; padding-block: 8px }
+    .srch__esc { display: none }
+    .srch__xi { display: block }
+    .srch__close { width: 44px; justify-content: center; padding: 0 }
+    .srch__body { padding-inline: 6px }
+    .srch__b { flex: 1 1 100% }
+  }
+</style>
+
+<script>
+  const dlg = document.getElementById('site-search') as HTMLDialogElement | null;
+  if (dlg) {
+    let opener: HTMLElement | null = null;
+    let ready: Promise<unknown> | null = null;
+    const input = dlg.querySelector('input') as HTMLInputElement;
+    const open = (from: HTMLElement | null) => {
+      if (dlg.open) return;
+      opener = from;
+      dlg.showModal();
+      document.documentElement.classList.add('srch-lock');
+      input.focus(); input.select();
+      ready ??= import('../scripts/search-dialog').then((m) => m.mount(dlg)).catch(() => { ready = null; });
+    };
+    document.addEventListener('click', (e) => {
+      const b = (e.target as Element).closest?.<HTMLElement>('[data-search-open]');
+      if (b) { e.preventDefault(); open(b); }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (dlg.open || e.defaultPrevented || e.altKey || e.isComposing) return;
+      const t = e.target as HTMLElement;
+      const typing = !!t.closest?.('input, textarea, select, [contenteditable]:not([contenteditable="false"])');
+      const cmdK = (e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === 'k' || e.code === 'KeyK');
+      const slash = !e.ctrlKey && !e.metaKey && !typing && (e.key === '/' || (e.code === 'Slash' && !e.shiftKey));
+      if (!cmdK && !slash) return;
+      e.preventDefault();
+      const active = document.activeElement as HTMLElement | null;
+      open(active && active !== document.body ? active : document.querySelector<HTMLElement>('[data-search-open]'));
+    });
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    // Esc always closes (a search field would otherwise eat the first Esc to clear itself)
+    dlg.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.preventDefault(); dlg.close(); } });
+    dlg.querySelector('[data-search-close]')?.addEventListener('click', () => dlg.close());
+    dlg.addEventListener('close', () => {
+      document.documentElement.classList.remove('srch-lock');
+      document.querySelector('[data-header]')?.classList.remove('is-hidden');
+      const to = opener?.isConnected ? opener : document.querySelector<HTMLElement>('[data-search-open]');
+      to?.focus();
+    });
+  }
+</script>

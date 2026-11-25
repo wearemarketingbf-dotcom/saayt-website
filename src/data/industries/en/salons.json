@@ -1,0 +1,66 @@
+{
+  "name": "Salons and spas",
+  "img": "/img/ind-salons.webp",
+  "seo": {
+    "title": "Google Maps Management for Salon Chains | SAAYT",
+    "description": "Fresh photos per branch · Eid and season hours and fast replies to client reviews on Google for every salon location from one dashboard",
+    "image": "/img/og/salons.jpg"
+  },
+  "h1": "Your salon shines in every branch on Google",
+  "lead": "Clients choose a salon from photos and reviews and demand peaks before Eid. SAAYT keeps every branch ready with fresh photos, correct hours and quick replies",
+  "pains": [
+    {
+      "t": "Photos sell",
+      "d": "Old or few photos send clients to another salon"
+    },
+    {
+      "t": "Pre-Eid rush",
+      "d": "Extended hours before Eid and quick changes must be right in every branch"
+    },
+    {
+      "t": "Personal reviews",
+      "d": "Reviews about a stylist or service need a warm respectful reply"
+    }
+  ],
+  "helps": [
+    {
+      "slug": "photos-details",
+      "d": "Reminders for branches with outdated photos"
+    },
+    {
+      "slug": "hours",
+      "d": "Pre-Eid hours for every branch in one edit"
+    },
+    {
+      "slug": "reviews",
+      "d": "Warm replies in your salon’s voice"
+    },
+    {
+      "slug": "alerts",
+      "d": "Same-day alerts for low ratings"
+    }
+  ],
+  "example": {
+    "branch": "Narjis branch",
+    "stars": 5,
+    "review": "Noura did my colour and it came out even better than I imagined",
+    "reply": "Thank you so much and we are delighted you love your colour. We have passed your kind words to Noura and hope to see you again soon at our Narjis branch",
+    "note": "A warm reply in the salon’s voice"
+  },
+  "seasons": [
+    "Before both Eids",
+    "Wedding season",
+    "Ramadan",
+    "Year end"
+  ],
+  "faq": [
+    {
+      "q": "Can replies sound warm and personal?",
+      "a": "Yes. Set your salon’s tone and favourite phrases and SAAYT follows them"
+    },
+    {
+      "q": "Does it help with photos?",
+      "a": "It reminds you which branches have outdated photos and you can upload for every branch from one place"
+    }
+  ]
+}

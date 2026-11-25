@@ -1,0 +1,20 @@
+{
+  "siteName": {
+    "ar": "صيت",
+    "en": "SAAYT"
+  },
+  "defaultImage": "/img/og-saayt.jpg",
+  "xHandle": "saaytapp",
+  "organization": {
+    "name": "SAAYT",
+    "alternateName": "صيت",
+    "logo": "/favicon-512.png",
+    "locality": "Riyadh",
+    "country": "SA",
+    "areaServed": "SA",
+    "languages": [
+      "ar",
+      "en"
+    ]
+  }
+}

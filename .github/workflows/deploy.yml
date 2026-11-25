@@ -1,9 +1,19 @@
 name: Deploy saayt.app to GitHub Pages
+# Runs on every push to main that changes the site, and on workflow_dispatch: the SAAYT CMS button «انشر التغييرات»
+# calls POST /repos/{owner}/{repo}/actions/workflows/deploy.yml/dispatches, or anyone can press Run workflow in Actions
+# Content comes from GoHighLevel when the GHL_TOKEN and GHL_LOCATION_ID secrets are set, otherwise from the files in git
+# If the content fetch, the build or the SEO check fails, nothing is deployed and the live site stays as it was
 on:
   push:
     branches: [main]
-    paths: ['src/**', 'public/**', 'package.json', 'package-lock.json', 'astro.config.mjs']
+    paths: ['src/**', 'public/**', 'scripts/**', 'package.json', 'package-lock.json', 'astro.config.mjs', 'pagefind.yml', '.github/workflows/deploy.yml']
   workflow_dispatch:
+    inputs:
+      request_id:
+        description: 'Optional id from the SAAYT CMS, shown in the run name so the CMS can find its run'
+        required: false
+        type: string
+run-name: ${{ inputs.request_id && format('Publish from the SAAYT CMS · {0}', inputs.request_id) || '' }}
 permissions:
   contents: read
   pages: write
@@ -14,6 +24,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SITE_URL: https://saayt.app
+      BASE_PATH: /
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -21,11 +34,16 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - name: Build
+      - name: Fetch content from GoHighLevel
         env:
-          SITE_URL: https://saayt.app
-          BASE_PATH: /
-        run: npm run build
+          GHL_TOKEN: ${{ secrets.GHL_TOKEN }}
+          GHL_LOCATION_ID: ${{ secrets.GHL_LOCATION_ID }}
+          GHL_API_VERSION: ${{ vars.GHL_API_VERSION }}
+        run: npm run content:fetch
+      - name: Build the site and the search index
+        run: npm run build:site
+      - name: SEO check
+        run: npm run seo:check
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

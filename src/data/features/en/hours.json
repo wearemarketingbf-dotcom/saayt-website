@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "t": "Hours and seasons",
+    "d": "Ramadan, Eid and holidays for every branch in one edit"
+  },
+  "seo": {
+    "title": "Bulk & Ramadan Hours for All Branches | SAAYT",
+    "description": "Change opening hours across every branch on Google Maps in one step and schedule Ramadan and Eid hours from ready templates before the season starts"
+  },
+  "eyebrow": "Hours and seasons",
+  "h1": "Every branch shows the right hours in every season",
+  "lead": "Set Ramadan, Eid and holiday hours once and apply them to the branches you choose. SAAYT flags any branch that is missing its season hours before a customer arrives at a closed door",
+  "why": {
+    "h2": "Why hours matter more than you think",
+    "items": [
+      {
+        "t": "Customers check before they leave",
+        "d": "Many people look up a branch and check whether it is open now before heading out"
+      },
+      {
+        "t": "Ramadan flips the schedule",
+        "d": "Late-night opening and split shifts differ by branch and that is where most mistakes happen"
+      },
+      {
+        "t": "A closed branch means a bad review",
+        "d": "A customer who finds the door locked often writes about it on Google the same day"
+      }
+    ]
+  },
+  "caps": {
+    "h2": "What you can do",
+    "items": [
+      {
+        "icon": "calendar",
+        "t": "Season templates",
+        "d": "Ramadan, both Eids, National Day and Founding Day templates you edit once and reuse every year"
+      },
+      {
+        "icon": "layers",
+        "t": "Bulk apply",
+        "d": "Pick branches by city or type and apply hours to all of them in one step"
+      },
+      {
+        "icon": "clock",
+        "t": "Split shifts",
+        "d": "A morning shift and an evening or post-Taraweeh shift for every branch"
+      },
+      {
+        "icon": "bell",
+        "t": "Missing-hours alert",
+        "d": "Before the season SAAYT shows which branches still have no special hours"
+      },
+      {
+        "icon": "check",
+        "t": "Preview before publishing",
+        "d": "See the new hours per branch and approve them before they reach Google"
+      },
+      {
+        "icon": "spark",
+        "t": "Automatic return",
+        "d": "Special hours have a start and end date and then each branch returns to its regular hours"
+      }
+    ]
+  },
+  "flow": {
+    "h2": "From template to every branch",
+    "steps": [
+      {
+        "t": "Set the template",
+        "d": "Choose the season hours and the start and end dates"
+      },
+      {
+        "t": "Pick branches",
+        "d": "All branches, one city or only mall branches"
+      },
+      {
+        "t": "Review and approve",
+        "d": "Check each branch, approve and it goes to Google"
+      }
+    ]
+  },
+  "guard": {
+    "t": "You approve every change",
+    "d": "Nothing reaches a branch profile on Google until an authorised person on your team approves it"
+  },
+  "faq": [
+    {
+      "q": "Can one branch keep different hours?",
+      "a": "Yes. The template is a starting point and you can adjust any branch before approving"
+    },
+    {
+      "q": "What happens when Ramadan ends?",
+      "a": "Special hours carry an end date and each branch returns to its regular hours automatically"
+    },
+    {
+      "q": "Does it support 24-hour branches?",
+      "a": "Yes. Mark a branch as open all day or closed on a specific day such as the first day of Eid"
+    }
+  ]
+}

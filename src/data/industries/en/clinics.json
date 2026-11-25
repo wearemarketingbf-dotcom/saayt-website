@@ -1,0 +1,66 @@
+{
+  "name": "Clinics and medical groups",
+  "img": "/img/ind-clinics.webp",
+  "seo": {
+    "title": "Google Reviews & Hours for Clinic Groups | SAAYT",
+    "description": "Professional replies to patient reviews across every clinic branch on Google without exposing health details plus accurate holiday hours",
+    "image": "/img/og/clinics.jpg"
+  },
+  "h1": "Every clinic branch earns the same trust on Google",
+  "lead": "Patients choose a clinic from its reviews and hours before they call. SAAYT helps you reply professionally in every branch without revealing any health information",
+  "pains": [
+    {
+      "t": "Patient privacy",
+      "d": "Replying to a patient needs care because details about their condition never belong in a public reply"
+    },
+    {
+      "t": "Doctor schedules and seasons",
+      "d": "Ramadan and holiday hours differ by branch and patients need to know before booking"
+    },
+    {
+      "t": "Waiting-time complaints",
+      "d": "Many negative reviews are about waiting and reception and need a quick calm reply"
+    }
+  ],
+  "helps": [
+    {
+      "slug": "reviews",
+      "d": "Professional drafts that avoid health details and are approved by your team"
+    },
+    {
+      "slug": "hours",
+      "d": "Ramadan and holiday hours for every branch from one template"
+    },
+    {
+      "slug": "alerts",
+      "d": "Instant alerts for low ratings in any branch"
+    },
+    {
+      "slug": "branch-score",
+      "d": "Compare reply speed between branches"
+    }
+  ],
+  "example": {
+    "branch": "Malqa branch",
+    "stars": 2,
+    "review": "The doctor was great but the wait was very long even with an appointment",
+    "reply": "Thank you for your feedback and we apologise for the wait despite your booked appointment. Your note has reached the branch management to review scheduling and we would be glad to hear from you directly so we can serve you better",
+    "note": "The reply mentions no details about the visit or treatment"
+  },
+  "seasons": [
+    "Ramadan",
+    "Eid al-Fitr",
+    "Eid al-Adha",
+    "Public holidays"
+  ],
+  "faq": [
+    {
+      "q": "Do replies respect patient privacy?",
+      "a": "Yes. Drafts are designed to avoid health information and every reply is reviewed by someone on your team before it posts"
+    },
+    {
+      "q": "Does it suit multi-specialty groups?",
+      "a": "Yes. Each branch is its own profile and permissions can be set per branch"
+    }
+  ]
+}

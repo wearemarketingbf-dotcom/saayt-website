@@ -1,0 +1,9 @@
+# Site search index · runs after `astro build` (see package.json "build")
+# Only <main data-pagefind-body> is indexed (header, footer, cookie banner and assistant sit outside it)
+# One index per language from <html lang>, so Arabic pages only get Arabic results
+site: dist
+exclude_selectors:
+  - ".mock"          # illustrative product mocks (example reviews and branches)
+  - ".hero__card"    # homepage example card
+  - ".fcta"          # closing call-to-action band repeated on most pages
+  - ".crumbs"        # breadcrumbs

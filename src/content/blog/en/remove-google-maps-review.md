@@ -6,6 +6,10 @@ slug: "remove-google-maps-review"
 lang: "en"
 readingTime: 6
 tags: ["Google reviews", "Review removal", "Google policy", "Reporting reviews"]
+cover: "/img/feat-alert.webp"
+coverAlt: "A lit shopfront at night under a cloudy sky"
+seo:
+  title: "Can You Remove a Google Review? When and How to Report One"
 ---
 
 A one-star review on your branch shows up for everyone who searches for you, and the first question is usually how to delete it. The honest answer: a business owner can't delete a review, and Google won't remove a review just because it's negative. Google does remove reviews that break its policies, and it gives you an official way to report and appeal.
