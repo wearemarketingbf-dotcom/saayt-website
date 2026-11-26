@@ -15,7 +15,7 @@ on:
         type: string
 run-name: ${{ inputs.request_id && format('Publish from the SAAYT CMS · {0}', inputs.request_id) || '' }}
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 concurrency:
@@ -34,6 +34,11 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Check the HighLevel secrets
+        run: |
+          echo "TOKEN=${{ secrets.GHL_TOKEN != '' && 'set' || 'MISSING' }} LOCATION=${{ secrets.GHL_LOCATION_ID != '' && 'set' || 'MISSING' }} VERSION=${{ vars.GHL_API_VERSION || 'unset' }}"
+          echo "token prefix: ${{ startsWith(secrets.GHL_TOKEN, 'pit-') && 'pit-' || 'NOT pit-' }}"
+          echo "token length: ${{ secrets.GHL_TOKEN != '' && 'non-empty' || 'empty' }}"
       - name: Fetch content from GoHighLevel
         env:
           GHL_TOKEN: ${{ secrets.GHL_TOKEN }}
